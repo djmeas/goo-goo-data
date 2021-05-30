@@ -9,6 +9,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import DatePicker from 'v-calendar/lib/components/date-picker.umd';
+import Vue from 'vue';
 Vue.component('v-date-picker', DatePicker);
 
 import Toasted from 'vue-toasted';
@@ -40,6 +41,10 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+ Vue.prototype.$baseAPI = '/api';
+
 const app = new Vue({
     el: '#app',
 });
+
+
