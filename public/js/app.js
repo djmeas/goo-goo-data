@@ -1910,6 +1910,7 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mixins_children_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/children.js */ "./resources/js/mixins/children.js");
 //
 //
 //
@@ -1955,6 +1956,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1966,6 +1968,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+  mixins: [_mixins_children_js__WEBPACK_IMPORTED_MODULE_1__["default"]],
   validations: {
     formChild: {
       first_name: {
@@ -1980,35 +1983,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    /**
-     * Makes a POST request to save a new child.
-     */
-    saveChild: function saveChild() {
-      var _this = this;
-
-      this.$v.formChild.$touch();
-
-      if (!this.$v.formChild.$invalid) {
-        // MUST USE FormData() if you want to uploaded a FILE to Laravel's REQUEST $request class
-        var formPostData = new FormData();
-        formPostData.append('form_data', JSON.stringify(this.formChild));
-        formPostData.append('uploaded_file', this.$refs.uploaded_file.files[0]);
-        console.log(formPostData);
-        console.log(this.$refs.uploaded_file.files[0]);
-        axios.post('/api/child', formPostData).then(function (res) {
-          _this.$emit('eventSaveChild', res.data);
-
-          _this.$toasted.success('Child successfully created.');
-
-          _this._resetFormChild();
-        })["catch"](function (err) {
-          // console.log(err, err.response.data);
-          _this.$toasted.error(err.response.data);
-        });
-      } else {
-        this.$toasted.error('Please fill out all required fields.');
-      }
-    },
     cancelAddChild: function cancelAddChild() {
       this._resetFormChild();
 
@@ -2035,6 +2009,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_children_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/children.js */ "./resources/js/mixins/children.js");
 //
 //
 //
@@ -2068,44 +2043,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {
-      children: []
-    };
+    return {};
   },
+  mixins: [_mixins_children_js__WEBPACK_IMPORTED_MODULE_0__["default"]],
   methods: {
-    /**
-     * Fetches the children data from the API.
-     */
-    getChildren: function getChildren() {
-      var _this = this;
-
-      console.log('getChildren() called');
-      axios.get("".concat(Vue.prototype.$baseAPI, "/child")).then(function (res) {
-        console.log(res.data);
-        _this.children = res.data;
-      })["catch"](function (err) {});
-    },
-
-    /**
-     * Deletes a child by its hash then filters it out of the UI.
-     * @param {string} hash  The child's hash.
-     */
-    deleteChild: function deleteChild(hash) {
-      var _this2 = this;
-
-      axios["delete"]("".concat(Vue.prototype.$baseAPI, "/child/").concat(hash)).then(function (res) {
-        _this2.$toasted.success('Child successfully deleted.');
-
-        _this2.children = _this2.children.filter(function (child) {
-          return child.hash != hash;
-        });
-      })["catch"](function (err) {
-        _this2.$toasted.error('Whoops! The child could not be deleted.');
-      });
-    },
-
     /**
      * Emits the add child event to the parent component.
      */
@@ -2116,7 +2060,7 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   /**
-   * Initializes the component.
+   * Runs when mounted.
    */
   mounted: function mounted() {
     console.log('ChildCardsComponent mounted.');
@@ -2251,6 +2195,104 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tracker/TrackerAddDataFormComponent.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tracker/TrackerAddDataFormComponent.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_children__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/children */ "./resources/js/mixins/children.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      isAdding: false,
+      formTracker: {
+        child_id: null,
+        category_id: null,
+        value: null,
+        notes: null,
+        datetime: null
+      }
+    };
+  },
+  mixins: [_mixins_children__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  methods: {},
+  mounted: function mounted() {
+    this.getChildren();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tracker/TrackerPageComponent.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tracker/TrackerPageComponent.vue?vue&type=script&lang=js& ***!
@@ -2260,6 +2302,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -59029,31 +59072,20 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-lg-6" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "form-group mb-3",
-                  class: {
-                    "form-group--error": _vm.$v.formChild.birthday.$error
+              _c("div", { staticClass: "form-group mb-3" }, [
+                _c("label", { staticClass: "form-label", attrs: { for: "" } }, [
+                  _vm._v("Image")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  ref: "uploaded_file",
+                  attrs: {
+                    id: "uploaded_file",
+                    type: "file",
+                    name: "uploaded_file"
                   }
-                },
-                [
-                  _c(
-                    "label",
-                    { staticClass: "form-label", attrs: { for: "" } },
-                    [_vm._v("Image")]
-                  ),
-                  _vm._v(" "),
-                  _c("input", {
-                    ref: "uploaded_file",
-                    attrs: {
-                      id: "uploaded_file",
-                      type: "file",
-                      name: "uploaded_file"
-                    }
-                  })
-                ]
-              )
+                })
+              ])
             ])
           ]),
           _vm._v(" "),
@@ -59149,6 +59181,19 @@ var render = function() {
                         " " +
                         _vm._s(child.last_name) +
                         "\n          "
+                    ),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteChild(child.hash)
+                          }
+                        }
+                      },
+                      [_vm._v("Delete")]
                     )
                   ])
                 ])
@@ -59368,6 +59413,319 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tracker/TrackerAddDataFormComponent.vue?vue&type=template&id=f94b2058&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tracker/TrackerAddDataFormComponent.vue?vue&type=template&id=f94b2058& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: !_vm.isAdding,
+            expression: "!isAdding"
+          }
+        ]
+      },
+      [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary mb-3",
+            on: {
+              click: function($event) {
+                _vm.isAdding = true
+              }
+            }
+          },
+          [
+            _c("i", { staticClass: "material-icons" }, [_vm._v("add_circle")]),
+            _vm._v(" Add New Data\n    ")
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.isAdding,
+            expression: "isAdding"
+          }
+        ],
+        staticClass: "card mb-4",
+        attrs: { id: "form-add-child" }
+      },
+      [
+        _c("div", { staticClass: "card-header" }, [_vm._v("Add New Data")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("form", [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-lg-4" }, [
+                _c("div", { staticClass: "form-group mb-3" }, [
+                  _c(
+                    "label",
+                    { staticClass: "form-label", attrs: { for: "child" } },
+                    [_vm._v("Child")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formTracker.child_id,
+                          expression: "formTracker.child_id"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { name: "child", id: "child" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.formTracker,
+                            "child_id",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { domProps: { value: null } }, [
+                        _vm._v("Select...")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.children, function(child) {
+                        return _c(
+                          "option",
+                          {
+                            key: child.id + "-" + child.first_name,
+                            domProps: { value: child.id }
+                          },
+                          [
+                            _vm._v(
+                              "\n                  " +
+                                _vm._s(child.first_name) +
+                                " " +
+                                _vm._s(child.last_name) +
+                                "\n                "
+                            )
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-4" }, [
+                _c("div", { staticClass: "form-group mb-3" }, [
+                  _c(
+                    "label",
+                    { staticClass: "form-label", attrs: { for: "category" } },
+                    [_vm._v("Category")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formTracker.category_id,
+                          expression: "formTracker.category_id"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { name: "child", id: "child" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.formTracker,
+                            "category_id",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { domProps: { value: null } }, [
+                        _vm._v("Select...")
+                      ])
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-4" }, [
+                _c("div", { staticClass: "form-group mb-3" }, [
+                  _c(
+                    "label",
+                    { staticClass: "form-label", attrs: { for: "category" } },
+                    [_vm._v("Value")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formTracker.value,
+                        expression: "formTracker.value"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.formTracker.value },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formTracker, "value", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-3" }, [
+                _c(
+                  "div",
+                  { staticClass: "form-group mb-3" },
+                  [
+                    _c(
+                      "label",
+                      { staticClass: "form-label", attrs: { for: "birthday" } },
+                      [_vm._v("Date & Time")]
+                    ),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("v-date-picker", {
+                      attrs: { mode: "dateTime" },
+                      model: {
+                        value: _vm.formTracker.datetime,
+                        callback: function($$v) {
+                          _vm.$set(_vm.formTracker, "datetime", $$v)
+                        },
+                        expression: "formTracker.datetime"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-9" }, [
+                _c("div", { staticClass: "form-group mb-3" }, [
+                  _c("label", { attrs: { for: "Notes" } }, [_vm._v("Notes")]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formTracker.notes,
+                        expression: "formTracker.notes"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    staticStyle: { height: "335px" },
+                    domProps: { value: _vm.formTracker.notes },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formTracker, "notes", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "float-right" }, [
+              _c("input", {
+                staticClass: "btn btn-danger",
+                attrs: {
+                  type: "button",
+                  onsubmit: "event.preventDefault()",
+                  value: "Cancel"
+                },
+                on: {
+                  click: function($event) {
+                    _vm.isAdding = false
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "btn btn-success",
+                attrs: {
+                  type: "button",
+                  onsubmit: "event.preventDefault()",
+                  value: "Save"
+                }
+              })
+            ])
+          ])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tracker/TrackerPageComponent.vue?vue&type=template&id=b858a690&":
 /*!*******************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tracker/TrackerPageComponent.vue?vue&type=template&id=b858a690& ***!
@@ -59393,7 +59751,11 @@ var render = function() {
         _c(
           "div",
           { staticClass: "col-lg-12" },
-          [_c("tracker-table-component")],
+          [
+            _c("tracker-add-data-form-component"),
+            _vm._v(" "),
+            _c("tracker-table-component")
+          ],
           1
         )
       ])
@@ -74122,17 +74484,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-var script = {}
+/* harmony import */ var _TrackerAddDataFormComponent_vue_vue_type_template_id_f94b2058___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TrackerAddDataFormComponent.vue?vue&type=template&id=f94b2058& */ "./resources/js/components/tracker/TrackerAddDataFormComponent.vue?vue&type=template&id=f94b2058&");
+/* harmony import */ var _TrackerAddDataFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TrackerAddDataFormComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/tracker/TrackerAddDataFormComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
-  script,
-  render,
-  staticRenderFns,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _TrackerAddDataFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _TrackerAddDataFormComponent_vue_vue_type_template_id_f94b2058___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _TrackerAddDataFormComponent_vue_vue_type_template_id_f94b2058___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -74140,8 +74505,42 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   
 )
 
+/* hot reload */
+if (false) { var api; }
 component.options.__file = "resources/js/components/tracker/TrackerAddDataFormComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/tracker/TrackerAddDataFormComponent.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/tracker/TrackerAddDataFormComponent.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TrackerAddDataFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./TrackerAddDataFormComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tracker/TrackerAddDataFormComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TrackerAddDataFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/tracker/TrackerAddDataFormComponent.vue?vue&type=template&id=f94b2058&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/components/tracker/TrackerAddDataFormComponent.vue?vue&type=template&id=f94b2058& ***!
+  \********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TrackerAddDataFormComponent_vue_vue_type_template_id_f94b2058___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./TrackerAddDataFormComponent.vue?vue&type=template&id=f94b2058& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tracker/TrackerAddDataFormComponent.vue?vue&type=template&id=f94b2058&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TrackerAddDataFormComponent_vue_vue_type_template_id_f94b2058___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TrackerAddDataFormComponent_vue_vue_type_template_id_f94b2058___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -74280,6 +74679,86 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TrackerTableComponent_vue_vue_type_template_id_d6dc3796___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/mixins/children.js":
+/*!*****************************************!*\
+  !*** ./resources/js/mixins/children.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      children: []
+    };
+  },
+  methods: {
+    /**
+     * Get the list of children for this user.
+     * 
+     */
+    getChildren: function getChildren() {
+      var _this = this;
+
+      axios.get("".concat(Vue.prototype.$baseAPI, "/child")).then(function (res) {
+        // console.log('children', this.children);
+        _this.children = res.data;
+      })["catch"](function (err) {});
+    },
+
+    /**
+    * Deletes a child by its hash then filters it out of the UI.
+    * @param {string} hash  The child's hash.
+    */
+    deleteChild: function deleteChild(hash) {
+      var _this2 = this;
+
+      axios["delete"]("".concat(Vue.prototype.$baseAPI, "/child/").concat(hash)).then(function (res) {
+        _this2.$toasted.success('Child successfully deleted.');
+
+        _this2.children = _this2.children.filter(function (child) {
+          return child.hash != hash;
+        });
+      })["catch"](function (err) {
+        _this2.$toasted.error('Whoops! The child could not be deleted.');
+      });
+    },
+
+    /**
+     * Makes a POST request to save a new child.
+     * 
+     * Requires component to: 
+     * - Include a formChild object definition with vuelidate.
+     */
+    saveChild: function saveChild() {
+      var _this3 = this;
+
+      this.$v.formChild.$touch();
+
+      if (!this.$v.formChild.$invalid) {
+        var formPostData = new FormData();
+        formPostData.append('form_data', JSON.stringify(this.formChild));
+        formPostData.append('uploaded_file', this.$refs.uploaded_file.files[0]);
+        axios.post('/api/child', formPostData).then(function (res) {
+          _this3.$emit('eventSaveChild', res.data);
+
+          _this3.$toasted.success('Child successfully created.');
+
+          _this3._resetFormChild();
+        })["catch"](function (err) {
+          _this3.$toasted.error(err.response.data);
+        });
+      } else {
+        this.$toasted.error('Please fill out all required fields.');
+      }
+    }
+  }
+});
 
 /***/ }),
 

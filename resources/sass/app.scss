@@ -22,6 +22,15 @@
   color: white;
 }
 
+/* Material Icon Overrides */
+
+.btn {
+  .material-icons {
+    vertical-align: middle;
+    font-size: 21px;
+  }
+}
+
 /* Colors */
 
 .bg-mat-primary {

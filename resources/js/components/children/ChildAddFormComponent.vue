@@ -25,7 +25,7 @@
             </div>
           </div>
           <div class="col-lg-6">
-            <div class="form-group mb-3" :class="{'form-group--error': $v.formChild.birthday.$error}"> 
+            <div class="form-group mb-3"> 
               <label for="" class="form-label">Image</label>
               <input id="uploaded_file" type="file" ref="uploaded_file" name="uploaded_file">
             </div>
@@ -44,6 +44,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
+import childrenMixin from '../../mixins/children.js';
 
 export default {
   data() {
@@ -57,6 +58,8 @@ export default {
       }
     }
   },
+
+  mixins: [childrenMixin],
 
   validations: {
       formChild: {
@@ -73,41 +76,6 @@ export default {
   },
 
   methods: {
-    /**
-     * Makes a POST request to save a new child.
-     */
-    saveChild() {
-      this.$v.formChild.$touch();
-
-      if (!this.$v.formChild.$invalid) {
-        // MUST USE FormData() if you want to uploaded a FILE to Laravel's REQUEST $request class
-        var formPostData = new FormData();
-        formPostData.append('form_data', JSON.stringify(this.formChild));
-
-        formPostData.append('uploaded_file', this.$refs.uploaded_file.files[0]);
-
-        console.log(formPostData);
-        console.log(this.$refs.uploaded_file.files[0]);
-
-        axios.post('/api/child', formPostData)
-          .then(res => {
-            this.$emit('eventSaveChild', res.data);
-
-            this.$toasted.success('Child successfully created.');
-
-            this._resetFormChild();
-          })
-          .catch(err => {
-            // console.log(err, err.response.data);
-            this.$toasted.error(err.response.data);
-          });
-
-      } else {
-        this.$toasted.error('Please fill out all required fields.');
-      }
-
-    },
-
     cancelAddChild() {
       this._resetFormChild();
       this.$emit('eventCancelAddChild');

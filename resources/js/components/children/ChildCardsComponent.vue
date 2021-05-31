@@ -9,8 +9,8 @@
           </div>
           <div class="name text-center pt-4">
             {{child.first_name}} {{child.last_name}}
-            <!-- <br>
-            <button @click="deleteChild(child.hash)">Delete</button> -->
+            <br>
+            <span @click="deleteChild(child.hash)">Delete</span>
           </div>
         </div>
       </div>
@@ -32,47 +32,18 @@
 </template>
 
 <script>
+import childrenMixin from '../../mixins/children.js';
+
 export default {
   data() {
     return {
-      children: []
+
     }
   },
 
+  mixins: [childrenMixin],
+
   methods: {
-    /**
-     * Fetches the children data from the API.
-     */
-    getChildren() {
-      console.log('getChildren() called');
-      axios.get(`${Vue.prototype.$baseAPI}/child`)
-        .then(res => {
-            console.log(res.data);
-            this.children = res.data;
-        })
-        .catch(err => {
-
-        })
-    },
-
-    /**
-     * Deletes a child by its hash then filters it out of the UI.
-     * @param {string} hash  The child's hash.
-     */
-    deleteChild(hash) {
-      axios.delete(`${Vue.prototype.$baseAPI}/child/${hash}`)
-        .then(res => {
-          this.$toasted.success('Child successfully deleted.');
-
-          this.children = this.children.filter(child => {
-            return child.hash != hash;
-          });
-        })
-        .catch(err => {
-          this.$toasted.error('Whoops! The child could not be deleted.');
-        })
-    },
-
     /**
      * Emits the add child event to the parent component.
      */
@@ -83,7 +54,7 @@ export default {
   },
 
   /**
-   * Initializes the component.
+   * Runs when mounted.
    */
   mounted() {
     console.log('ChildCardsComponent mounted.');
