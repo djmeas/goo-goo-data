@@ -101,11 +101,13 @@ border-color: #f79483;
     min-height: 250px;
     max-height: 250px;
 
-    img {
+    img, span {
       max-height: 200px;
       border-radius: 130px;
       max-width: 200px;
       margin-top: 25px;
+      font-size: 200px;
+      color: #333333;
     }
   }
 

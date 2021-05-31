@@ -89,8 +89,13 @@ class ChildController extends Controller
 
         $hash = md5(implode('', $form_data) . time());
 
-        if ($request->has('uploaded_file')) {
+        if ($request->has('uploaded_file') && $request->file('uploaded_file')) {
             $form_file_upload = $request->file('uploaded_file');
+
+            if ($form_file_upload->getSize() > 1000000) {
+                return response('The uploaded image is too large.', 400);
+            }
+
             $image_path = Storage::disk('s3')
                 ->putFileAs(
                     '/avatars', 
@@ -107,7 +112,7 @@ class ChildController extends Controller
             [
                 'birthday' => $birthday->toDateString($form_data['birthday']),
                 'hash' => $hash,
-                'image_path' => $hash . '.' . $form_file_upload->extension()
+                'image_path' => $request->file('uploaded_file') ? $hash . '.' . $form_file_upload->extension() : null
             ]
         );
 

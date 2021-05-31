@@ -33,7 +33,7 @@
         </div>
         
         <div class="float-right">
-          <button @click="isAdding = false; cancelAddChild();" class="btn btn-danger">Cancel</button>
+          <input type="button" onsubmit="event.preventDefault()" @click="isAdding = false; cancelAddChild();" class="btn btn-danger" value="Cancel">
           <input type="button" onsubmit="event.preventDefault()" @click="saveChild" class="btn btn-success" value="Save" />
         </div>
         
@@ -84,15 +84,10 @@ export default {
         var formPostData = new FormData();
         formPostData.append('form_data', JSON.stringify(this.formChild));
 
-        // if () {
-            formPostData.append('uploaded_file', this.$refs.uploaded_file.files[0]);
-        // } else {
-        //     if(document.getElementById("edit_uploaded_file").files.length > 0) {
-        //         formPostData.append('uploaded_file', this.$refs.edit_uploaded_file.files[0]);
-        //     }
-        // }
+        formPostData.append('uploaded_file', this.$refs.uploaded_file.files[0]);
 
         console.log(formPostData);
+        console.log(this.$refs.uploaded_file.files[0]);
 
         axios.post('/api/child', formPostData)
           .then(res => {
@@ -103,7 +98,8 @@ export default {
             this._resetFormChild();
           })
           .catch(err => {
-            this.$toasted.error('Whoops! Something went wrong.');
+            // console.log(err, err.response.data);
+            this.$toasted.error(err.response.data);
           });
 
       } else {

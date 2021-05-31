@@ -4,12 +4,13 @@
       <div v-for="child in children" :key="child.first_name + '-' + child.id" class="col-lg-3 col-md-6">
         <div class="child-card">
           <div class="photo text-center">
-            <img :src="`${$baseAvatarPath}/${child.image_path}`" alt="" />
+            <img v-if="child.image_path" :src="`${$baseAvatarPath}/${child.image_path}`" alt="Child's avatar" />
+            <span v-else class="material-icons" style="font-size: 200px;">child_care</span>
           </div>
           <div class="name text-center pt-4">
             {{child.first_name}} {{child.last_name}}
-            <br>
-            <button @click="deleteChild(child.hash)">Delete</button>
+            <!-- <br>
+            <button @click="deleteChild(child.hash)">Delete</button> -->
           </div>
         </div>
       </div>
@@ -18,7 +19,9 @@
     <div class="col-lg-3 col-md-6">
       <div class="child-card">
         <div class="photo text-center">
-          [Add CIRCLE]
+          <span class="material-icons" style="font-size: 200px;">
+            person_add_alt_1
+          </span>
         </div>
         <div class="name text-center pt-4">
           <button @click="eventAddChild" class="btn btn-primary">Add Child</button>
@@ -70,11 +73,18 @@ export default {
         })
     },
 
+    /**
+     * Emits the add child event to the parent component.
+     */
     eventAddChild() {
       this.$emit('eventAddChild');
+      window.scrollTo(0, 0);
     }
   },
 
+  /**
+   * Initializes the component.
+   */
   mounted() {
     console.log('ChildCardsComponent mounted.');
     this.getChildren();

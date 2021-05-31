@@ -35,6 +35,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/children', 'ChildController@index')->name('children');
 
+Route::get('/tracker', 'TrackerController@index')->name('tracker');
+
 Route::prefix('api')->group(function() {
     
     Route::prefix('child')->group(function() {

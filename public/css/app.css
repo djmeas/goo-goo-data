@@ -11087,11 +11087,14 @@ a.text-dark:focus {
   max-height: 250px;
 }
 
-.child-card .photo img {
+.child-card .photo img,
+.child-card .photo span {
   max-height: 200px;
   border-radius: 130px;
   max-width: 200px;
   margin-top: 25px;
+  font-size: 200px;
+  color: #333333;
 }
 
 .child-card .name {
