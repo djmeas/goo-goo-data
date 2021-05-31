@@ -16,9 +16,17 @@ Route::get('/', function () {
 });
 
 Route::get('sandbox', function () {
-    // dd(storage_path(''));
-    dd(\Storage::getFile(storage_path('app\public\avatars\test.txt')));
-    \Storage::disk('local')->put('file.txt', 'Contents of the file.');
+    // dd(storage_path('app'));
+    // dd(storage_path('app'), \Storage::allFiles(storage_path('app')));
+    // dd(\Storage::disk('public')->get('http://goo-goo-data.test/storage/avatars/test.txt'));
+    try {
+        // dd(getcwd());        
+        // dd(\Storage::allDirectories('D:\laragon\www\goo-goo-data\public'));
+        \Storage::disk('s3')->put('/avatars/file.txt', 'Contents of the file.');
+        dd('success?');
+    } catch (\Exception $e) {
+        dd($e->getMessage());
+    }
 });
 
 Auth::routes();

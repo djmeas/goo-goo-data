@@ -59040,7 +59040,12 @@ var render = function() {
               [
                 _c("div", { staticClass: "child-card" }, [
                   _c("div", { staticClass: "photo text-center" }, [
-                    _vm._v("\n          [Child Photo]\n        ")
+                    _c("img", {
+                      attrs: {
+                        src: _vm.$baseAvatarPath + "/" + child.image_path,
+                        alt: ""
+                      }
+                    })
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "name text-center pt-4" }, [
@@ -73473,6 +73478,7 @@ files.keys().map(function (key) {
  */
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$baseAPI = '/api';
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$baseAvatarPath = 'https://goo-goo-data.s3-us-west-2.amazonaws.com/avatars';
 var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   el: '#app'
 });

@@ -11083,7 +11083,15 @@ a.text-dark:focus {
 
 .child-card .photo {
   border-bottom: 1px solid lightgray;
-  min-height: 200px;
+  min-height: 250px;
+  max-height: 250px;
+}
+
+.child-card .photo img {
+  max-height: 200px;
+  border-radius: 130px;
+  max-width: 200px;
+  margin-top: 25px;
 }
 
 .child-card .name {

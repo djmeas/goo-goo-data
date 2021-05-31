@@ -95,10 +95,20 @@ border-color: #f79483;
 .child-card {
   border: 1px solid lightgray;
   background-color: white;
+
   .photo {
     border-bottom: 1px solid lightgray;
-    min-height: 200px;
+    min-height: 250px;
+    max-height: 250px;
+
+    img {
+      max-height: 200px;
+      border-radius: 130px;
+      max-width: 200px;
+      margin-top: 25px;
+    }
   }
+
   .name {
     min-height: 80px
   }

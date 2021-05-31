@@ -4,7 +4,7 @@
       <div v-for="child in children" :key="child.first_name + '-' + child.id" class="col-lg-3 col-md-6">
         <div class="child-card">
           <div class="photo text-center">
-            [Child Photo]
+            <img :src="`${$baseAvatarPath}/${child.image_path}`" alt="" />
           </div>
           <div class="name text-center pt-4">
             {{child.first_name}} {{child.last_name}}

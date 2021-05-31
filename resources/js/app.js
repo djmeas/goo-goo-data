@@ -43,6 +43,8 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 
  Vue.prototype.$baseAPI = '/api';
 
+ Vue.prototype.$baseAvatarPath = 'https://goo-goo-data.s3-us-west-2.amazonaws.com/avatars';
+
 const app = new Vue({
     el: '#app',
 });

@@ -87,20 +87,27 @@ class ChildController extends Controller
 
         $form_data = json_decode($request->form_data, true);
 
+        $hash = md5(implode('', $form_data) . time());
+
         if ($request->has('uploaded_file')) {
             $form_file_upload = $request->file('uploaded_file');
-            $image_path = Storage::disk('local')->put('avatar' . time(), $request->file('uploaded_file'));
+            $image_path = Storage::disk('s3')
+                ->putFileAs(
+                    '/avatars', 
+                    $request->file('uploaded_file'),
+                    $hash . '.' . $form_file_upload->extension(),
+                    'public'
+                );
         }
-
-        dd($form_data, $form_file_upload, $image_path);
 
         $birthday = Carbon::create($form_data['birthday']);
 
         $childData = array_merge(
-            $request->all(), 
+            $form_data, 
             [
                 'birthday' => $birthday->toDateString($form_data['birthday']),
-                'hash' => md5(implode('', $form_data) . time())
+                'hash' => $hash,
+                'image_path' => $hash . '.' . $form_file_upload->extension()
             ]
         );
 
