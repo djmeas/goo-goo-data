@@ -107,6 +107,27 @@ class CategorySeeder extends Seeder
             ],
             [
                 'group' => 'Expense',
+                'name' => 'Clothes',
+                'type' => 'decimal',
+                'prefix' => '$',
+                'suffix' => null
+            ],
+            [
+                'group' => 'Expense',
+                'name' => 'Medical',
+                'type' => 'decimal',
+                'prefix' => '$',
+                'suffix' => null
+            ],
+            [
+                'group' => 'Expense',
+                'name' => 'Daycare / Babysitter',
+                'type' => 'decimal',
+                'prefix' => '$',
+                'suffix' => null
+            ],
+            [
+                'group' => 'Expense',
                 'name' => 'Misc',
                 'type' => 'decimal',
                 'prefix' => '$',
@@ -154,6 +175,20 @@ class CategorySeeder extends Seeder
                 'type' => 'integer',
                 'prefix' => null,
                 'suffix' => 'minutes'
+            ],
+            [
+                'group' => 'Event',
+                'name' => 'Medical',
+                'type' => 'integer',
+                'prefix' => null,
+                'suffix' => null
+            ],
+            [
+                'group' => 'Event',
+                'name' => 'Misc',
+                'type' => 'integer',
+                'prefix' => null,
+                'suffix' => null
             ]
         ]);
     }

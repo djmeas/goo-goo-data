@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('sandbox', function () {
+    return \App\Category::getAll();
     // dd(storage_path('app'));
     // dd(storage_path('app'), \Storage::allFiles(storage_path('app')));
     // dd(\Storage::disk('public')->get('http://goo-goo-data.test/storage/avatars/test.txt'));
@@ -31,18 +32,26 @@ Route::get('sandbox', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['isAuthenticatedUser'])->group(function() {
 
-Route::get('/children', 'ChildController@index')->name('children');
+    Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/tracker', 'TrackerController@index')->name('tracker');
+    Route::get('/children', 'ChildController@index')->name('children');
 
-Route::prefix('api')->group(function() {
-    
-    Route::prefix('child')->group(function() {
-        Route::get('/{hash?}', 'ChildController@get');
-        Route::post('/', 'ChildController@save');
-        Route::delete('/{hash?}', 'ChildController@delete');
+    Route::get('/tracker', 'TrackerController@index')->name('tracker');
+
+    Route::prefix('api')->group(function() {
+        
+        Route::prefix('child')->group(function() {
+            Route::get('/{hash?}', 'ChildController@get');
+            Route::post('/', 'ChildController@save');
+            Route::delete('/{hash?}', 'ChildController@delete');
+        });
+
+        Route::prefix('category')->group(function() {
+            Route::get('/', 'CategoryController@get');
+        });
     });
+
 });
 

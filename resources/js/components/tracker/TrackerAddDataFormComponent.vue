@@ -11,7 +11,7 @@
       <div class="card-body">
         <form>
           <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-3">
               <div class="form-group mb-3">
                 <label for="child" class="form-label">Child</label>
                 <select v-model="formTracker.child_id" class="form-control" name="child" id="child">
@@ -22,20 +22,48 @@
                 </select>
               </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-3">
               <div class="form-group mb-3">
                 <label for="category" class="form-label">Category</label>
-                <select v-model="formTracker.category_id" class="form-control" name="child" id="child">
+                <select v-model="selectedCategory" @change="formTracker.category = null" class="form-control" name="child" id="child">
                   <option :value="null">Select...</option>
+                  <option v-for="(category, index) in categories" :key="index" :value="index">
+                    {{index}}
+                  </option>
                 </select>
               </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-3">
+              <div class="form-group mb-3">
+                <label for="category" class="form-label">Option</label>
+                <select v-model="formTracker.category" class="form-control" name="child" id="child">
+                  <option :value="null">Select...</option>
+                  <option v-for="option in selectedCategoryOptions" :key="option.id + option.name" :value="option">
+                    {{option.name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <label for="inlineFormInputGroup">Amount</label>
+              <div class="input-group mb-2">
+                <div v-if="formTracker.category && formTracker.category.prefix" class="input-group-prepend">
+                  <div class="input-group-text">{{formTracker.category.prefix}}</div>
+                </div>
+                
+                <input type="text" class="form-control" id="inlineFormInputGroup">
+
+                <div v-if="formTracker.category && formTracker.category.suffix" class="input-group-append">
+                  <div class="input-group-text">{{formTracker.category.suffix}}</div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-lg-3">
               <div class="form-group mb-3">
                 <label for="category" class="form-label">Value</label>
                 <input type="text" class="form-control" v-model="formTracker.value" />
               </div>
-            </div>
+            </div> -->
             <div class="col-lg-3">
               <div class="form-group mb-3"> 
                 <label for="birthday" class="form-label">Date & Time</label>
@@ -65,6 +93,7 @@
 
 <script>
 import childrenMixin from '../../mixins/children';
+import categoriesMixin from '../../mixins/categories';
 
 export default {
   data() {
@@ -73,6 +102,7 @@ export default {
 
       formTracker: {
         child_id: null,
+        category: null,
         category_id: null,
         value: null,
         notes: null,
@@ -81,7 +111,10 @@ export default {
     }
   },
 
-  mixins: [childrenMixin],
+  mixins: [
+    childrenMixin,
+    categoriesMixin
+  ],
 
   methods: {
 
@@ -89,6 +122,7 @@ export default {
 
   mounted() {
     this.getChildren();
+    this.getCategories();
   }
 }
 </script>
