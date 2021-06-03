@@ -53,7 +53,7 @@ export default {
         formPostData.append('form_data', JSON.stringify(this.formChild));
         formPostData.append('uploaded_file', this.$refs.uploaded_file.files[0]);
 
-        axios.post('/api/child', formPostData)
+        axios.post(`${Vue.prototype.$baseAPI}/child`, formPostData)
           .then(res => {
             this.$emit('eventSaveChild', res.data);
 

@@ -10999,7 +10999,8 @@ a.text-dark:focus {
           animation-timing-function: ease-in-out;
 }
 
-.form-group--error label {
+.form-group--error label,
+label.form-group--error {
   color: #f04124;
 }
 

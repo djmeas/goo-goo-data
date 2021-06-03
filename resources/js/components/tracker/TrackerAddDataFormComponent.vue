@@ -12,7 +12,7 @@
         <form>
           <div class="row">
             <div class="col-lg-3">
-              <div class="form-group mb-3">
+              <div class="form-group mb-3" :class="{'form-group--error': $v.formTracker.child_id.$error}">
                 <label for="child" class="form-label">Child</label>
                 <select v-model="formTracker.child_id" class="form-control" name="child" id="child">
                   <option :value="null">Select...</option>
@@ -23,7 +23,7 @@
               </div>
             </div>
             <div class="col-lg-3">
-              <div class="form-group mb-3">
+              <div class="form-group mb-3" :class="{'form-group--error': $v.formTracker.$dirty && !selectedCategory}">
                 <label for="category" class="form-label">Category</label>
                 <select v-model="selectedCategory" @change="formTracker.category = null" class="form-control" name="child" id="child">
                   <option :value="null">Select...</option>
@@ -34,7 +34,7 @@
               </div>
             </div>
             <div class="col-lg-3">
-              <div class="form-group mb-3">
+              <div class="form-group mb-3" :class="{'form-group--error': $v.formTracker.category.$error}">
                 <label for="category" class="form-label">Option</label>
                 <select v-model="formTracker.category" class="form-control" name="child" id="child">
                   <option :value="null">Select...</option>
@@ -45,31 +45,25 @@
               </div>
             </div>
             <div class="col-lg-3">
-              <label for="inlineFormInputGroup">Amount</label>
-              <div class="input-group mb-2">
-                <div v-if="formTracker.category && formTracker.category.prefix" class="input-group-prepend">
-                  <div class="input-group-text">{{formTracker.category.prefix}}</div>
+              <label for="inlineFormInputGroup" :class="{'form-group--error': $v.formTracker.value.$error}">Amount</label>
+              <div class="input-group mb-2" :class="{'form-group--error': $v.formTracker.value.$error}">
+                <div v-if="this.formTracker.category && this.formTracker.category.prefix" class="input-group-prepend">
+                  <div class="input-group-text">{{this.formTracker.category.prefix}}</div>
                 </div>
                 
-                <input type="text" class="form-control" id="inlineFormInputGroup">
+                <input v-model="formTracker.value" type="text" class="form-control" id="inlineFormInputGroup">
 
-                <div v-if="formTracker.category && formTracker.category.suffix" class="input-group-append">
-                  <div class="input-group-text">{{formTracker.category.suffix}}</div>
+                <div v-if="this.formTracker.category && this.formTracker.category.suffix" class="input-group-append">
+                  <div class="input-group-text">{{this.formTracker.category.suffix}}</div>
                 </div>
               </div>
             </div>
-            <!-- <div class="col-lg-3">
-              <div class="form-group mb-3">
-                <label for="category" class="form-label">Value</label>
-                <input type="text" class="form-control" v-model="formTracker.value" />
-              </div>
-            </div> -->
             <div class="col-lg-3">
-              <div class="form-group mb-3"> 
+              <div class="form-group mb-3" :class="{'form-group--error': $v.formTracker.entry_datetime.$error}"> 
                 <label for="birthday" class="form-label">Date & Time</label>
                 <br>
                 <!-- <input v-model="formChild.birthday" type="text" class="form-control" id="birthday"> -->
-                <v-date-picker mode="dateTime" v-model="formTracker.datetime" />
+                <v-date-picker mode="dateTime" v-model="formTracker.entry_datetime" />
               </div>
             </div>
             <div class="col-lg-9">
@@ -81,8 +75,8 @@
           </div>
           
           <div class="float-right">
-            <input type="button" onsubmit="event.preventDefault()" @click="isAdding = false" class="btn btn-danger" value="Cancel">
-            <input type="button" onsubmit="event.preventDefault()" class="btn btn-success" value="Save" />
+            <input type="button" onsubmit="event.preventDefault()" @click="_resetFormTracker" class="btn btn-danger" value="Cancel">
+            <input type="button" onsubmit="event.preventDefault()" @click="saveTrackerEntry" class="btn btn-success" value="Save" />
           </div>
           
         </form>
@@ -94,6 +88,9 @@
 <script>
 import childrenMixin from '../../mixins/children';
 import categoriesMixin from '../../mixins/categories';
+import trackerMixin from '../../mixins/tracker';
+
+import { required } from 'vuelidate/lib/validators';
 
 export default {
   data() {
@@ -106,23 +103,54 @@ export default {
         category_id: null,
         value: null,
         notes: null,
-        datetime: null
+        entry_datetime: null
       }
     }
   },
 
   mixins: [
     childrenMixin,
-    categoriesMixin
+    categoriesMixin,
+    trackerMixin
   ],
 
-  methods: {
+  validations: {
+    formTracker: {
+      child_id: {
+        required
+      },
+      category: {
+        required
+      },
+      value: {
+        required
+      },
+      entry_datetime: {
+        required
+      }
+    }
+  },
 
+  methods: {
+    _resetFormTracker() {
+      this.isAdding = false;
+      this.formTracker.child_id = null;
+      this.formTracker.category = null;
+      this.formTracker.category_id = null;
+      this.formTracker.value = null;
+      this.formTracker.notes = null;
+      this.formTracker.entry_datetime = null;
+
+      this.selectedCategory = null;
+
+      this.$v.formTracker.$reset();
+    }
   },
 
   mounted() {
     this.getChildren();
     this.getCategories();
+    this.getTrackerEntries();
   }
 }
 </script>

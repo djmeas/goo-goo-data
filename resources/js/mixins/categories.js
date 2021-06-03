@@ -21,6 +21,6 @@ export default {
   computed: {
     selectedCategoryOptions() {
       return this.selectedCategory ? this.categories[this.selectedCategory] : [];
-    }
+    },
   },
 }

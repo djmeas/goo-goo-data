@@ -20,7 +20,6 @@
             <div class="form-group mb-3" :class="{'form-group--error': $v.formChild.birthday.$error}"> 
               <label for="birthday" class="form-label">Birthday</label>
               <br>
-              <!-- <input v-model="formChild.birthday" type="text" class="form-control" id="birthday"> -->
               <v-date-picker v-model="formChild.birthday" />
             </div>
           </div>

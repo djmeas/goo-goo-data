@@ -16,18 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('sandbox', function () {
-    return \App\Category::getAll();
-    // dd(storage_path('app'));
-    // dd(storage_path('app'), \Storage::allFiles(storage_path('app')));
-    // dd(\Storage::disk('public')->get('http://goo-goo-data.test/storage/avatars/test.txt'));
-    try {
-        // dd(getcwd());        
-        // dd(\Storage::allDirectories('D:\laragon\www\goo-goo-data\public'));
-        \Storage::disk('s3')->put('/avatars/file.txt', 'Contents of the file.');
-        dd('success?');
-    } catch (\Exception $e) {
-        dd($e->getMessage());
-    }
+    return App\Tracker::whereIn('child_id', \App\Child::accessibleChildren())->paginate(2);
 });
 
 Auth::routes();
@@ -50,6 +39,11 @@ Route::middleware(['isAuthenticatedUser'])->group(function() {
 
         Route::prefix('category')->group(function() {
             Route::get('/', 'CategoryController@get');
+        });
+
+        Route::prefix('tracker')->group(function() {
+            Route::get('/{hash?}/{id?}', 'TrackerController@get');
+            Route::post('/', 'TrackerController@save');
         });
     });
 

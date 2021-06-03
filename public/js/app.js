@@ -1954,7 +1954,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2206,6 +2205,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_children__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/children */ "./resources/js/mixins/children.js");
 /* harmony import */ var _mixins_categories__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/categories */ "./resources/js/mixins/categories.js");
+/* harmony import */ var _mixins_tracker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../mixins/tracker */ "./resources/js/mixins/tracker.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -2293,12 +2295,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2311,15 +2309,44 @@ __webpack_require__.r(__webpack_exports__);
         category_id: null,
         value: null,
         notes: null,
-        datetime: null
+        entry_datetime: null
       }
     };
   },
-  mixins: [_mixins_children__WEBPACK_IMPORTED_MODULE_0__["default"], _mixins_categories__WEBPACK_IMPORTED_MODULE_1__["default"]],
-  methods: {},
+  mixins: [_mixins_children__WEBPACK_IMPORTED_MODULE_0__["default"], _mixins_categories__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_tracker__WEBPACK_IMPORTED_MODULE_2__["default"]],
+  validations: {
+    formTracker: {
+      child_id: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+      },
+      category: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+      },
+      value: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+      },
+      entry_datetime: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+      }
+    }
+  },
+  methods: {
+    _resetFormTracker: function _resetFormTracker() {
+      this.isAdding = false;
+      this.formTracker.child_id = null;
+      this.formTracker.category = null;
+      this.formTracker.category_id = null;
+      this.formTracker.value = null;
+      this.formTracker.notes = null;
+      this.formTracker.entry_datetime = null;
+      this.selectedCategory = null;
+      this.$v.formTracker.$reset();
+    }
+  },
   mounted: function mounted() {
     this.getChildren();
     this.getCategories();
+    this.getTrackerEntries();
   }
 });
 
@@ -2365,6 +2392,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_tracker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/tracker */ "./resources/js/mixins/tracker.js");
 //
 //
 //
@@ -2392,12 +2420,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
   },
+  mixins: [_mixins_tracker__WEBPACK_IMPORTED_MODULE_0__["default"]],
   methods: {},
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    this.getTrackerEntries();
+  }
 });
 
 /***/ }),
@@ -59513,99 +59564,36 @@ var render = function() {
           _c("form", [
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col-lg-3" }, [
-                _c("div", { staticClass: "form-group mb-3" }, [
-                  _c(
-                    "label",
-                    { staticClass: "form-label", attrs: { for: "child" } },
-                    [_vm._v("Child")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formTracker.child_id,
-                          expression: "formTracker.child_id"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { name: "child", id: "child" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.formTracker,
-                            "child_id",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { domProps: { value: null } }, [
-                        _vm._v("Select...")
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(_vm.children, function(child) {
-                        return _c(
-                          "option",
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group mb-3",
+                    class: {
+                      "form-group--error": _vm.$v.formTracker.child_id.$error
+                    }
+                  },
+                  [
+                    _c(
+                      "label",
+                      { staticClass: "form-label", attrs: { for: "child" } },
+                      [_vm._v("Child")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
                           {
-                            key: child.id + "-" + child.first_name,
-                            domProps: { value: child.id }
-                          },
-                          [
-                            _vm._v(
-                              "\n                  " +
-                                _vm._s(child.first_name) +
-                                " " +
-                                _vm._s(child.last_name) +
-                                "\n                "
-                            )
-                          ]
-                        )
-                      })
-                    ],
-                    2
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-lg-3" }, [
-                _c("div", { staticClass: "form-group mb-3" }, [
-                  _c(
-                    "label",
-                    { staticClass: "form-label", attrs: { for: "category" } },
-                    [_vm._v("Category")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.selectedCategory,
-                          expression: "selectedCategory"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { name: "child", id: "child" },
-                      on: {
-                        change: [
-                          function($event) {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.formTracker.child_id,
+                            expression: "formTracker.child_id"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "child", id: "child" },
+                        on: {
+                          change: function($event) {
                             var $$selectedVal = Array.prototype.filter
                               .call($event.target.options, function(o) {
                                 return o.selected
@@ -59614,141 +59602,277 @@ var render = function() {
                                 var val = "_value" in o ? o._value : o.value
                                 return val
                               })
-                            _vm.selectedCategory = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          },
-                          function($event) {
-                            _vm.formTracker.category = null
+                            _vm.$set(
+                              _vm.formTracker,
+                              "child_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
                           }
-                        ]
-                      }
-                    },
-                    [
-                      _c("option", { domProps: { value: null } }, [
-                        _vm._v("Select...")
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(_vm.categories, function(category, index) {
-                        return _c(
-                          "option",
-                          { key: index, domProps: { value: index } },
-                          [
-                            _vm._v(
-                              "\n                  " +
-                                _vm._s(index) +
-                                "\n                "
-                            )
-                          ]
-                        )
-                      })
-                    ],
-                    2
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-lg-3" }, [
-                _c("div", { staticClass: "form-group mb-3" }, [
-                  _c(
-                    "label",
-                    { staticClass: "form-label", attrs: { for: "category" } },
-                    [_vm._v("Option")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formTracker.category,
-                          expression: "formTracker.category"
                         }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { name: "child", id: "child" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.formTracker,
-                            "category",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
+                      },
+                      [
+                        _c("option", { domProps: { value: null } }, [
+                          _vm._v("Select...")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.children, function(child) {
+                          return _c(
+                            "option",
+                            {
+                              key: child.id + "-" + child.first_name,
+                              domProps: { value: child.id }
+                            },
+                            [
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(child.first_name) +
+                                  " " +
+                                  _vm._s(child.last_name) +
+                                  "\n                "
+                              )
+                            ]
                           )
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { domProps: { value: null } }, [
-                        _vm._v("Select...")
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(_vm.selectedCategoryOptions, function(option) {
-                        return _c(
-                          "option",
-                          {
-                            key: option.id + option.name,
-                            domProps: { value: option }
-                          },
-                          [
-                            _vm._v(
-                              "\n                  " +
-                                _vm._s(option.name) +
-                                "\n                "
-                            )
-                          ]
-                        )
-                      })
-                    ],
-                    2
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-lg-3" }, [
-                _c("label", { attrs: { for: "inlineFormInputGroup" } }, [
-                  _vm._v("Amount")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "input-group mb-2" }, [
-                  _vm.formTracker.category && _vm.formTracker.category.prefix
-                    ? _c("div", { staticClass: "input-group-prepend" }, [
-                        _c("div", { staticClass: "input-group-text" }, [
-                          _vm._v(_vm._s(_vm.formTracker.category.prefix))
-                        ])
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass: "form-control",
-                    attrs: { type: "text", id: "inlineFormInputGroup" }
-                  }),
-                  _vm._v(" "),
-                  _vm.formTracker.category && _vm.formTracker.category.suffix
-                    ? _c("div", { staticClass: "input-group-append" }, [
-                        _c("div", { staticClass: "input-group-text" }, [
-                          _vm._v(_vm._s(_vm.formTracker.category.suffix))
-                        ])
-                      ])
-                    : _vm._e()
-                ])
+                        })
+                      ],
+                      2
+                    )
+                  ]
+                )
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-lg-3" }, [
                 _c(
                   "div",
-                  { staticClass: "form-group mb-3" },
+                  {
+                    staticClass: "form-group mb-3",
+                    class: {
+                      "form-group--error":
+                        _vm.$v.formTracker.$dirty && !_vm.selectedCategory
+                    }
+                  },
+                  [
+                    _c(
+                      "label",
+                      { staticClass: "form-label", attrs: { for: "category" } },
+                      [_vm._v("Category")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.selectedCategory,
+                            expression: "selectedCategory"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "child", id: "child" },
+                        on: {
+                          change: [
+                            function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.selectedCategory = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            },
+                            function($event) {
+                              _vm.formTracker.category = null
+                            }
+                          ]
+                        }
+                      },
+                      [
+                        _c("option", { domProps: { value: null } }, [
+                          _vm._v("Select...")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.categories, function(category, index) {
+                          return _c(
+                            "option",
+                            { key: index, domProps: { value: index } },
+                            [
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(index) +
+                                  "\n                "
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-3" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group mb-3",
+                    class: {
+                      "form-group--error": _vm.$v.formTracker.category.$error
+                    }
+                  },
+                  [
+                    _c(
+                      "label",
+                      { staticClass: "form-label", attrs: { for: "category" } },
+                      [_vm._v("Option")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.formTracker.category,
+                            expression: "formTracker.category"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "child", id: "child" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.formTracker,
+                              "category",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { domProps: { value: null } }, [
+                          _vm._v("Select...")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.selectedCategoryOptions, function(option) {
+                          return _c(
+                            "option",
+                            {
+                              key: option.id + option.name,
+                              domProps: { value: option }
+                            },
+                            [
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(option.name) +
+                                  "\n                "
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-3" }, [
+                _c(
+                  "label",
+                  {
+                    class: {
+                      "form-group--error": _vm.$v.formTracker.value.$error
+                    },
+                    attrs: { for: "inlineFormInputGroup" }
+                  },
+                  [_vm._v("Amount")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "input-group mb-2",
+                    class: {
+                      "form-group--error": _vm.$v.formTracker.value.$error
+                    }
+                  },
+                  [
+                    this.formTracker.category &&
+                    this.formTracker.category.prefix
+                      ? _c("div", { staticClass: "input-group-prepend" }, [
+                          _c("div", { staticClass: "input-group-text" }, [
+                            _vm._v(_vm._s(this.formTracker.category.prefix))
+                          ])
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formTracker.value,
+                          expression: "formTracker.value"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", id: "inlineFormInputGroup" },
+                      domProps: { value: _vm.formTracker.value },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formTracker,
+                            "value",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    this.formTracker.category &&
+                    this.formTracker.category.suffix
+                      ? _c("div", { staticClass: "input-group-append" }, [
+                          _c("div", { staticClass: "input-group-text" }, [
+                            _vm._v(_vm._s(this.formTracker.category.suffix))
+                          ])
+                        ])
+                      : _vm._e()
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-3" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group mb-3",
+                    class: {
+                      "form-group--error":
+                        _vm.$v.formTracker.entry_datetime.$error
+                    }
+                  },
                   [
                     _c(
                       "label",
@@ -59761,11 +59885,11 @@ var render = function() {
                     _c("v-date-picker", {
                       attrs: { mode: "dateTime" },
                       model: {
-                        value: _vm.formTracker.datetime,
+                        value: _vm.formTracker.entry_datetime,
                         callback: function($$v) {
-                          _vm.$set(_vm.formTracker, "datetime", $$v)
+                          _vm.$set(_vm.formTracker, "entry_datetime", $$v)
                         },
-                        expression: "formTracker.datetime"
+                        expression: "formTracker.entry_datetime"
                       }
                     })
                   ],
@@ -59810,11 +59934,7 @@ var render = function() {
                   onsubmit: "event.preventDefault()",
                   value: "Cancel"
                 },
-                on: {
-                  click: function($event) {
-                    _vm.isAdding = false
-                  }
-                }
+                on: { click: _vm._resetFormTracker }
               }),
               _vm._v(" "),
               _c("input", {
@@ -59823,7 +59943,8 @@ var render = function() {
                   type: "button",
                   onsubmit: "event.preventDefault()",
                   value: "Save"
-                }
+                },
+                on: { click: _vm.saveTrackerEntry }
               })
             ])
           ])
@@ -59899,21 +60020,94 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "table-responsive" }, [
     _c("table", { staticClass: "table table-striped table-bordered" }, [
-      _vm._m(0),
+      _c("thead", [
+        _c("tr", [
+          _c(
+            "td",
+            { attrs: { colspan: "99" } },
+            [
+              _vm.trackerEntriesPaginationDetails
+                ? [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: {
+                          disabled:
+                            _vm.trackerEntriesPaginationDetails.current_page ===
+                            1
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.getTrackerEntries(
+                              _vm.trackerEntriesPaginationDetails.prev_page_url
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v("\n              Prev\n            ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: {
+                          disabled:
+                            _vm.trackerEntriesPaginationDetails.current_page ===
+                            _vm.trackerEntriesPaginationDetails.last_page
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.getTrackerEntries(
+                              _vm.trackerEntriesPaginationDetails.next_page_url
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v("\n              Next\n            ")]
+                    )
+                  ]
+                : _vm._e()
+            ],
+            2
+          )
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
+      ]),
       _vm._v(" "),
       _c(
         "tbody",
-        _vm._l(10, function(x) {
-          return _c("tr", { key: x }, [
-            _c("td", [_vm._v("Row " + _vm._s(x))]),
+        _vm._l(_vm.trackerEntries, function(entry) {
+          return _c("tr", { key: "entry" + entry.id }, [
+            _c("td", [
+              _vm._v(
+                _vm._s(entry.child.first_name) +
+                  " " +
+                  _vm._s(entry.child.last_name)
+              )
+            ]),
             _vm._v(" "),
-            _c("td", [_vm._v("Row " + _vm._s(x))]),
+            _c("td", [_vm._v(_vm._s(entry.category.name))]),
             _vm._v(" "),
-            _c("td", [_vm._v("Row " + _vm._s(x))]),
+            _c(
+              "td",
+              [
+                entry.category.prefix
+                  ? [_vm._v(_vm._s(entry.category.prefix))]
+                  : _vm._e(),
+                _vm._v(_vm._s(entry.value) + "\n          "),
+                entry.category.suffix
+                  ? [_vm._v(_vm._s(entry.category.suffix))]
+                  : _vm._e()
+              ],
+              2
+            ),
             _vm._v(" "),
-            _c("td", [_vm._v("Row " + _vm._s(x))]),
+            _c("td", [_vm._v(_vm._s(entry.notes))]),
             _vm._v(" "),
-            _c("td", [_vm._v("Row " + _vm._s(x))]),
+            _c("td", [_vm._v(_vm._s(entry.entry_datetime))]),
             _vm._v(" "),
             _c("td", [_vm._v("[Actions]")])
           ])
@@ -59928,20 +60122,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Child")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Category")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Value")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Notes")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Date")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Actions")])
-      ])
+    return _c("tr", [
+      _c("th", [_vm._v("Child")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Category")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Value")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Notes")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Date")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Actions")])
     ])
   }
 ]
@@ -74893,7 +75085,7 @@ __webpack_require__.r(__webpack_exports__);
         var formPostData = new FormData();
         formPostData.append('form_data', JSON.stringify(this.formChild));
         formPostData.append('uploaded_file', this.$refs.uploaded_file.files[0]);
-        axios.post('/api/child', formPostData).then(function (res) {
+        axios.post("".concat(Vue.prototype.$baseAPI, "/child"), formPostData).then(function (res) {
           _this3.$emit('eventSaveChild', res.data);
 
           _this3.$toasted.success('Child successfully created.');
@@ -74904,6 +75096,63 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         this.$toasted.error('Please fill out all required fields.');
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/mixins/tracker.js":
+/*!****************************************!*\
+  !*** ./resources/js/mixins/tracker.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      trackerEntriesPaginationDetails: null,
+      trackerEntries: []
+    };
+  },
+  methods: {
+    getTrackerEntries: function getTrackerEntries(paginationUrl) {
+      var _this = this;
+
+      var targetUrl = paginationUrl ? paginationUrl : "".concat(Vue.prototype.$baseAPI, "/tracker?");
+      axios.get(targetUrl).then(function (res) {
+        _this.trackerEntriesPaginationDetails = res.data;
+        _this.trackerEntries = res.data.data;
+      })["catch"](function (err) {
+        _this.$toasted.error(err.response.data);
+      });
+    },
+
+    /**
+     * Saves a traccker entry.
+     */
+    saveTrackerEntry: function saveTrackerEntry() {
+      var _this2 = this;
+
+      this.$v.formTracker.$touch();
+
+      if (!this.$v.formTracker.$invalid) {
+        this.formTracker.category_id = this.formTracker.category.id;
+        axios.post("".concat(Vue.prototype.$baseAPI, "/tracker"), this.formTracker).then(function (res) {
+          _this2.$emit('eventSaveTrackerEntry', res.data);
+
+          _this2.$toasted.success('Entry successfully saved.');
+
+          _this2._resetFormTracker();
+        })["catch"](function (err) {
+          _this2.$toasted.error(err.response.data);
+        });
+      } else {
+        this.$toasted.error('Please enter all required fields.');
       }
     }
   }
