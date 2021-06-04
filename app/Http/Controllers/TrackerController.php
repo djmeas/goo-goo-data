@@ -37,10 +37,6 @@ class TrackerController extends Controller
         );
 
         return $tracker->paginate(5);
-
-        // return Tracker::whereIn('child_id', \App\Child::accessibleChildren())
-        //     // ->orderBy('entry_datetime', 'ASC')
-        //     ->paginate(5);
     }
 
     public function save(Request $request) {
@@ -49,9 +45,36 @@ class TrackerController extends Controller
         $form_data['entry_datetime'] = $entry_formatted;
 
         try {
-            return Tracker::create($form_data);
+            Tracker::create($form_data);
+
+            return response('Entry successfully saved.', 200);
         } catch (\Exception $e) {
             return response('Whoops! The entry could not be save.', 400);
+        }
+    }
+
+    /**
+     * Deletes the tracker entry data from the database.
+     * @param Request $request The request collection.
+     * @param String $id The entry's id.
+     */
+    public function delete(Request $request, $id = null) {
+        try {
+            if ($id) {
+                $entry = Tracker::where('id', $id)
+                    ->whereIn('child_id', \App\Child::accessibleChildren())
+                    ->first();
+
+                if (!$entry) {
+                    return response('Entry does not exist or not associated with this user', 403);
+                }
+
+                $entry->delete();
+
+                return response('Entry successfully deleted.', 200);
+            }
+        } catch (\Exception $e) {
+            return response('Whoops! The entry could not be deleted.', 400);
         }
     }
 }

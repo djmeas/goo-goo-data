@@ -3,8 +3,12 @@
     <h1 class="mb-5">Tracker Page Component</h1>
     <div class="row">
       <div class="col-lg-12">
-        <tracker-add-data-form-component></tracker-add-data-form-component>
-        <tracker-table-component></tracker-table-component>
+        <tracker-add-data-form-component
+        ref="trackerAddDataFormComponent"
+        v-on:eventSaveTrackerEntry="eventSaveTrackerEntry" />
+        <tracker-table-component
+        ref="trackerTableComponent"
+        v-on:eventDeleteTrackerEntry="eventDeleteTrackerEntry" />
       </div>
     </div>
   </div>
@@ -19,7 +23,14 @@ export default {
   },
 
   methods: {
+    eventSaveTrackerEntry() {
+      this.$refs.trackerAddDataFormComponent._resetFormTracker();
+      this.$refs.trackerTableComponent.getTrackerEntries();
+    },
 
+    eventDeleteTrackerEntry() {
+      this.$refs.trackerTableComponent.getTrackerEntries();
+    }
   },
 
   mounted() {

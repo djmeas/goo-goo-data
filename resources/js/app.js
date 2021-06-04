@@ -22,6 +22,18 @@ Vue.use(Toasted, {
 import Vuelidate from 'vuelidate';
 Vue.use(Vuelidate);
 
+import VueTheMask from 'vue-the-mask';
+Vue.use(VueTheMask);
+
+import wysiwyg from "vue-wysiwyg";
+Vue.use(wysiwyg, {
+    hideModules: { 
+        "link": true,
+        "code": true,
+        "image": true
+    },
+});
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

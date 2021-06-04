@@ -2,12 +2,12 @@
   <div>
     <div v-show="!isAdding">
       <button class="btn btn-primary mb-3" @click="isAdding = true">
-        <i class="material-icons">add_circle</i> Add New Data
+        <i class="material-icons">add_circle</i> New Entry
       </button>
     </div>
 
     <div v-show="isAdding" id="form-add-child" class="card mb-4">
-      <div class="card-header">Add New Data</div>
+      <div class="card-header">New Entry</div>
       <div class="card-body">
         <form>
           <div class="row">
@@ -51,7 +51,7 @@
                   <div class="input-group-text">{{this.formTracker.category.prefix}}</div>
                 </div>
                 
-                <input v-model="formTracker.value" type="text" class="form-control" id="inlineFormInputGroup">
+                <input v-model="formTracker.value" type="number" class="form-control" id="inlineFormInputGroup">
 
                 <div v-if="this.formTracker.category && this.formTracker.category.suffix" class="input-group-append">
                   <div class="input-group-text">{{this.formTracker.category.suffix}}</div>
@@ -69,14 +69,15 @@
             <div class="col-lg-9">
               <div class="form-group mb-3"> 
                 <label for="Notes">Notes</label>
-                <textarea v-model="formTracker.notes" class="form-control" style="height: 335px" />
+                <wysiwyg v-model="formTracker.notes" style="height: 335px" />
+                <!-- <textarea v-model="formTracker.notes" class="form-control" style="height: 335px" /> -->
               </div>
             </div>
           </div>
           
           <div class="float-right">
-            <input type="button" onsubmit="event.preventDefault()" @click="_resetFormTracker" class="btn btn-danger" value="Cancel">
-            <input type="button" onsubmit="event.preventDefault()" @click="saveTrackerEntry" class="btn btn-success" value="Save" />
+            <input type="button" onsubmit="event.preventDefault()" @click="_resetFormTracker()" class="btn btn-danger" value="Cancel">
+            <input type="button" onsubmit="event.preventDefault()" @click="saveTrackerEntry()" class="btn btn-success" value="Save" />
           </div>
           
         </form>
@@ -90,7 +91,7 @@ import childrenMixin from '../../mixins/children';
 import categoriesMixin from '../../mixins/categories';
 import trackerMixin from '../../mixins/tracker';
 
-import { required } from 'vuelidate/lib/validators';
+import { required, decimal, maxLength } from 'vuelidate/lib/validators';
 
 export default {
   data() {
@@ -123,7 +124,9 @@ export default {
         required
       },
       value: {
-        required
+        required,
+        decimal,
+        maxLength: maxLength(8)
       },
       entry_datetime: {
         required
@@ -150,7 +153,6 @@ export default {
   mounted() {
     this.getChildren();
     this.getCategories();
-    this.getTrackerEntries();
   }
 }
 </script>

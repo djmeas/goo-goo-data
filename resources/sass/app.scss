@@ -7,6 +7,9 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Vue WYSIWYG
+@import "~vue-wysiwyg/dist/vueWysiwyg.css";
+
 /* Bootstrap Overrides */
 
 .navbar-light .navbar-brand {
@@ -98,6 +101,12 @@ border-color: #f79483;
     transform: translateX(-0.375rem); }
   100% {
     transform: translateX(0); } 
+}
+
+/* UI Interactions */
+
+.clickable:hover {
+  cursor: pointer;
 }
 
 /* Children */

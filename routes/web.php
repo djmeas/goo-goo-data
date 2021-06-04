@@ -44,6 +44,7 @@ Route::middleware(['isAuthenticatedUser'])->group(function() {
         Route::prefix('tracker')->group(function() {
             Route::get('/{hash?}/{id?}', 'TrackerController@get');
             Route::post('/', 'TrackerController@save');
+            Route::delete('/{id}', 'TrackerController@delete');
         });
     });
 
