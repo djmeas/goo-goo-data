@@ -60074,7 +60074,69 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._m(0)
+        _c("tr", [
+          _c(
+            "th",
+            {
+              on: {
+                click: function($event) {
+                  return _vm._trackerSortColumn("first_name")
+                }
+              }
+            },
+            [_vm._v("Child")]
+          ),
+          _vm._v(" "),
+          _c(
+            "th",
+            {
+              on: {
+                click: function($event) {
+                  return _vm._trackerSortColumn("category_name")
+                }
+              }
+            },
+            [_vm._v("Category")]
+          ),
+          _vm._v(" "),
+          _c(
+            "th",
+            {
+              on: {
+                click: function($event) {
+                  return _vm._trackerSortColumn("value")
+                }
+              }
+            },
+            [_vm._v("Value")]
+          ),
+          _vm._v(" "),
+          _c(
+            "th",
+            {
+              on: {
+                click: function($event) {
+                  return _vm._trackerSortColumn("notes")
+                }
+              }
+            },
+            [_vm._v("Notes")]
+          ),
+          _vm._v(" "),
+          _c(
+            "th",
+            {
+              on: {
+                click: function($event) {
+                  return _vm._trackerSortColumn("entry_datetime")
+                }
+              }
+            },
+            [_vm._v("Date")]
+          ),
+          _vm._v(" "),
+          _c("th", [_vm._v("Actions")])
+        ])
       ]),
       _vm._v(" "),
       _c(
@@ -60117,26 +60179,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("Child")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Category")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Value")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Notes")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Date")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Actions")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -75116,14 +75159,20 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       trackerEntriesPaginationDetails: null,
-      trackerEntries: []
+      trackerEntries: [],
+      trackerFilters: {
+        sort: 'entry_datetime',
+        dir: 'asc'
+      }
     };
   },
   methods: {
     getTrackerEntries: function getTrackerEntries(paginationUrl) {
       var _this = this;
 
-      var targetUrl = paginationUrl ? paginationUrl : "".concat(Vue.prototype.$baseAPI, "/tracker?");
+      var currentPage = this.trackerEntriesPaginationDetails ? this.trackerEntriesPaginationDetails.current_page : 1;
+      var targetUrl = paginationUrl ? paginationUrl : "".concat(Vue.prototype.$baseAPI, "/tracker?page=").concat(currentPage);
+      targetUrl += "&sort=".concat(this.trackerFilters.sort, "&dir=").concat(this.trackerFilters.dir);
       axios.get(targetUrl).then(function (res) {
         _this.trackerEntriesPaginationDetails = res.data;
         _this.trackerEntries = res.data.data;
@@ -75154,6 +75203,11 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.$toasted.error('Please enter all required fields.');
       }
+    },
+    _trackerSortColumn: function _trackerSortColumn(column) {
+      this.trackerFilters.sort = column;
+      this.trackerFilters.dir = this.trackerFilters.dir === 'asc' ? 'desc' : 'asc';
+      this.getTrackerEntries();
     }
   }
 });

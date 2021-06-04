@@ -2,13 +2,26 @@ export default {
   data() {
     return {
       trackerEntriesPaginationDetails: null,
-      trackerEntries: []
+      trackerEntries: [],
+      trackerFilters: {
+        sort: 'entry_datetime',
+        dir: 'asc'
+      }
     }
   },
 
   methods: {
     getTrackerEntries(paginationUrl) {
-      const targetUrl = paginationUrl ? paginationUrl : `${Vue.prototype.$baseAPI}/tracker?`;
+      let currentPage = this.trackerEntriesPaginationDetails 
+        ? this.trackerEntriesPaginationDetails.current_page 
+        : 1;
+
+      let targetUrl = paginationUrl 
+        ? paginationUrl 
+        : `${Vue.prototype.$baseAPI}/tracker?page=${currentPage}`;
+      
+      targetUrl += `&sort=${this.trackerFilters.sort}&dir=${this.trackerFilters.dir}`;
+
       axios.get(targetUrl)
         .then(res => {
           this.trackerEntriesPaginationDetails = res.data;
@@ -42,6 +55,12 @@ export default {
       } else {
         this.$toasted.error('Please enter all required fields.');
       }
+    },
+
+    _trackerSortColumn(column) {
+      this.trackerFilters.sort = column;
+      this.trackerFilters.dir = this.trackerFilters.dir === 'asc' ? 'desc' : 'asc';
+      this.getTrackerEntries();
     }
   }
 }

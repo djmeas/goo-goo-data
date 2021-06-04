@@ -19,11 +19,11 @@
           </td>
         </tr>
         <tr>
-          <th>Child</th>
-          <th>Category</th>
-          <th>Value</th>
-          <th>Notes</th>
-          <th>Date</th>
+          <th @click="_trackerSortColumn('first_name')">Child</th>
+          <th @click="_trackerSortColumn('category_name')">Category</th>
+          <th @click="_trackerSortColumn('value')">Value</th>
+          <th @click="_trackerSortColumn('notes')">Notes</th>
+          <th @click="_trackerSortColumn('entry_datetime')">Date</th>
           <th>Actions</th>
         </tr>
       </thead>
