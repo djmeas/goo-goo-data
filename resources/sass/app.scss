@@ -11,6 +11,9 @@
 @import "~vue-wysiwyg/dist/vueWysiwyg.css";
 
 /* Bootstrap Overrides */
+nav.navbar {
+  border-bottom: 8px solid #b082ff;
+}
 
 .navbar-light .navbar-brand {
   color: white;
@@ -25,6 +28,21 @@
   color: white;
 }
 
+.btn-tiny {
+  padding: 0 5px;
+}
+
+.btn-default {
+  color: #333;
+  background-color: #eee;
+  border-color: #ccc;
+}
+
+.btn-primary {
+  background-color: #b082ff;
+  border-color: #aa78ff;
+}
+
 /* Material Icon Overrides */
 
 .btn {
@@ -37,7 +55,9 @@
 /* Colors */
 
 .bg-mat-primary {
-  background-color: #8245ea !important;
+  // background-color: #8245ea !important;
+  background: rgb(189,85,255);
+  background: linear-gradient(90deg, rgba(189,85,255,1) 0%, rgba(130,69,234,1) 51%, rgba(130,69,234,1) 100%);
 }
 
 
@@ -133,6 +153,10 @@ border-color: #f79483;
   .name {
     min-height: 80px
   }
+}
+
+.pagination-row {
+  background: #ece1ff !important;
 }
 
 @include media-breakpoint-up(md) {

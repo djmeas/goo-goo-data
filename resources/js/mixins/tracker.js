@@ -1,12 +1,7 @@
 export default {
   data() {
     return {
-      // trackerEntriesPaginationDetails: null,
-      // trackerEntries: [],
-      // trackerFilters: {
-      //   sort: 'entry_datetime',
-      //   dir: 'asc'
-      // }
+
     }
   },
 
@@ -50,13 +45,25 @@ export default {
     },
 
     /**
-     * Saves a tracker entry.
+     * Saves (creates or updates) a tracker entry.
+     * 
      */
     saveTrackerEntry() {
       this.$v.formTracker.$touch();
 
       if (!this.$v.formTracker.$invalid) {
         this.formTracker.category_id = this.formTracker.category.id;
+        delete this.formTracker.category;
+
+        // console.log(this.formTracker);
+        // console.log(this.formTracker.entry_datetime);
+        // var moment = require('moment-timezone');
+        // // console.log(moment.utc(this.formTracker.entry_datetime));
+        // this.formTracker.entry_datetime = moment.utc(this.formTracker.entry_datetime);
+
+        // console.log(this.formTracker.entry_datetime);
+
+        return;
 
         axios.post(`${Vue.prototype.$baseAPI}/tracker`, this.formTracker)
           .then(res => {
@@ -92,6 +99,19 @@ export default {
       this.trackerFilters.sort = column;
       this.trackerFilters.dir = this.trackerFilters.dir === 'asc' ? 'desc' : 'asc';
       this.getTrackerEntries();
+    },
+
+    _debugSaveEntry() {
+      const entry = {"child_id":27,"category":{"id":23,"group":"Feeding","name":"Milk","type":"decimal","prefix":null,"suffix":"oz","created_at":null,"updated_at":null},"category_id":23,"value":"2.5","notes":"Forced entry.","entry_datetime":"2021-06-01T20:27:18.851Z"};
+    
+      axios.post(`${Vue.prototype.$baseAPI}/tracker`, entry)
+          .then(res => {
+            this.$toasted.success('Forced entry successfully saved.');
+            this.$emit('eventSaveTrackerEntry');
+          })
+          .catch(err => {
+            this.$toasted.error(err.response.data);
+          });
     }
   }
 }

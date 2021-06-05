@@ -7,7 +7,7 @@
     </div>
 
     <div v-show="isAdding" id="form-add-child" class="card mb-4">
-      <div class="card-header">New Entry</div>
+      <div class="card-header">{{existingEntry ? 'Edit' : 'New'}} Entry</div>
       <div class="card-body">
         <form>
           <div class="row">
@@ -76,7 +76,7 @@
           </div>
           
           <div class="float-right">
-            <input type="button" onsubmit="event.preventDefault()" @click="_resetFormTracker()" class="btn btn-danger" value="Cancel">
+            <input type="button" onsubmit="event.preventDefault()" @click="_resetFormTracker();$emit('cancelTrackerEntry');" class="btn btn-danger" value="Cancel">
             <input type="button" onsubmit="event.preventDefault()" @click="saveTrackerEntry()" class="btn btn-success" value="Save" />
           </div>
           
@@ -99,6 +99,7 @@ export default {
       isAdding: false,
 
       formTracker: {
+        id: null,
         child_id: null,
         category: null,
         category_id: null,
@@ -114,6 +115,14 @@ export default {
     categoriesMixin,
     trackerMixin
   ],
+
+  props: {
+    existingEntry: {
+      type: Object,
+      required: false,
+      default: null
+    }
+  },
 
   validations: {
     formTracker: {
@@ -153,6 +162,18 @@ export default {
   mounted() {
     this.getChildren();
     this.getCategories();
+
+    if (this.existingEntry) {
+      this.isAdding = true;
+      this.formTracker.id = this.existingEntry.id;
+      this.formTracker.child_id = this.existingEntry.child_id;
+      this.formTracker.category = this.existingEntry.category;
+      this.selectedCategory = this.existingEntry.category.group;
+      this.formTracker.category_id = this.existingEntry.category_id;
+      this.formTracker.value = this.existingEntry.value;
+      this.formTracker.notes = this.existingEntry.notes;
+      this.formTracker.entry_datetime = this.existingEntry.entry_datetime;
+    }
   }
 }
 </script>

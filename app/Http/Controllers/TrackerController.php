@@ -36,7 +36,7 @@ class TrackerController extends Controller
             $request->get('dir') ?: 'ASC'
         );
 
-        return $tracker->paginate(5);
+        return $tracker->paginate(10);
     }
 
     public function save(Request $request) {
@@ -45,10 +45,15 @@ class TrackerController extends Controller
         $form_data['entry_datetime'] = $entry_formatted;
 
         try {
-            Tracker::create($form_data);
-
+            if ($request->id) {
+                Tracker::find($request->id)->update($form_data);
+            } else {
+                Tracker::create($form_data);
+            }
+            
             return response('Entry successfully saved.', 200);
         } catch (\Exception $e) {
+            return response($e->getMessage(), 400);
             return response('Whoops! The entry could not be save.', 400);
         }
     }

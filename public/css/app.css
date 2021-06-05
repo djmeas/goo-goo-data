@@ -11386,6 +11386,10 @@ a.text-dark:focus {
 
 /* Bootstrap Overrides */
 
+nav.navbar {
+  border-bottom: 8px solid #b082ff;
+}
+
 .navbar-light .navbar-brand {
   color: white;
 }
@@ -11399,6 +11403,21 @@ a.text-dark:focus {
   color: white;
 }
 
+.btn-tiny {
+  padding: 0 5px;
+}
+
+.btn-default {
+  color: #333;
+  background-color: #eee;
+  border-color: #ccc;
+}
+
+.btn-primary {
+  background-color: #b082ff;
+  border-color: #aa78ff;
+}
+
 /* Material Icon Overrides */
 
 .btn .material-icons {
@@ -11409,7 +11428,8 @@ a.text-dark:focus {
 /* Colors */
 
 .bg-mat-primary {
-  background-color: #8245ea !important;
+  background: #bd55ff;
+  background: linear-gradient(90deg, #bd55ff 0%, #8245ea 51%, #8245ea 100%);
 }
 
 .bg-mat-secondary {
@@ -11555,6 +11575,10 @@ label.form-group--error {
 
 .child-card .name {
   min-height: 80px;
+}
+
+.pagination-row {
+  background: #ece1ff !important;
 }
 
 @media (min-width: 768px) {

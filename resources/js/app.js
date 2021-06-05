@@ -53,9 +53,22 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
- Vue.prototype.$baseAPI = '/api';
+Vue.prototype.$baseAPI = '/api';
 
- Vue.prototype.$baseAvatarPath = 'https://goo-goo-data.s3-us-west-2.amazonaws.com/avatars';
+Vue.prototype.$baseAvatarPath = 'https://goo-goo-data.s3-us-west-2.amazonaws.com/avatars';
+
+Vue.prototype.$browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;;
+
+// 2021-06-01 20:27:18
+var moment = require('moment-timezone');
+
+// console.log(moment().tz("America/Los_Angeles").format());
+var a = moment.tz("2021-06-01 20:27:18", "America/Los_Angeles").format("M/D/yy h:mm a");
+console.log(a);
+
+Vue.filter('dateFormat', (datetime) => {
+    return moment.tz(datetime, Vue.prototype.$browserTimezone).format("M/D/yy h:mm a");
+});
 
 const app = new Vue({
     el: '#app',
