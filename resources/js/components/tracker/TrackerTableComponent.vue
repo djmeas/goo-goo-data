@@ -23,6 +23,94 @@
               {{trackerEntriesPaginationDetails.to}} of 
               {{trackerEntriesPaginationDetails.total}} entries
             </template>
+            <template v-if="children && categories">
+              <div class="card mt-3">
+                <div class="card-header">Filters</div>
+                <div class="card-body">
+
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <div class="form-group mb-3">
+                        <label for="child" class="form-label">Child</label>
+                        <select v-model="trackerFilters.child_id" class="form-control" name="child" id="child">
+                          <option :value="null">Select...</option>
+                          <option v-for="child in children" :value="child.id" :key="`${child.id}-${child.first_name}`">
+                            {{child.first_name}} {{child.last_name}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-2">
+                      <div class="form-group mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <select v-model="selectedCategory" @change="trackerFilters.category = null" class="form-control" name="child" id="child">
+                          <option :value="null">Select...</option>
+                          <option v-for="(category, index) in categories" :key="index" :value="index">
+                            {{index}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="form-group mb-3">
+                        <label for="category" class="form-label">Option</label>
+                        <select v-model="trackerFilters.category" class="form-control" name="child" id="child">
+                          <option :value="null">Select...</option>
+                          <option v-for="option in selectedCategoryOptions" :key="option.id + option.name" :value="option">
+                            {{option.name}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                      <label for="inlineFormInputGroup">Amount Min</label>
+                      <div class="input-group mb-2">
+                        <div v-if="trackerFilters.category && trackerFilters.category.prefix" class="input-group-prepend">
+                          <div class="input-group-text">{{trackerFilters.category.prefix}}</div>
+                        </div>
+                        
+                        <input v-model="trackerFilters.value_min" type="number" class="form-control" id="inlineFormInputGroup">
+
+                        <div v-if="trackerFilters.category && trackerFilters.category.suffix" class="input-group-append">
+                          <div class="input-group-text">{{trackerFilters.category.suffix}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-2">
+                      <label for="inlineFormInputGroup">Amount Max</label>
+                      <div class="input-group mb-2">
+                        <div v-if="trackerFilters.category && trackerFilters.category.prefix" class="input-group-prepend">
+                          <div class="input-group-text">{{trackerFilters.category.prefix}}</div>
+                        </div>
+                        
+                        <input v-model="trackerFilters.value_max" type="number" class="form-control" id="inlineFormInputGroup">
+
+                        <div v-if="trackerFilters.category && trackerFilters.category.suffix" class="input-group-append">
+                          <div class="input-group-text">{{trackerFilters.category.suffix}}</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                      <div class="form-group mb-3"> 
+                        <label for="birthday" class="form-label">Date Range</label>
+                        <br>
+                        <!-- <input v-model="formChild.birthday" type="text" class="form-control" id="birthday"> -->
+                        <v-date-picker :timezone="$browserTimezone" is-range v-model="trackerFilters.entry_datetime_range" />
+                      </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <div class="form-group mb-3"> 
+                        <label for="birthday" class="form-label">Notes</label>
+                        <input v-model="trackerFilters.notes" type="text" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </template>
           </td>
         </tr>
         <tr>
@@ -108,6 +196,8 @@
 </template>
 
 <script>
+import categoriesMixin from '../../mixins/categories';
+import childrenMixin from '../../mixins/children';
 import trackerMixin from '../../mixins/tracker';
 
 export default {
@@ -120,13 +210,25 @@ export default {
       trackerEntries: [],
       trackerFilters: {
         sort: 'entry_datetime',
-        dir: 'asc'
-      }
+        dir: 'asc',
+        child_id: null,
+        category: null,
+        category_id: null,
+        value_min: null,
+        value_max: null,
+        entry_datetime_range: {
+          start: null,
+          end: null
+        },
+        notes: null
+      },
     }
   },
 
   mixins: [
-    trackerMixin
+    trackerMixin,
+    childrenMixin,
+    categoriesMixin
   ],
 
   methods: {
@@ -136,6 +238,8 @@ export default {
   mounted() {
     console.log('TrackerTableComponent mounted.');
     this.getTrackerEntries();
+    this.getChildren();
+    this.getCategories();
   }
 }
 </script>

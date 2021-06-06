@@ -63,7 +63,7 @@
                 <label for="birthday" class="form-label">Date & Time</label>
                 <br>
                 <!-- <input v-model="formChild.birthday" type="text" class="form-control" id="birthday"> -->
-                <v-date-picker mode="dateTime" v-model="formTracker.entry_datetime" />
+                <v-date-picker mode="dateTime" :timezone="$browserTimezone" v-model="formTracker.entry_datetime" />
               </div>
             </div>
             <div class="col-lg-9">
@@ -144,6 +144,9 @@ export default {
   },
 
   methods: {
+    /**
+     * Resets the tracker entry form.
+     */
     _resetFormTracker() {
       this.isAdding = false;
       this.formTracker.child_id = null;
@@ -159,6 +162,11 @@ export default {
     }
   },
 
+  /**
+   * Logic to run when the component is mounted.
+   * Fetches the children, categories and a potential
+   * existing entry on load.
+   */
   mounted() {
     this.getChildren();
     this.getCategories();
@@ -172,7 +180,7 @@ export default {
       this.formTracker.category_id = this.existingEntry.category_id;
       this.formTracker.value = this.existingEntry.value;
       this.formTracker.notes = this.existingEntry.notes;
-      this.formTracker.entry_datetime = this.existingEntry.entry_datetime;
+      this.formTracker.entry_datetime = Vue.prototype.$utcToLocal(this.existingEntry.entry_datetime);
     }
   }
 }

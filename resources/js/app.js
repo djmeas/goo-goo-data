@@ -53,21 +53,29 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+ var momenttz = require('moment-timezone');
+ var moment = require('moment');
+
 Vue.prototype.$baseAPI = '/api';
 
 Vue.prototype.$baseAvatarPath = 'https://goo-goo-data.s3-us-west-2.amazonaws.com/avatars';
 
-Vue.prototype.$browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;;
+Vue.prototype.$browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-// 2021-06-01 20:27:18
-var moment = require('moment-timezone');
+Vue.prototype.$utcToLocal = function(datetime) {
+    return momenttz.utc(datetime).tz(Vue.prototype.$browserTimezone).format("M/D/yy h:mm a");
+};
 
 // console.log(moment().tz("America/Los_Angeles").format());
-var a = moment.tz("2021-06-01 20:27:18", "America/Los_Angeles").format("M/D/yy h:mm a");
-console.log(a);
+// var a = moment("2021-06-02 21:00:00");
+// console.log(a.utc().format("M/D/yy h:mm a"));
+
+// var b = momenttz.utc("2021-06-02 21:00:00").tz("America/Los_Angeles").format("M/D/yy h:mm a");
+// console.log(b);
 
 Vue.filter('dateFormat', (datetime) => {
-    return moment.tz(datetime, Vue.prototype.$browserTimezone).format("M/D/yy h:mm a");
+    return momenttz.utc(datetime).tz(Vue.prototype.$browserTimezone).format("M/D/yy h:mm a");
+    // return moment(datetime).utc().format("M/D/yy h:mm a");
 });
 
 const app = new Vue({

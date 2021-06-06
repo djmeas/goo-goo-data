@@ -2342,6 +2342,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    /**
+     * Resets the tracker entry form.
+     */
     _resetFormTracker: function _resetFormTracker() {
       this.isAdding = false;
       this.formTracker.child_id = null;
@@ -2354,6 +2357,12 @@ __webpack_require__.r(__webpack_exports__);
       this.$v.formTracker.$reset();
     }
   },
+
+  /**
+   * Logic to run when the component is mounted.
+   * Fetches the children, categories and a potential
+   * existing entry on load.
+   */
   mounted: function mounted() {
     this.getChildren();
     this.getCategories();
@@ -2367,7 +2376,7 @@ __webpack_require__.r(__webpack_exports__);
       this.formTracker.category_id = this.existingEntry.category_id;
       this.formTracker.value = this.existingEntry.value;
       this.formTracker.notes = this.existingEntry.notes;
-      this.formTracker.entry_datetime = this.existingEntry.entry_datetime;
+      this.formTracker.entry_datetime = Vue.prototype.$utcToLocal(this.existingEntry.entry_datetime);
     }
   }
 });
@@ -2427,7 +2436,97 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _mixins_tracker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/tracker */ "./resources/js/mixins/tracker.js");
+/* harmony import */ var _mixins_categories__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/categories */ "./resources/js/mixins/categories.js");
+/* harmony import */ var _mixins_children__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/children */ "./resources/js/mixins/children.js");
+/* harmony import */ var _mixins_tracker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../mixins/tracker */ "./resources/js/mixins/tracker.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2538,6 +2637,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2547,15 +2648,27 @@ __webpack_require__.r(__webpack_exports__);
       trackerEntries: [],
       trackerFilters: {
         sort: 'entry_datetime',
-        dir: 'asc'
+        dir: 'asc',
+        child_id: null,
+        category: null,
+        category_id: null,
+        value_min: null,
+        value_max: null,
+        entry_datetime_range: {
+          start: null,
+          end: null
+        },
+        notes: null
       }
     };
   },
-  mixins: [_mixins_tracker__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  mixins: [_mixins_tracker__WEBPACK_IMPORTED_MODULE_2__["default"], _mixins_children__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_categories__WEBPACK_IMPORTED_MODULE_0__["default"]],
   methods: {},
   mounted: function mounted() {
     console.log('TrackerTableComponent mounted.');
     this.getTrackerEntries();
+    this.getChildren();
+    this.getCategories();
   }
 });
 
@@ -82296,7 +82409,10 @@ var render = function() {
                     _c("br"),
                     _vm._v(" "),
                     _c("v-date-picker", {
-                      attrs: { mode: "dateTime" },
+                      attrs: {
+                        mode: "dateTime",
+                        timezone: _vm.$browserTimezone
+                      },
                       model: {
                         value: _vm.formTracker.entry_datetime,
                         callback: function($$v) {
@@ -82508,6 +82624,496 @@ var render = function() {
                         _vm._s(_vm.trackerEntriesPaginationDetails.total) +
                         " entries\n          "
                     )
+                  ]
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.children && _vm.categories
+                ? [
+                    _c("div", { staticClass: "card mt-3" }, [
+                      _c("div", { staticClass: "card-header" }, [
+                        _vm._v("Filters")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-body" }, [
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-lg-3" }, [
+                            _c("div", { staticClass: "form-group mb-3" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "form-label",
+                                  attrs: { for: "child" }
+                                },
+                                [_vm._v("Child")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.trackerFilters.child_id,
+                                      expression: "trackerFilters.child_id"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { name: "child", id: "child" },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.trackerFilters,
+                                        "child_id",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("option", { domProps: { value: null } }, [
+                                    _vm._v("Select...")
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.children, function(child) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: child.id + "-" + child.first_name,
+                                        domProps: { value: child.id }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                          " +
+                                            _vm._s(child.first_name) +
+                                            " " +
+                                            _vm._s(child.last_name) +
+                                            "\n                        "
+                                        )
+                                      ]
+                                    )
+                                  })
+                                ],
+                                2
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-lg-2" }, [
+                            _c("div", { staticClass: "form-group mb-3" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "form-label",
+                                  attrs: { for: "category" }
+                                },
+                                [_vm._v("Category")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.selectedCategory,
+                                      expression: "selectedCategory"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { name: "child", id: "child" },
+                                  on: {
+                                    change: [
+                                      function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.selectedCategory = $event.target
+                                          .multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      },
+                                      function($event) {
+                                        _vm.trackerFilters.category = null
+                                      }
+                                    ]
+                                  }
+                                },
+                                [
+                                  _c("option", { domProps: { value: null } }, [
+                                    _vm._v("Select...")
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.categories, function(
+                                    category,
+                                    index
+                                  ) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: index,
+                                        domProps: { value: index }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                          " +
+                                            _vm._s(index) +
+                                            "\n                        "
+                                        )
+                                      ]
+                                    )
+                                  })
+                                ],
+                                2
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-lg-3" }, [
+                            _c("div", { staticClass: "form-group mb-3" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "form-label",
+                                  attrs: { for: "category" }
+                                },
+                                [_vm._v("Option")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.trackerFilters.category,
+                                      expression: "trackerFilters.category"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { name: "child", id: "child" },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.trackerFilters,
+                                        "category",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("option", { domProps: { value: null } }, [
+                                    _vm._v("Select...")
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.selectedCategoryOptions, function(
+                                    option
+                                  ) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: option.id + option.name,
+                                        domProps: { value: option }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                          " +
+                                            _vm._s(option.name) +
+                                            "\n                        "
+                                        )
+                                      ]
+                                    )
+                                  })
+                                ],
+                                2
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-lg-2" }, [
+                            _c(
+                              "label",
+                              { attrs: { for: "inlineFormInputGroup" } },
+                              [_vm._v("Amount Min")]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "input-group mb-2" }, [
+                              _vm.trackerFilters.category &&
+                              _vm.trackerFilters.category.prefix
+                                ? _c(
+                                    "div",
+                                    { staticClass: "input-group-prepend" },
+                                    [
+                                      _c(
+                                        "div",
+                                        { staticClass: "input-group-text" },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.trackerFilters.category.prefix
+                                            )
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.trackerFilters.value_min,
+                                    expression: "trackerFilters.value_min"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "number",
+                                  id: "inlineFormInputGroup"
+                                },
+                                domProps: {
+                                  value: _vm.trackerFilters.value_min
+                                },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.trackerFilters,
+                                      "value_min",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _vm.trackerFilters.category &&
+                              _vm.trackerFilters.category.suffix
+                                ? _c(
+                                    "div",
+                                    { staticClass: "input-group-append" },
+                                    [
+                                      _c(
+                                        "div",
+                                        { staticClass: "input-group-text" },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.trackerFilters.category.suffix
+                                            )
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-lg-2" }, [
+                            _c(
+                              "label",
+                              { attrs: { for: "inlineFormInputGroup" } },
+                              [_vm._v("Amount Max")]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "input-group mb-2" }, [
+                              _vm.trackerFilters.category &&
+                              _vm.trackerFilters.category.prefix
+                                ? _c(
+                                    "div",
+                                    { staticClass: "input-group-prepend" },
+                                    [
+                                      _c(
+                                        "div",
+                                        { staticClass: "input-group-text" },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.trackerFilters.category.prefix
+                                            )
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.trackerFilters.value_max,
+                                    expression: "trackerFilters.value_max"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "number",
+                                  id: "inlineFormInputGroup"
+                                },
+                                domProps: {
+                                  value: _vm.trackerFilters.value_max
+                                },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.trackerFilters,
+                                      "value_max",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _vm.trackerFilters.category &&
+                              _vm.trackerFilters.category.suffix
+                                ? _c(
+                                    "div",
+                                    { staticClass: "input-group-append" },
+                                    [
+                                      _c(
+                                        "div",
+                                        { staticClass: "input-group-text" },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.trackerFilters.category.suffix
+                                            )
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-lg-3" }, [
+                            _c(
+                              "div",
+                              { staticClass: "form-group mb-3" },
+                              [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "form-label",
+                                    attrs: { for: "birthday" }
+                                  },
+                                  [_vm._v("Date Range")]
+                                ),
+                                _vm._v(" "),
+                                _c("br"),
+                                _vm._v(" "),
+                                _c("v-date-picker", {
+                                  attrs: {
+                                    timezone: _vm.$browserTimezone,
+                                    "is-range": ""
+                                  },
+                                  model: {
+                                    value:
+                                      _vm.trackerFilters.entry_datetime_range,
+                                    callback: function($$v) {
+                                      _vm.$set(
+                                        _vm.trackerFilters,
+                                        "entry_datetime_range",
+                                        $$v
+                                      )
+                                    },
+                                    expression:
+                                      "trackerFilters.entry_datetime_range"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-lg-6" }, [
+                            _c("div", { staticClass: "form-group mb-3" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "form-label",
+                                  attrs: { for: "birthday" }
+                                },
+                                [_vm._v("Notes")]
+                              ),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.trackerFilters.notes,
+                                    expression: "trackerFilters.notes"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { type: "text" },
+                                domProps: { value: _vm.trackerFilters.notes },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.trackerFilters,
+                                      "notes",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ])
+                          ])
+                        ])
+                      ])
+                    ])
                   ]
                 : _vm._e()
             ],
@@ -97104,18 +97710,25 @@ files.keys().map(function (key) {
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+var momenttz = __webpack_require__(/*! moment-timezone */ "./node_modules/moment-timezone/index.js");
+
+var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$baseAPI = '/api';
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$baseAvatarPath = 'https://goo-goo-data.s3-us-west-2.amazonaws.com/avatars';
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-; // 2021-06-01 20:27:18
 
-var moment = __webpack_require__(/*! moment-timezone */ "./node_modules/moment-timezone/index.js"); // console.log(moment().tz("America/Los_Angeles").format());
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$utcToLocal = function (datetime) {
+  return momenttz.utc(datetime).tz(vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$browserTimezone).format("M/D/yy h:mm a");
+}; // console.log(moment().tz("America/Los_Angeles").format());
+// var a = moment("2021-06-02 21:00:00");
+// console.log(a.utc().format("M/D/yy h:mm a"));
+// var b = momenttz.utc("2021-06-02 21:00:00").tz("America/Los_Angeles").format("M/D/yy h:mm a");
+// console.log(b);
 
 
-var a = moment.tz("2021-06-01 20:27:18", "America/Los_Angeles").format("M/D/yy h:mm a");
-console.log(a);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.filter('dateFormat', function (datetime) {
-  return moment.tz(datetime, vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$browserTimezone).format("M/D/yy h:mm a");
+  return momenttz.utc(datetime).tz(vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$browserTimezone).format("M/D/yy h:mm a"); // return moment(datetime).utc().format("M/D/yy h:mm a");
 });
 var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   el: '#app'
@@ -97916,7 +98529,6 @@ __webpack_require__.r(__webpack_exports__);
 
     /**
      * Saves (creates or updates) a tracker entry.
-     * 
      */
     saveTrackerEntry: function saveTrackerEntry() {
       var _this2 = this;
@@ -97924,16 +98536,15 @@ __webpack_require__.r(__webpack_exports__);
       this.$v.formTracker.$touch();
 
       if (!this.$v.formTracker.$invalid) {
-        this.formTracker.category_id = this.formTracker.category.id;
-        delete this.formTracker.category; // console.log(this.formTracker);
-        // console.log(this.formTracker.entry_datetime);
-        // var moment = require('moment-timezone');
-        // // console.log(moment.utc(this.formTracker.entry_datetime));
-        // this.formTracker.entry_datetime = moment.utc(this.formTracker.entry_datetime);
-        // console.log(this.formTracker.entry_datetime);
+        var momenttz = __webpack_require__(/*! moment-timezone */ "./node_modules/moment-timezone/index.js");
 
-        return;
-        axios.post("".concat(Vue.prototype.$baseAPI, "/tracker"), this.formTracker).then(function (res) {
+        this.formTracker.category_id = this.formTracker.category.id;
+
+        var entryData = _.clone(this.formTracker);
+
+        delete entryData.category;
+        entryData.entry_datetime = momenttz(this.formTracker.entry_datetime).utc().format("YYYY-MM-DD HH:mm:ss");
+        axios.post("".concat(Vue.prototype.$baseAPI, "/tracker"), entryData).then(function (res) {
           _this2.$toasted.success('Entry successfully saved.');
 
           _this2.$emit('eventSaveTrackerEntry');
@@ -97968,6 +98579,10 @@ __webpack_require__.r(__webpack_exports__);
       this.trackerFilters.dir = this.trackerFilters.dir === 'asc' ? 'desc' : 'asc';
       this.getTrackerEntries();
     },
+
+    /**
+     * Helper function to quickly insert a new entry for debugging.
+     */
     _debugSaveEntry: function _debugSaveEntry() {
       var _this4 = this;
 
