@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export default {
   data() {
     return {
@@ -12,6 +14,8 @@ export default {
      * @param {string} paginationUrl The API url for paginated data.
      */
     getTrackerEntries(paginationUrl, setCurrentPage) {
+      var moment = require('moment');
+
       let currentPage = this.trackerEntriesPaginationDetails 
         ? this.trackerEntriesPaginationDetails.current_page 
         : 1;
@@ -24,7 +28,37 @@ export default {
         ? paginationUrl 
         : `${Vue.prototype.$baseAPI}/tracker?page=${currentPage}`;
       
-      targetUrl += `&sort=${this.trackerFilters.sort}&dir=${this.trackerFilters.dir}`;
+      // targetUrl += `&sort=${this.trackerFilters.sort}&dir=${this.trackerFilters.dir}`;
+      if (this.selectedCategory) {
+        targetUrl += `&category=${this.selectedCategory}`;
+      }
+
+      // Additional filters
+      _.forOwn(this.trackerFilters, (value, key) => {
+        console.log(key, value);
+        switch (key) {
+          case "category":
+            break;
+
+          case "category_id":
+            if (value) {
+              targetUrl += `&${key}=${value.group}`;
+            }
+            break;
+            
+          case "entry_datetime_range":
+            targetUrl += `&${key}=${moment(value.start).valueOf()},${moment(value.end).valueOf()}`;
+            break;
+        
+          default:
+            targetUrl += `&${key}=${value}`;
+            break;
+        }
+        
+      });
+
+      console.log('targetUrl', targetUrl);
+      console.log('url encoded', encodeURI(targetUrl));
 
       axios.get(targetUrl)
         .then(res => {

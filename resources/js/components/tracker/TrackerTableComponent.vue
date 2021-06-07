@@ -2,34 +2,14 @@
   <div class="table-responsive">
     <table class="table table-striped table-bordered">
       <thead>
-        <tr class="pagination-row">
-          <td colspan="99">
-            <template v-if="trackerEntriesPaginationDetails">
-              <button class="btn btn-default btn-tiny" 
-              :disabled="trackerEntriesPaginationDetails.current_page === 1"
-              @click="getTrackerEntries(trackerEntriesPaginationDetails.prev_page_url)">
-                <span class="material-icons">
-                  arrow_back
-                </span>
-              </button>
-              <button class="btn btn-default btn-tiny mr-3"
-              :disabled="trackerEntriesPaginationDetails.current_page === trackerEntriesPaginationDetails.last_page"
-              @click="getTrackerEntries(trackerEntriesPaginationDetails.next_page_url)">
-                <span class="material-icons">
-                  arrow_forward
-                </span>
-              </button>
-              {{trackerEntriesPaginationDetails.from}} - 
-              {{trackerEntriesPaginationDetails.to}} of 
-              {{trackerEntriesPaginationDetails.total}} entries
-            </template>
-            <template v-if="children && categories">
-              <div class="card mt-3">
+        <template v-if="children && categories">
+          <tr v-if="showFilter">
+            <td  colspan="99">
+              <div  class="card mt-3">
                 <div class="card-header">Filters</div>
                 <div class="card-body">
-
                   <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-9">
                       <div class="row">
                         <div class="col-lg-4">
                         <div class="form-group mb-3">
@@ -93,9 +73,6 @@
                           </div>
                         </div>
                       </div>
-
-                      
-
                       <div class="col-lg-4">
                         <div class="form-group mb-3"> 
                           <label for="birthday" class="form-label">Notes</label>
@@ -104,19 +81,51 @@
                       </div>
                       </div>
                     </div>
-
-                    <div class="col-lg-4">
-                        <div class="form-group mb-3"> 
-                          <label for="birthday" class="form-label">Date Range</label>
-                          <br>
-                          <!-- <input v-model="formChild.birthday" type="text" class="form-control" id="birthday"> -->
-                          <v-date-picker :timezone="$browserTimezone" is-range v-model="trackerFilters.entry_datetime_range" />
-                        </div>
+                    <div class="col-lg-3">
+                      <div class="form-group mb-3"> 
+                        <label for="birthday" class="form-label">Date Range</label>
+                        <br>
+                        <!-- <input v-model="formChild.birthday" type="text" class="form-control" id="birthday"> -->
+                        <v-date-picker :timezone="$browserTimezone" is-range v-model="trackerFilters.entry_datetime_range" />
                       </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                      <div class="text-right">
+                        <button class="btn btn-danger" @click="showFilter = false">Cancel</button>
+                        <button class="btn btn-success" @click="getTrackerEntries()">Search</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
+
+            </td>
+          </tr>
+        </template>
+
+        <tr class="pagination-row">
+          <td colspan="99">
+            <template v-if="trackerEntriesPaginationDetails">
+              <button class="btn btn-default btn-tiny" 
+              :disabled="trackerEntriesPaginationDetails.current_page === 1"
+              @click="getTrackerEntries(trackerEntriesPaginationDetails.prev_page_url)">
+                <span class="material-icons">
+                  arrow_back
+                </span>
+              </button>
+              <button class="btn btn-default btn-tiny mr-3"
+              :disabled="trackerEntriesPaginationDetails.current_page === trackerEntriesPaginationDetails.last_page"
+              @click="getTrackerEntries(trackerEntriesPaginationDetails.next_page_url)">
+                <span class="material-icons">
+                  arrow_forward
+                </span>
+              </button>
+              {{trackerEntriesPaginationDetails.from}} - 
+              {{trackerEntriesPaginationDetails.to}} of 
+              {{trackerEntriesPaginationDetails.total}} entries
             </template>
+            <button class="btn btn-primary btn-tiny float-right" @click="showFilter = true">Show Filter</button>
           </td>
         </tr>
         <tr>
@@ -214,6 +223,8 @@ export default {
 
       trackerEntriesPaginationDetails: null,
       trackerEntries: [],
+
+      showFilter: false,
       trackerFilters: {
         sort: 'entry_datetime',
         dir: 'asc',

@@ -11425,6 +11425,12 @@ nav.navbar {
   font-size: 21px;
 }
 
+.vc-container {
+  transform: scale(0.95);
+  top: -8px;
+  left: -9px;
+}
+
 /* Colors */
 
 .bg-mat-primary {

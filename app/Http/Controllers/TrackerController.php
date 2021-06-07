@@ -17,6 +17,8 @@ class TrackerController extends Controller
     /* API */
 
     public function get(Request $request, $hash = null, $tracker_id = null) {
+        dd($request->all());
+
         $tracker = Tracker::query();
 
         $tracker->join('children', 'children.id', '=', 'trackers.child_id');
