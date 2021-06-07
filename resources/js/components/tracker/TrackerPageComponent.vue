@@ -1,6 +1,6 @@
 <template>
   <div id="tracker-page-container" class="container">
-    <h1 class="mb-5">Tracker Page Component</h1>
+    <h1 class="mb-5">Tracker Entries</h1>
     <div class="row">
       <div class="col-lg-12">
         <tracker-add-data-form-component

@@ -2651,6 +2651,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2662,6 +2685,7 @@ __webpack_require__.r(__webpack_exports__);
       trackerEntriesPaginationDetails: null,
       trackerEntries: [],
       showFilter: false,
+      hasFilters: false,
       trackerFilters: {
         sort: 'entry_datetime',
         dir: 'asc',
@@ -2679,7 +2703,22 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mixins: [_mixins_tracker__WEBPACK_IMPORTED_MODULE_2__["default"], _mixins_children__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_categories__WEBPACK_IMPORTED_MODULE_0__["default"]],
-  methods: {},
+  methods: {
+    _resetFormFilters: function _resetFormFilters() {
+      this.trackerFilters.sort = 'entry_datetime';
+      this.trackerFilters.dir = 'asc';
+      this.trackerFilters.child_id = null;
+      this.selectedCategory = null;
+      this.trackerFilters.category = null;
+      this.trackerFilters.category_id = null;
+      this.trackerFilters.value_min = null;
+      this.trackerFilters.value_max = null;
+      this.trackerFilters.entry_datetime_range.start = null;
+      this.trackerFilters.entry_datetime_range.end = null;
+      this.trackerFilters.notes = null;
+      this.getTrackerEntries();
+    }
+  },
   mounted: function mounted() {
     console.log('TrackerTableComponent mounted.');
     this.getTrackerEntries();
@@ -82467,7 +82506,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "float-right" }, [
               _c("input", {
-                staticClass: "btn btn-danger",
+                staticClass: "btn btn-default",
                 attrs: {
                   type: "button",
                   onsubmit: "event.preventDefault()",
@@ -82482,7 +82521,7 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("input", {
-                staticClass: "btn btn-success",
+                staticClass: "btn btn-primary",
                 attrs: {
                   type: "button",
                   onsubmit: "event.preventDefault()",
@@ -82527,7 +82566,7 @@ var render = function() {
     "div",
     { staticClass: "container", attrs: { id: "tracker-page-container" } },
     [
-      _c("h1", { staticClass: "mb-5" }, [_vm._v("Tracker Page Component")]),
+      _c("h1", { staticClass: "mb-5" }, [_vm._v("Tracker Entries")]),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c(
@@ -82748,7 +82787,7 @@ var render = function() {
                                             _c(
                                               "option",
                                               { domProps: { value: null } },
-                                              [_vm._v("Select...")]
+                                              [_vm._v("All")]
                                             ),
                                             _vm._v(" "),
                                             _vm._l(_vm.categories, function(
@@ -82788,7 +82827,7 @@ var render = function() {
                                             staticClass: "form-label",
                                             attrs: { for: "category" }
                                           },
-                                          [_vm._v("Option")]
+                                          [_vm._v("Subcategory")]
                                         ),
                                         _vm._v(" "),
                                         _c(
@@ -82839,7 +82878,7 @@ var render = function() {
                                             _c(
                                               "option",
                                               { domProps: { value: null } },
-                                              [_vm._v("Select...")]
+                                              [_vm._v("All")]
                                             ),
                                             _vm._v(" "),
                                             _vm._l(
@@ -83143,6 +83182,7 @@ var render = function() {
                                     _c("br"),
                                     _vm._v(" "),
                                     _c("v-date-picker", {
+                                      ref: "datePickerRange",
                                       attrs: {
                                         timezone: _vm.$browserTimezone,
                                         "is-range": ""
@@ -83172,27 +83212,63 @@ var render = function() {
                                   _c(
                                     "button",
                                     {
-                                      staticClass: "btn btn-danger",
+                                      staticClass: "btn btn-default",
                                       on: {
                                         click: function($event) {
                                           _vm.showFilter = false
                                         }
                                       }
                                     },
-                                    [_vm._v("Cancel")]
+                                    [
+                                      _c(
+                                        "span",
+                                        { staticClass: "material-icons" },
+                                        [_vm._v("visibility_off")]
+                                      ),
+                                      _vm._v(" Hide\n                      ")
+                                    ]
                                   ),
                                   _vm._v(" "),
                                   _c(
                                     "button",
                                     {
-                                      staticClass: "btn btn-success",
+                                      staticClass: "btn btn-default",
                                       on: {
                                         click: function($event) {
-                                          return _vm.getTrackerEntries()
+                                          _vm._resetFormFilters()
+                                          _vm.hasFilters = false
                                         }
                                       }
                                     },
-                                    [_vm._v("Search")]
+                                    [
+                                      _c(
+                                        "span",
+                                        { staticClass: "material-icons" },
+                                        [_vm._v("restart_alt")]
+                                      ),
+                                      _vm._v(" Reset\n                      ")
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.getTrackerEntries()
+                                          _vm.hasFilters = true
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "span",
+                                        { staticClass: "material-icons" },
+                                        [_vm._v("search")]
+                                      ),
+                                      _vm._v(" Search\n                      ")
+                                    ]
                                   )
                                 ])
                               ])
@@ -83288,7 +83364,12 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Show Filter")]
+                  [
+                    _c("span", { staticClass: "material-icons" }, [
+                      _vm._v("visibility")
+                    ]),
+                    _vm._v(" Show Filters\n          ")
+                  ]
                 )
               ],
               2
@@ -83315,11 +83396,24 @@ var render = function() {
                 staticClass: "clickable",
                 on: {
                   click: function($event) {
-                    return _vm._trackerSortColumn("category_name")
+                    return _vm._trackerSortColumn("category_group")
                   }
                 }
               },
               [_vm._v("Category")]
+            ),
+            _vm._v(" "),
+            _c(
+              "th",
+              {
+                staticClass: "clickable",
+                on: {
+                  click: function($event) {
+                    return _vm._trackerSortColumn("category_name")
+                  }
+                }
+              },
+              [_vm._v("Subcategory")]
             ),
             _vm._v(" "),
             _c(
@@ -83380,12 +83474,37 @@ var render = function() {
                       _vm.editEntryId !== entry.id
                         ? [
                             _c("td", [
-                              _vm._v(
-                                _vm._s(entry.child.first_name) +
-                                  " " +
-                                  _vm._s(entry.child.last_name)
+                              _c(
+                                "a",
+                                {
+                                  attrs: {
+                                    href: "/children/" + entry.child.hash
+                                  }
+                                },
+                                [
+                                  _c("img", {
+                                    staticClass: "rounded-circle mr-1",
+                                    attrs: {
+                                      src:
+                                        _vm.$baseAvatarPath +
+                                        "/" +
+                                        entry.child.image_path,
+                                      alt: "Avatar: " + entry.child.first_name,
+                                      width: "35px"
+                                    }
+                                  }),
+                                  _vm._v(
+                                    " \n                " +
+                                      _vm._s(entry.child.first_name) +
+                                      " " +
+                                      _vm._s(entry.child.last_name) +
+                                      "\n              "
+                                  )
+                                ]
                               )
                             ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(entry.category.group))]),
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(entry.category.name))]),
                             _vm._v(" "),
@@ -83604,39 +83723,35 @@ var render = function() {
                   )
                 ])
               ]
-            : [_vm._m(0)]
+            : [
+                _c("tr", [
+                  _c(
+                    "td",
+                    { staticClass: "text-center", attrs: { colspan: "99" } },
+                    [
+                      _vm.hasFilters
+                        ? [
+                            _vm._v(
+                              "\n              There are no entries based on your filters.\n            "
+                            )
+                          ]
+                        : [
+                            _vm._v(
+                              "\n              There are currently no entries. Click the New Entry button above to begin.\n            "
+                            )
+                          ]
+                    ],
+                    2
+                  )
+                ])
+              ]
         ],
         2
       )
-    ]),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        on: {
-          click: function($event) {
-            return _vm._debugSaveEntry()
-          }
-        }
-      },
-      [_vm._v("Force Entry")]
-    )
+    ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", { staticClass: "text-center", attrs: { colspan: "99" } }, [
-        _vm._v(
-          "There are currently no entries. Click the New Entry button above to begin."
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -97896,12 +98011,13 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$browserTimezone = Intl.Dat
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$utcToLocal = function (datetime) {
   return momenttz.utc(datetime).tz(vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$browserTimezone).format("M/D/yy h:mm a");
-}; // console.log(moment().tz("America/Los_Angeles").format());
+};
+
+console.log(moment(1625088852294).format("MM/DD/yy")); // console.log(moment().tz("America/Los_Angeles").format());
 // var a = moment("2021-06-02 21:00:00");
 // console.log(a.utc().format("M/D/yy h:mm a"));
 // var b = momenttz.utc("2021-06-02 21:00:00").tz("America/Los_Angeles").format("M/D/yy h:mm a");
 // console.log(b);
-
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.filter('dateFormat', function (datetime) {
   return momenttz.utc(datetime).tz(vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$browserTimezone).format("M/D/yy h:mm a"); // return moment(datetime).utc().format("M/D/yy h:mm a");
@@ -98690,7 +98806,7 @@ __webpack_require__.r(__webpack_exports__);
         currentPage = setCurrentPage;
       }
 
-      var targetUrl = paginationUrl ? paginationUrl : "".concat(Vue.prototype.$baseAPI, "/tracker?page=").concat(currentPage); // targetUrl += `&sort=${this.trackerFilters.sort}&dir=${this.trackerFilters.dir}`;
+      var targetUrl = paginationUrl ? paginationUrl : "".concat(Vue.prototype.$baseAPI, "/tracker?page=").concat(currentPage);
 
       if (this.selectedCategory) {
         targetUrl += "&category=".concat(this.selectedCategory);
@@ -98698,31 +98814,26 @@ __webpack_require__.r(__webpack_exports__);
 
 
       lodash__WEBPACK_IMPORTED_MODULE_0___default.a.forOwn(this.trackerFilters, function (value, key) {
-        console.log(key, value);
+        if (value !== null && value !== '') {
+          switch (key) {
+            case "category":
+              targetUrl += "&category_id=".concat(value.id);
+              break;
 
-        switch (key) {
-          case "category":
-            break;
+            case "entry_datetime_range":
+              if (value.start && value.end) {
+                targetUrl += "&".concat(key, "=").concat(moment(value.start).format("yy-MM-DD"), ",").concat(moment(value.end).format("yy-MM-DD"));
+              }
 
-          case "category_id":
-            if (value) {
-              targetUrl += "&".concat(key, "=").concat(value.group);
-            }
+              break;
 
-            break;
-
-          case "entry_datetime_range":
-            targetUrl += "&".concat(key, "=").concat(moment(value.start).valueOf(), ",").concat(moment(value.end).valueOf());
-            break;
-
-          default:
-            targetUrl += "&".concat(key, "=").concat(value);
-            break;
+            default:
+              targetUrl += "&".concat(key, "=").concat(value);
+              break;
+          }
         }
       });
 
-      console.log('targetUrl', targetUrl);
-      console.log('url encoded', encodeURI(targetUrl));
       axios.get(targetUrl).then(function (res) {
         // There can be times where the user will delete the last
         // entry of a particular page (e.g. page 3 has one entry).
@@ -98748,13 +98859,14 @@ __webpack_require__.r(__webpack_exports__);
       this.$v.formTracker.$touch();
 
       if (!this.$v.formTracker.$invalid) {
-        var momenttz = __webpack_require__(/*! moment-timezone */ "./node_modules/moment-timezone/index.js");
-
         this.formTracker.category_id = this.formTracker.category.id;
 
         var entryData = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.clone(this.formTracker);
 
         delete entryData.category;
+
+        var momenttz = __webpack_require__(/*! moment-timezone */ "./node_modules/moment-timezone/index.js");
+
         entryData.entry_datetime = momenttz(this.formTracker.entry_datetime).utc().format("YYYY-MM-DD HH:mm:ss");
         axios.post("".concat(Vue.prototype.$baseAPI, "/tracker"), entryData).then(function (res) {
           _this2.$toasted.success('Entry successfully saved.');

@@ -76,8 +76,8 @@
           </div>
           
           <div class="float-right">
-            <input type="button" onsubmit="event.preventDefault()" @click="_resetFormTracker();$emit('cancelTrackerEntry');" class="btn btn-danger" value="Cancel">
-            <input type="button" onsubmit="event.preventDefault()" @click="saveTrackerEntry()" class="btn btn-success" value="Save" />
+            <input type="button" onsubmit="event.preventDefault()" @click="_resetFormTracker();$emit('cancelTrackerEntry');" class="btn btn-default" value="Cancel">
+            <input type="button" onsubmit="event.preventDefault()" @click="saveTrackerEntry()" class="btn btn-primary" value="Save" />
           </div>
           
         </form>

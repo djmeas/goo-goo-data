@@ -14,10 +14,14 @@ class TrackerController extends Controller
         return view('tracker.index');
     }
 
+    public function view() {
+        return view('tracker.view_child');
+    }
+
     /* API */
 
     public function get(Request $request, $hash = null, $tracker_id = null) {
-        dd($request->all());
+        // dd($request->all(), $request->has('child_id'));
 
         $tracker = Tracker::query();
 
@@ -28,10 +32,44 @@ class TrackerController extends Controller
             'trackers.*', 
             'children.first_name as first_name',
             'children.last_name as last_name',
+            'categories.group as category_group',
             'categories.name as category_name'
         );
 
-        $tracker->whereIn('child_id', \App\Child::accessibleChildren());
+        // Child
+        if ($request->has('child_id') && in_array($request->get('child_id'), \App\Child::accessibleChildren())) {
+            $tracker->where('child_id', $request->get('child_id'));
+        } else {
+            $tracker->whereIn('child_id', \App\Child::accessibleChildren());
+        }
+
+        // Category
+        if ($request->has('category')) {
+            if ($request->has('category_id')) {
+                $tracker->where('category_id', $request->get('category_id'));
+            } else {
+                $tracker->where('categories.group', $request->get('category'));
+            }
+        }
+
+        // Amount
+        if ($request->has('value_min')) {
+            $tracker->where('value', '>=', $request->get('value_min'));
+        }
+
+        if ($request->has('value_max')) {
+            $tracker->where('value', '<=', $request->get('value_max'));
+        }
+
+        // Date Range
+        if ($request->has('entry_datetime_range')) {
+            $tracker->whereBetween('entry_datetime', explode(',', $request->get('entry_datetime_range')));
+        }
+
+        // Notes
+        if ($request->has('notes')) {
+            $tracker->where('notes', 'like', '%' . urldecode($request->get('notes')) . '%');
+        }
 
         $tracker->orderBy(
             $request->get('sort') ?: 'entry_datetime',

@@ -28,37 +28,30 @@ export default {
         ? paginationUrl 
         : `${Vue.prototype.$baseAPI}/tracker?page=${currentPage}`;
       
-      // targetUrl += `&sort=${this.trackerFilters.sort}&dir=${this.trackerFilters.dir}`;
       if (this.selectedCategory) {
         targetUrl += `&category=${this.selectedCategory}`;
       }
 
       // Additional filters
       _.forOwn(this.trackerFilters, (value, key) => {
-        console.log(key, value);
-        switch (key) {
-          case "category":
-            break;
-
-          case "category_id":
-            if (value) {
-              targetUrl += `&${key}=${value.group}`;
-            }
-            break;
-            
-          case "entry_datetime_range":
-            targetUrl += `&${key}=${moment(value.start).valueOf()},${moment(value.end).valueOf()}`;
-            break;
-        
-          default:
-            targetUrl += `&${key}=${value}`;
-            break;
+        if (value !== null && value !== '') {
+          switch (key) {
+            case "category":
+              targetUrl += `&category_id=${value.id}`;
+              break;
+  
+            case "entry_datetime_range":
+              if (value.start && value.end) {
+                targetUrl += `&${key}=${moment(value.start).format("yy-MM-DD")},${moment(value.end).format("yy-MM-DD")}`;
+              }
+              break;
+          
+            default:
+              targetUrl += `&${key}=${value}`;
+              break;
+          }
         }
-        
       });
-
-      console.log('targetUrl', targetUrl);
-      console.log('url encoded', encodeURI(targetUrl));
 
       axios.get(targetUrl)
         .then(res => {
@@ -85,13 +78,12 @@ export default {
       this.$v.formTracker.$touch();
 
       if (!this.$v.formTracker.$invalid) {
-        var momenttz = require('moment-timezone');
-
         this.formTracker.category_id = this.formTracker.category.id;
         
         const entryData = _.clone(this.formTracker);
-
         delete entryData.category;
+
+        var momenttz = require('moment-timezone');
         entryData.entry_datetime = momenttz(this.formTracker.entry_datetime).utc().format("YYYY-MM-DD HH:mm:ss");
 
         axios.post(`${Vue.prototype.$baseAPI}/tracker`, entryData)

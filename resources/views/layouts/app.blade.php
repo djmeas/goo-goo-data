@@ -22,7 +22,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-mat-primary shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-mat-primary shadow-sm mb-4">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                 <span class="material-icons" style="vertical-align: sub;">

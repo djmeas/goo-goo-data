@@ -66,6 +66,8 @@ Vue.prototype.$utcToLocal = function(datetime) {
     return momenttz.utc(datetime).tz(Vue.prototype.$browserTimezone).format("M/D/yy h:mm a");
 };
 
+console.log(moment(1625088852294).format("MM/DD/yy"));
+
 // console.log(moment().tz("America/Los_Angeles").format());
 // var a = moment("2021-06-02 21:00:00");
 // console.log(a.utc().format("M/D/yy h:mm a"));

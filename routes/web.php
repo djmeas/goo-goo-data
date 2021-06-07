@@ -26,6 +26,7 @@ Route::middleware(['isAuthenticatedUser'])->group(function() {
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/children', 'ChildController@index')->name('children');
+    Route::get('/children/{hash}', 'ChildController@view')->name('view_child');
 
     Route::get('/tracker', 'TrackerController@index')->name('tracker');
 
