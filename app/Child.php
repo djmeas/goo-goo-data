@@ -33,4 +33,13 @@ class Child extends Model
     public static function accessibleChildren() {
         return Arr::pluck(Caretaker::where('user_id', Auth::id())->get(), 'child_id');
     }
+
+    public static function getAllCaretakerUsers($child_id) {
+        $caretaker_users = Arr::pluck(Caretaker::where('child_id', $child_id)
+            ->get(), 'user_id');
+        
+        if ($caretaker_users) {
+            return AppUser::whereIn('id', $caretaker_users)->get();
+        }
+    }
 }

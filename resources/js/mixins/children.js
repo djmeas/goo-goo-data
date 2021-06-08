@@ -1,6 +1,7 @@
 export default {
   data () {
      return {
+      child: null,
       children: []
      }
   },
@@ -9,12 +10,20 @@ export default {
       * Get the list of children for this user.
       * 
       */
-     getChildren() {
-      axios.get(`${Vue.prototype.$baseAPI}/child`)
+     getChildren(hash) {
+      let targetUrl = `${Vue.prototype.$baseAPI}/child`;
+      
+      if (hash) {
+        targetUrl += `/${hash}`;
+      }
+
+      axios.get(targetUrl)
       .then(res => {
-        // console.log('children', this.children);
-        this.children = res.data;
-        
+        if (hash) {
+          this.child = res.data;
+        } else {
+          this.children = res.data;
+        }
       })
       .catch(err => {
 

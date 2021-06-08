@@ -14,10 +14,6 @@ class TrackerController extends Controller
         return view('tracker.index');
     }
 
-    public function view() {
-        return view('tracker.view_child');
-    }
-
     /* API */
 
     public function get(Request $request, $hash = null, $tracker_id = null) {
@@ -35,6 +31,11 @@ class TrackerController extends Controller
             'categories.group as category_group',
             'categories.name as category_name'
         );
+
+        if ($request->has('hash')) {
+            $tracker->whereIn('child_id', \App\Child::accessibleChildren());
+            $tracker->where('hash', $request->get('hash'));
+        }
 
         // Child
         if ($request->has('child_id') && in_array($request->get('child_id'), \App\Child::accessibleChildren())) {

@@ -77,7 +77,14 @@ console.log(moment(1625088852294).format("MM/DD/yy"));
 
 Vue.filter('dateFormat', (datetime) => {
     return momenttz.utc(datetime).tz(Vue.prototype.$browserTimezone).format("M/D/yy h:mm a");
-    // return moment(datetime).utc().format("M/D/yy h:mm a");
+});
+
+Vue.filter('dateFormatMDY', (datetime) => {
+    return momenttz.utc(datetime).tz(Vue.prototype.$browserTimezone).format("M/D/yy");
+});
+
+Vue.filter('dateFormatTime', (datetime) => {
+    return momenttz.utc(datetime).tz(Vue.prototype.$browserTimezone).format("h:mm a");
 });
 
 const app = new Vue({

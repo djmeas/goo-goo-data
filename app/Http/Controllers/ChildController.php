@@ -20,6 +20,12 @@ class ChildController extends Controller
         return view('children.index');
     }
 
+    public function view(Request $request, $hash) {
+        return view('children.view', [
+            'hash' => $hash
+        ]);
+    }
+
     // API Routes
 
     /**
@@ -29,7 +35,7 @@ class ChildController extends Controller
      */
     public function get(Request $request, $hash = null) {
         if ($hash) {
-            return Child::where('hash', $hash)
+            $child = Child::where('hash', $hash)
                 ->with(['Caretaker' => function ($q) {
                     $q->where('user_id', Auth::id());
                 }])
@@ -37,6 +43,10 @@ class ChildController extends Controller
                     $q->where('user_id', Auth::id());
                 })
                 ->first();
+
+            $child['caretaker_users'] = Child::getAllCaretakerUsers($child->id);
+
+            return $child;
         }
 
         return Child::with(['Caretaker' => function($q) {

@@ -1,6 +1,6 @@
 <template>
   <div class="table-responsive">
-    <table class="table table-striped table-bordered">
+    <table class="table table-bordered">
       <thead>
         <template v-if="children && categories">
           <tr v-if="showFilter">
@@ -132,7 +132,7 @@
               {{trackerEntriesPaginationDetails.to}} of 
               {{trackerEntriesPaginationDetails.total}} entries
             </template>
-            <button class="btn btn-primary btn-tiny float-right" @click="showFilter = true">
+            <button v-if="!childhash" class="btn btn-primary btn-tiny float-right" @click="showFilter = true">
               <span class="material-icons">visibility</span> Show Filters
             </button>
           </td>
@@ -151,10 +151,10 @@
         <template v-if="trackerEntries.length > 0">
           <tr v-for="entry in trackerEntries" :key="'entry' + entry.id">
             <template v-if="editEntryId !== entry.id">
-              <td>
+              <td class="white-space-nw">
                 <a :href="`/children/${entry.child.hash}`">
-                  <img class="rounded-circle mr-1" :src="$baseAvatarPath + '/' + entry.child.image_path" :alt="'Avatar: ' + entry.child.first_name" width="35px"> 
-                  {{entry.child.first_name}} {{entry.child.last_name}}
+                  <img class="rounded-circle mr-1" :src="$baseAvatarPath + '/' + entry.child.image_path" :alt="'Avatar: ' + entry.child.first_name" width="25px"> 
+                  {{entry.child.first_name}}
                 </a>
               </td>
               <td>{{entry.category.group}}</td>
@@ -164,7 +164,9 @@
                 <template v-if="entry.category.suffix">{{entry.category.suffix}}</template>
               </td>
               <td v-html="entry.notes"></td>
-              <td>{{entry.entry_datetime | dateFormat}}</td>
+              <td class="white-space-nw">
+                {{entry.entry_datetime | dateFormatMDY}} {{entry.entry_datetime | dateFormatTime}}
+              </td>
               <td style="width: 20px" class="text-center">
                 <div class="dropdown">
                   <button class="btn btn-default dropdown-toggle" 
@@ -253,6 +255,7 @@ export default {
         sort: 'entry_datetime',
         dir: 'asc',
         child_id: null,
+        hash: null,
         category: null,
         category_id: null,
         value_min: null,
@@ -266,6 +269,14 @@ export default {
     }
   },
 
+  props: {
+    childhash: {
+      type: String,
+      required: false,
+      default: null
+    }
+  },
+
   mixins: [
     trackerMixin,
     childrenMixin,
@@ -273,6 +284,11 @@ export default {
   ],
 
   methods: {
+    /**
+     * Resets the trackerFilters data.
+     * Note that we do not reset the hash when a 
+     * user is viewing a particular child's profile page.
+     */
     _resetFormFilters() {
       this.trackerFilters.sort = 'entry_datetime';
       this.trackerFilters.dir = 'asc';
@@ -292,6 +308,11 @@ export default {
 
   mounted() {
     console.log('TrackerTableComponent mounted.');
+
+    if (this.childhash) {
+      this.trackerFilters.hash = this.childhash;
+    }
+
     this.getTrackerEntries();
     this.getChildren();
     this.getCategories();

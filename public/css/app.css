@@ -11384,6 +11384,10 @@ a.text-dark:focus {
   }
 }
 
+body {
+  background: linear-gradient(180deg, rgba(189, 85, 255, 0.4) 8%, rgba(130, 69, 234, 0.13) 35%, rgba(130, 69, 234, 0) 100%);
+}
+
 /* Bootstrap Overrides */
 
 nav.navbar {
@@ -11416,6 +11420,10 @@ nav.navbar {
 .btn-primary {
   background-color: #b082ff;
   border-color: #aa78ff;
+}
+
+.white-space-nw {
+  white-space: nowrap !important;
 }
 
 /* Material Icon Overrides */
@@ -11585,6 +11593,10 @@ label.form-group--error {
 
 .pagination-row {
   background: #ece1ff !important;
+}
+
+.table tr {
+  background-color: white;
 }
 
 @media (min-width: 768px) {

@@ -10,6 +10,12 @@
 // Vue WYSIWYG
 @import "~vue-wysiwyg/dist/vueWysiwyg.css";
 
+body {
+  background: linear-gradient(
+    180deg
+    , rgba(189, 85, 255, .40) 8%, rgba(130, 69, 234, 0.13) 35%, rgba(130, 69, 234, 0) 100%);
+}
+
 /* Bootstrap Overrides */
 nav.navbar {
   border-bottom: 8px solid #b082ff;
@@ -41,6 +47,10 @@ nav.navbar {
 .btn-primary {
   background-color: #b082ff;
   border-color: #aa78ff;
+}
+
+.white-space-nw {
+  white-space: nowrap !important;
 }
 
 /* Material Icon Overrides */
@@ -163,6 +173,12 @@ border-color: #f79483;
 
 .pagination-row {
   background: #ece1ff !important;
+}
+
+.table {
+  tr {
+    background-color: white;
+  }
 }
 
 @include media-breakpoint-up(md) {
