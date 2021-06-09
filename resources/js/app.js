@@ -66,14 +66,20 @@ Vue.prototype.$utcToLocal = function(datetime) {
     return momenttz.utc(datetime).tz(Vue.prototype.$browserTimezone).format("M/D/yy h:mm a");
 };
 
-console.log(moment(1625088852294).format("MM/DD/yy"));
+Vue.prototype.$tempClass = function(elementId, className) {
+    const el = document.getElementById(elementId);
+    el.classList.add(className);
+    setTimeout(() => {
+        el.classList.remove(className);
+    }, 5000);
+};
 
-// console.log(moment().tz("America/Los_Angeles").format());
-// var a = moment("2021-06-02 21:00:00");
-// console.log(a.utc().format("M/D/yy h:mm a"));
+Vue.prototype.$addClass = function(elementId, className) {
+    const el = document.getElementById(elementId);
+    el.classList.add(className);
+};
 
-// var b = momenttz.utc("2021-06-02 21:00:00").tz("America/Los_Angeles").format("M/D/yy h:mm a");
-// console.log(b);
+console.log(Math.floor(moment().diff(moment('2020-03-26'), 'months', true)));
 
 Vue.filter('dateFormat', (datetime) => {
     return momenttz.utc(datetime).tz(Vue.prototype.$browserTimezone).format("M/D/yy h:mm a");
@@ -83,9 +89,22 @@ Vue.filter('dateFormatMDY', (datetime) => {
     return momenttz.utc(datetime).tz(Vue.prototype.$browserTimezone).format("M/D/yy");
 });
 
+Vue.filter('dateFormatBirthday', (datetime) => {
+    return moment(datetime).format("M/D/yy");
+});
+
 Vue.filter('dateFormatTime', (datetime) => {
     return momenttz.utc(datetime).tz(Vue.prototype.$browserTimezone).format("h:mm a");
 });
+
+Vue.prototype.$childBirthdayInMonths = function(birthdate) {
+    const months = Math.floor(moment().diff(moment(birthdate), 'months', true));
+    if (months <= 23) {
+        return `${months} months old`;
+    }
+
+    return `${Math.floor(months/12)} years old`;
+}
 
 const app = new Vue({
     el: '#app',

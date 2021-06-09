@@ -11385,10 +11385,15 @@ a.text-dark:focus {
 }
 
 body {
+  font-size: 16px;
   background: linear-gradient(180deg, rgba(189, 85, 255, 0.4) 8%, rgba(130, 69, 234, 0.13) 35%, rgba(130, 69, 234, 0) 100%);
 }
 
 /* Bootstrap Overrides */
+
+.hidden {
+  display: none;
+}
 
 nav.navbar {
   border-bottom: 8px solid #b082ff;
@@ -11558,6 +11563,93 @@ label.form-group--error {
   }
 }
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade_in_only-enter-active {
+  transition: opacity 1s;
+}
+
+.fade_in_only-enter {
+  opacity: 0;
+}
+
+.color-faze {
+  -webkit-animation-name: colorFazeAnimation;
+          animation-name: colorFazeAnimation;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-animation-duration: 0.3s;
+          animation-duration: 0.3s;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes colorFazeAnimation {
+  0% {
+    color: #b082ff;
+  }
+
+  100% {
+    color: #212529;
+  }
+}
+
+@keyframes colorFazeAnimation {
+  0% {
+    color: #b082ff;
+  }
+
+  100% {
+    color: #212529;
+  }
+}
+
+.scale-in {
+  display: revert !important;
+  -webkit-animation-name: slideLeftAnimation;
+          animation-name: slideLeftAnimation;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-animation-duration: 0.1s;
+          animation-duration: 0.1s;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes slideLeftAnimation {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideLeftAnimation {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Base Pages */
+
+.page-contents-container {
+  min-height: 750px;
+}
+
 /* UI Interactions */
 
 .clickable:hover {
@@ -11567,6 +11659,7 @@ label.form-group--error {
 /* Children */
 
 .child-card {
+  transition: 1s;
   border: 1px solid lightgray;
   background-color: white;
 }

@@ -11,12 +11,17 @@
 @import "~vue-wysiwyg/dist/vueWysiwyg.css";
 
 body {
+  font-size: 16px;
   background: linear-gradient(
     180deg
     , rgba(189, 85, 255, .40) 8%, rgba(130, 69, 234, 0.13) 35%, rgba(130, 69, 234, 0) 100%);
 }
 
 /* Bootstrap Overrides */
+.hidden {
+  display: none;
+}
+
 nav.navbar {
   border-bottom: 8px solid #b082ff;
 }
@@ -139,6 +144,65 @@ border-color: #f79483;
     transform: translateX(0); } 
 }
 
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.fade_in_only-enter-active {
+  transition: opacity 1s;
+}
+.fade_in_only-enter /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.color-faze {
+  animation-name: colorFazeAnimation;
+  animation-fill-mode: forwards;
+  animation-duration: .30s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes colorFazeAnimation {
+  0% {
+    color: #b082ff;
+    // transform: scale(.5, .5);
+  }
+
+  100% {
+    color: #212529;
+    // transform: scale(1, 1);
+  } 
+}
+
+.scale-in {
+  display: revert !important;
+  animation-name: slideLeftAnimation;
+  animation-fill-mode: forwards;
+  animation-duration: .1s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes slideLeftAnimation {
+  0% {
+    opacity: 0;
+    // transform: scale(.5, .5);
+  }
+
+  100% {
+    opacity: 1;
+    // transform: scale(1, 1);
+  } 
+}
+
+/* Base Pages */
+
+.page-contents-container {
+  min-height: 750px;
+}
+
 /* UI Interactions */
 
 .clickable:hover {
@@ -148,6 +212,7 @@ border-color: #f79483;
 /* Children */
 
 .child-card {
+  transition: 1s;
   border: 1px solid lightgray;
   background-color: white;
 

@@ -22,7 +22,15 @@ export default {
         if (hash) {
           this.child = res.data;
         } else {
-          this.children = res.data;
+          // res.data.forEach((child, index) => {
+          //   setTimeout(() => {
+          //     this.children.push(child);
+          //     setTimeout(() => {
+          //       Vue.prototype.$addClass('child-card-' + child.id, 'color-faze');
+          //     }, 100);
+          //   }, ((index + 1) * 100));
+          // })
+          
         }
       })
       .catch(err => {

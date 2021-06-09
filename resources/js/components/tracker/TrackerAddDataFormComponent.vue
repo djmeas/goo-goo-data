@@ -6,6 +6,7 @@
       </button>
     </div>
 
+    <transition name="fade_in_only">
     <div v-show="isAdding" id="form-add-child" class="card mb-4">
       <div class="card-header">{{existingEntry ? 'Edit' : 'New'}} Entry</div>
       <div class="card-body">
@@ -83,6 +84,7 @@
         </form>
       </div>
     </div>
+    </transition>
   </div>
 </template>
 

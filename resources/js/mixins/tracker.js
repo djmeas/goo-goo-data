@@ -1,9 +1,10 @@
 import _ from 'lodash';
+import Vue from 'vue';
 
 export default {
   data() {
     return {
-
+      trackerInitLoad: false
     }
   },
 
@@ -64,7 +65,20 @@ export default {
           } else {
             this.trackerEntriesPaginationDetails = res.data;
             this.trackerEntries = res.data.data;
+            res.data.data.forEach((entry, index) => {
+              setTimeout(() => {
+                Vue.prototype.$addClass('entry-tr-' + entry.id, 'color-faze');
+              }, ((index + 1) * 30));
+            })
           }
+
+          if (!this.trackerInitLoad) {
+            this.trackerInitLoad = true;
+            this.$emit('trackerInitLoadComplete');
+          } 
+
+          // Vue.prototype.$tempClass('tracker-table', 'slide-left');
+          
         })
         .catch(err => {
           this.$toasted.error(err.response.data);

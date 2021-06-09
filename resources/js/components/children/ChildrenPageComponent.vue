@@ -17,7 +17,7 @@
       v-on:eventAddChild="eventAddChild()"
       v-on:eventDeleteChild="eventDeleteChild()">
     </child-cards-component>
-    <button @click="refreshChildren">Refresh Test</button>
+    <!-- <button @click="refreshChildren">Refresh Test</button> -->
   </div>
 </template>
 

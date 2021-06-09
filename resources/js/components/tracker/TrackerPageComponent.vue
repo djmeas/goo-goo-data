@@ -1,14 +1,20 @@
 <template>
   <div id="tracker-page-container" class="container">
-    <h1 class="mb-5">Tracker Entries</h1>
+    <h1 class="mb-5">
+      Tracker Entries
+    </h1>
     <div class="row">
       <div class="col-lg-12">
-        <tracker-add-data-form-component
-        ref="trackerAddDataFormComponent"
-        v-on:eventSaveTrackerEntry="eventSaveTrackerEntry" />
+        <transition name="fade">
+          <tracker-add-data-form-component
+          ref="trackerAddDataFormComponent"
+          v-if="trackerInitLoadComplete"
+          v-on:eventSaveTrackerEntry="eventSaveTrackerEntry" />
+        </transition>
         <tracker-table-component
         ref="trackerTableComponent"
-        v-on:eventDeleteTrackerEntry="eventDeleteTrackerEntry" />
+        v-on:eventDeleteTrackerEntry="eventDeleteTrackerEntry"
+        v-on:trackerInitLoadComplete="trackerInitLoadComplete = true;" />
       </div>
     </div>
   </div>
@@ -18,7 +24,7 @@
 export default {
   data() {
     return {
-
+      trackerInitLoadComplete: false,
     }
   },
 

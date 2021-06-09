@@ -2,15 +2,17 @@
   <div id="child-cards" class="row">
     <template v-if="children">
       <div v-for="child in children" :key="child.first_name + '-' + child.id" class="col-lg-3 col-md-6">
-        <div class="child-card">
+        <div :id="`child-card-${child.id}`" class="child-card">
           <div class="photo text-center">
             <img v-if="child.image_path" :src="`${$baseAvatarPath}/${child.image_path}`" alt="Child's avatar" />
             <span v-else class="material-icons" style="font-size: 200px;">child_care</span>
           </div>
           <div class="name text-center pt-4">
-            {{child.first_name}} {{child.last_name}}
-            <br>
-            <span @click="deleteChild(child.hash)">Delete</span>
+            <a :href="`/children/${child.hash}`">
+              {{child.first_name}} {{child.last_name}}
+            </a>
+            <!-- <br>
+            <span @click="deleteChild(child.hash)">Delete</span> -->
           </div>
         </div>
       </div>
