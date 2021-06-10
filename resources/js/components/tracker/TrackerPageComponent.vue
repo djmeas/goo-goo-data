@@ -1,8 +1,6 @@
 <template>
   <div id="tracker-page-container" class="container">
-    <h1 class="mb-5">
-      Tracker Entries
-    </h1>
+    <page-header-text text="Tracker Entries"/>
     <div class="row">
       <div class="col-lg-12">
         <transition name="fade">

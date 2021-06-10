@@ -2,7 +2,7 @@
   <div id="children-page-container">
     <div class="row">
       <div class="col-lg-12 mb-4">
-        <h1>Children</h1>
+        <page-header-text text="Children"/>
       </div>
       <div class="col-lg-8 offset-lg-2">
         <child-add-form-component 

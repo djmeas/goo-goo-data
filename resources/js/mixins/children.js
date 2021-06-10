@@ -1,9 +1,10 @@
 export default {
   data () {
-     return {
+    return {  
+      childrenInitLoad: false,
       child: null,
       children: []
-     }
+    }
   },
   methods: {
      /**
@@ -22,19 +23,15 @@ export default {
         if (hash) {
           this.child = res.data;
         } else {
-          // res.data.forEach((child, index) => {
-          //   setTimeout(() => {
-          //     this.children.push(child);
-          //     setTimeout(() => {
-          //       Vue.prototype.$addClass('child-card-' + child.id, 'color-faze');
-          //     }, 100);
-          //   }, ((index + 1) * 100));
-          // })
-          
+          this.children = res.data;
+        }
+
+        if (!this.childrenInitLoad) {
+          this.childrenInitLoad = true;
         }
       })
       .catch(err => {
-
+        this.$toasted.error('Whoops! We could not fetch the children data.');
       })
      },
 

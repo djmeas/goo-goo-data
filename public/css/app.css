@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&display=swap);
 .editr {
   border: 1px solid #e4e4e4;
   width: 100%;
@@ -11385,8 +11385,42 @@ a.text-dark:focus {
 }
 
 body {
+  color: #3a434c;
   font-size: 16px;
-  background: linear-gradient(180deg, rgba(189, 85, 255, 0.4) 8%, rgba(130, 69, 234, 0.13) 35%, rgba(130, 69, 234, 0) 100%);
+  background: linear-gradient(360deg, rgba(160, 86, 208, 0.8) 8%, rgba(130, 69, 234, 0.13) 35%, rgba(130, 69, 234, 0) 100%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Comfortaa", cursive;
+}
+
+.page-header {
+  position: relative;
+}
+
+.page-header h1 {
+  border-bottom: 3px solid #7f3fa742;
+  text-align: center;
+}
+
+.page-header svg.header-circle-a {
+  position: absolute;
+  top: -33px;
+  left: -20px;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+.page-header svg.header-circle-b {
+  position: absolute;
+  top: -25px;
+  left: -10px;
+  z-index: -1;
+  opacity: 0.15;
 }
 
 /* Bootstrap Overrides */
@@ -11408,7 +11442,7 @@ nav.navbar {
 }
 
 .footer-container {
-  background-color: #333;
+  background-color: #2b1e3c;
   color: white;
 }
 
@@ -11429,6 +11463,16 @@ nav.navbar {
 
 .white-space-nw {
   white-space: nowrap !important;
+}
+
+@media (min-width: 1200px) {
+  .container-xl,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container {
+    max-width: 1300px;
+  }
 }
 
 /* Material Icon Overrides */
@@ -11690,6 +11734,45 @@ label.form-group--error {
 
 .table tr {
   background-color: white;
+}
+
+/* UI Components */
+
+.card-horizontal {
+  position: relative;
+  display: flex;
+  background-color: white;
+}
+
+.card-horizontal h1 {
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+.card-horizontal h2 {
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+.card-horizontal .left-box {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex: 1;
+  border: 1px solid gray;
+}
+
+.card-horizontal .left-box .material-icons {
+  font-size: 64px;
+}
+
+.card-horizontal .right-box {
+  flex: 3;
+  border: 1px solid gray;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (min-width: 768px) {

@@ -1,5 +1,6 @@
 <template>
   <div class="table-responsive">
+    <page-header-text v-if="childhash" text="Tracker Entries"/>
     <transition name="fade">
       <template v-if="trackerInitLoad">
         <table id="tracker-table" class="table table-bordered">

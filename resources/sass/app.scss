@@ -1,5 +1,6 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&display=swap');
 
 // Variables
 @import 'variables';
@@ -11,10 +12,48 @@
 @import "~vue-wysiwyg/dist/vueWysiwyg.css";
 
 body {
+  color: #3a434c;
   font-size: 16px;
   background: linear-gradient(
-    180deg
-    , rgba(189, 85, 255, .40) 8%, rgba(130, 69, 234, 0.13) 35%, rgba(130, 69, 234, 0) 100%);
+    360deg
+    , rgb(160 86 208 / 80%) 8%, rgba(130, 69, 234, 0.13) 35%, rgba(130, 69, 234, 0) 100%);
+  // background: linear-gradient(
+  //   180deg
+  //   , rgba(189, 85, 255, .40) 8%, rgba(130, 69, 234, 0.13) 35%, rgba(130, 69, 234, 0) 100%);
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Comfortaa', cursive;
+}
+
+.page-header {
+  position: relative;
+  
+  h1 {
+    border-bottom: 3px solid #7f3fa742;
+//     background: linear-gradient(
+// 360deg
+// , rgb(255 255 255 / 5%) 0%, rgba(255, 255, 255, 0.7160348759) 50%, rgba(130, 69, 234, 0) 100%);
+//     padding: 10px;
+    text-align: center;
+    // border-radius: 15px;
+  }
+
+  svg.header-circle-a {
+    position: absolute;
+    top: -33px;
+    left: -20px;
+    z-index: -1;
+    opacity: .3;
+  }
+
+  svg.header-circle-b {
+    position: absolute;
+    top: -25px;
+    left: -10px;
+    z-index: -1;
+    opacity: .15;
+  }
 }
 
 /* Bootstrap Overrides */
@@ -35,7 +74,7 @@ nav.navbar {
 }
 
 .footer-container {
-  background-color: #333;
+  background-color: #2b1e3c;
   color: white;
 }
 
@@ -56,6 +95,12 @@ nav.navbar {
 
 .white-space-nw {
   white-space: nowrap !important;
+}
+
+@media (min-width: 1200px) {
+.container-xl, .container-lg, .container-md, .container-sm, .container {
+    max-width: 1300px;
+}
 }
 
 /* Material Icon Overrides */
@@ -243,6 +288,45 @@ border-color: #f79483;
 .table {
   tr {
     background-color: white;
+  }
+}
+
+/* UI Components */
+.card-horizontal {
+  position: relative;
+  display: flex;
+  // border: 1px solid gray;
+  background-color: white;
+
+  h1 {
+    font-size: 20px;
+    margin-bottom: 0;
+  }
+
+  h2 {
+    font-size: 16px;
+    margin-bottom: 0;
+  }
+
+  .left-box {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex: 1;
+    border: 1px solid gray;
+    
+    .material-icons {
+      font-size: 64px;
+    }
+  }
+
+  .right-box {
+    flex: 3;
+    border: 1px solid gray;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
   }
 }
 

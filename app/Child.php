@@ -39,7 +39,15 @@ class Child extends Model
             ->get(), 'user_id');
         
         if ($caretaker_users) {
-            return AppUser::whereIn('id', $caretaker_users)->get();
+            $users = AppUser::whereIn('id', $caretaker_users)->get()->toArray();
+            
+            foreach ($users as &$user) {
+                $user['role'] = Caretaker::where('child_id', $child_id)
+                    ->where('user_id', $user['id'])
+                    ->first()->role;
+            }
+
+            return $users;
         }
     }
 }

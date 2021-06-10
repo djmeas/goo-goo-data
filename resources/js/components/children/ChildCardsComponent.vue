@@ -1,5 +1,5 @@
 <template>
-  <div id="child-cards" class="row">
+  <div v-if="childrenInitLoad" id="child-cards" class="row">
     <template v-if="children">
       <div v-for="child in children" :key="child.first_name + '-' + child.id" class="col-lg-3 col-md-6">
         <div :id="`child-card-${child.id}`" class="child-card">
