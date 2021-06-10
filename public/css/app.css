@@ -11755,20 +11755,30 @@ label.form-group--error {
 }
 
 .card-horizontal .left-box {
+  position: relative;
   align-items: center;
   justify-content: center;
   display: flex;
   flex: 1;
-  border: 1px solid gray;
+  border-right: 1px solid lightgray;
+  flex-direction: column;
 }
 
 .card-horizontal .left-box .material-icons {
   font-size: 64px;
 }
 
+.card-horizontal .left-box .pending {
+  position: absolute;
+  background-color: #ffffff;
+  font-weight: bold;
+  border-radius: 50px;
+  padding: 0 7px;
+  border: 1px solid lightgray;
+}
+
 .card-horizontal .right-box {
   flex: 3;
-  border: 1px solid gray;
   align-items: center;
   justify-content: center;
   display: flex;

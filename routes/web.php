@@ -38,6 +38,13 @@ Route::middleware(['isAuthenticatedUser'])->group(function() {
             Route::delete('/{hash?}', 'ChildController@delete');
         });
 
+        Route::prefix('caretaker')->group(function() {
+            Route::get('/{hash?}', 'CaretakerController@get');
+            Route::post('invite', 'CaretakerController@save_invite');
+
+            Route::get('pending-invites/{hash}', 'CaretakerController@get_pending_invites');
+        });
+
         Route::prefix('category')->group(function() {
             Route::get('/', 'CategoryController@get');
         });

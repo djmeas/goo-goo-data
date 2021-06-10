@@ -42,9 +42,13 @@ class Child extends Model
             $users = AppUser::whereIn('id', $caretaker_users)->get()->toArray();
             
             foreach ($users as &$user) {
-                $user['role'] = Caretaker::where('child_id', $child_id)
+                $caretaker = Caretaker::where('child_id', $child_id)
                     ->where('user_id', $user['id'])
-                    ->first()->role;
+                    ->first();
+
+                $user['role'] = $caretaker->role;
+                $user['is_admin'] = $caretaker->is_admin;
+                $user['full_access'] = $caretaker->full_access;
             }
 
             return $users;
