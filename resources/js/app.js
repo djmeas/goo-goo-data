@@ -34,6 +34,10 @@ Vue.use(wysiwyg, {
     },
 });
 
+import VueConfirmDialog from 'vue-confirm-dialog';
+Vue.use(VueConfirmDialog);
+Vue.component('vue-confirm-dialog', VueConfirmDialog.default);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

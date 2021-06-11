@@ -15,4 +15,12 @@ class CaretakerInvite extends Model
         'is_admin',
         'full_access'
     ]; 
+
+    protected $with = [
+        'Child'
+    ];
+
+    public function Child() {
+        return $this->belongsTo(Child::class);
+    }
 }

@@ -9,6 +9,10 @@ use App\Child;
 
 class CaretakerController extends Controller
 {
+    public function view_invites() {
+        return view('caretaker.view_invite');
+    }
+
     public function get(Request $request, $hash = null) {
         try {
             if ($hash) {
@@ -47,6 +51,16 @@ class CaretakerController extends Controller
         
     }
 
+    public function get_my_invites() {
+        try {
+            $email = \App\AppUser::where('id', \Auth::id())->first()->email;
+            return \App\CaretakerInvite::where('email', $email)->get();
+        } catch (\Exception $e) {
+            return response('Whoops! Could not fetch the caretaker invites.', 400);
+        }
+        
+    }
+
     public function save_invite(Request $request) {
         try {
             // DB::beginTranscation();
@@ -71,6 +85,17 @@ class CaretakerController extends Controller
             
         } catch (\Exception $e) {
             // DB::rollback();
+            return response('The invite could not be saved.', 400);
+        }
+        
+    }
+
+    public function delete_invite(Request $request, $invite_id) {
+        try {
+           return \App\CaretakerInvite::where('id', $invite_id)
+            ->whereIn('child_id', Child::accessibleChildren())
+            ->delete();
+        } catch (\Exception $e) {
             return response($e->getMessage(), 400);
         }
         

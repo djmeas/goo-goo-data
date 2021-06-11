@@ -1,6 +1,8 @@
 <template>
-  <div class="table-responsive">
+  <div>
     <page-header-text v-if="childhash" text="Tracker Entries"/>
+    <div class="table-responsive">
+    
     <transition name="fade">
       <template v-if="trackerInitLoad">
         <table id="tracker-table" class="table table-bordered">
@@ -242,6 +244,8 @@
     <!-- <button @click="getTrackerEntries()">Refresh Entries</button> -->
     <!-- <button @click="_debugSaveEntry()">Force Entry</button> -->
   </div>
+  </div>
+  
 </template>
 
 <script>

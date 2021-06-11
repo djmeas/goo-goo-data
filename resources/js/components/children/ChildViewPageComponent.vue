@@ -28,6 +28,13 @@
               <h1>{{caretaker.first_name}} {{caretaker.last_name}}</h1>
               <h2>{{caretaker.role}}</h2>
             </div>
+            <div class="action-box">
+              <div class="icon">
+                <span class="material-icons">
+                delete
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -42,6 +49,13 @@
             <div class="right-box">
               <h1>{{invite.email}}</h1>
               <h2>{{invite.role}}</h2>
+            </div>
+            <div class="action-box">
+              <div class="icon clickable" @click="deleteInvite(invite, childhash)">
+                <span class="material-icons">
+                delete
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -60,14 +74,15 @@
         </div>
       </template>
 
-      <div class="col-lg-12">
-        <caretaker-add-form-component 
-        v-if="isAddingCaretaker"
-        :childHash="childhash"
-        v-on:emitSaveCaretaker="getPendingInvites(childhash);isAddingCaretaker = false;">
-          <button class="btn btn-default" @click="isAddingCaretaker = false">Cancel</button>
-        </caretaker-add-form-component>
-      </div>
+      <transition name="fade_in_only">
+        <div v-if="isAddingCaretaker" class="col-lg-12">
+          <caretaker-add-form-component 
+          :childHash="childhash"
+          v-on:emitSaveInvite="getPendingInvites(childhash);isAddingCaretaker = false;">
+            <button class="btn btn-default" @click="isAddingCaretaker = false">Cancel</button>
+          </caretaker-add-form-component>
+        </div>
+      </transition>
       
       <div class="col-lg-12">
         <tracker-table-component :childhash="childhash"/>

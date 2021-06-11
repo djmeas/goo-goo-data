@@ -14,9 +14,9 @@
 body {
   color: #3a434c;
   font-size: 16px;
-  background: linear-gradient(
-    360deg
-    , rgb(160 86 208 / 80%) 8%, rgba(130, 69, 234, 0.13) 35%, rgba(130, 69, 234, 0) 100%);
+  // background: linear-gradient(
+  //   360deg
+  //   , rgb(160 86 208 / 80%) 8%, rgba(130, 69, 234, 0.13) 35%, rgba(130, 69, 234, 0) 100%);
   // background: linear-gradient(
   //   180deg
   //   , rgba(189, 85, 255, .40) 8%, rgba(130, 69, 234, 0.13) 35%, rgba(130, 69, 234, 0) 100%);
@@ -30,29 +30,32 @@ h1, h2, h3, h4, h5 {
   position: relative;
   
   h1 {
-    border-bottom: 3px solid #7f3fa742;
-//     background: linear-gradient(
-// 360deg
-// , rgb(255 255 255 / 5%) 0%, rgba(255, 255, 255, 0.7160348759) 50%, rgba(130, 69, 234, 0) 100%);
-//     padding: 10px;
-    text-align: center;
-    // border-radius: 15px;
+    padding-left: 64px;
+    border-radius: 10px;
+    padding-top: 8px;
+    background-color: white;
+    background: linear-gradient(
+270deg
+, #bd55ff00 0%, #8245eac2 51%, #8245ea 100%);
+    color: white;
+    font-size: 28px;
+    padding-bottom: 8px;
   }
 
-  svg.header-circle-a {
-    position: absolute;
-    top: -33px;
-    left: -20px;
-    z-index: -1;
-    opacity: .3;
-  }
+  // svg.header-circle-a {
+  //   position: absolute;
+  //   top: -24px;
+  //   left: -24px;
+  //   z-index: 0;
+  //   opacity: 1;
+  // }
 
   svg.header-circle-b {
     position: absolute;
-    top: -25px;
-    left: -10px;
-    z-index: -1;
-    opacity: .15;
+    top: -24px;
+    left: -26px;
+    z-index: 0;
+    opacity: 1;
   }
 }
 
@@ -295,7 +298,7 @@ border-color: #f79483;
 .card-horizontal {
   position: relative;
   display: flex;
-  // border: 1px solid gray;
+  border: 1px solid lightgray;
   background-color: white;
 
   h1 {
@@ -337,6 +340,15 @@ border-color: #f79483;
     justify-content: center;
     display: flex;
     flex-direction: column;
+  }
+
+  .action-box {
+    flex: .25;
+    
+    .icon {
+      padding-top: 8px;
+      padding-right: 8px;
+    }
   }
 }
 

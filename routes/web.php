@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('sandbox', function () {
+    return App\User::where('id', Auth::id())->first()->email;
     return App\Tracker::whereIn('child_id', \App\Child::accessibleChildren())->paginate(2);
 });
 
@@ -30,6 +31,8 @@ Route::middleware(['isAuthenticatedUser'])->group(function() {
 
     Route::get('/tracker', 'TrackerController@index')->name('tracker');
 
+    Route::get('/invites', 'CaretakerController@view_invites');
+
     Route::prefix('api')->group(function() {
         
         Route::prefix('child')->group(function() {
@@ -39,10 +42,14 @@ Route::middleware(['isAuthenticatedUser'])->group(function() {
         });
 
         Route::prefix('caretaker')->group(function() {
-            Route::get('/{hash?}', 'CaretakerController@get');
+            Route::get('my-invites', 'CaretakerController@get_my_invites');
+            Route::get('{hash?}', 'CaretakerController@get');
             Route::post('invite', 'CaretakerController@save_invite');
+            Route::delete('invite/{invite_id}', 'CaretakerController@delete_invite');
 
             Route::get('pending-invites/{hash}', 'CaretakerController@get_pending_invites');
+        
+            
         });
 
         Route::prefix('category')->group(function() {
