@@ -1,11 +1,12 @@
 <template>
   <div id="children-page-container">
     <div class="row">
-      <div class="col-lg-12 mb-4">
+      <div class="col-lg-12 mb-2">
         <page-header-text text="Children"/>
       </div>
       <div class="col-lg-8 offset-lg-2">
         <child-add-form-component 
+          class="mb-4"
           ref="childAddFormComponent"
           v-on:eventSaveChild="eventSaveChild()"
           v-on:eventCancelAddChild="eventCancelAddChild()">

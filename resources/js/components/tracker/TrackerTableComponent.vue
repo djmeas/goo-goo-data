@@ -266,7 +266,7 @@ export default {
       hasFilters: false,
       trackerFilters: {
         sort: 'entry_datetime',
-        dir: 'asc',
+        dir: 'desc',
         child_id: null,
         hash: null,
         category: null,

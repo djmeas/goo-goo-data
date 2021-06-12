@@ -9,6 +9,17 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    @guest
+    @else
+        <script>
+            const currentUser = {
+                id: {{Auth::id()}},
+                name: "{{Auth::user()->first_name}} {{Auth::user()->last_name}}",
+                email: "{{Auth::user()->email}}"
+            };
+        </script>
+    @endguest
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 

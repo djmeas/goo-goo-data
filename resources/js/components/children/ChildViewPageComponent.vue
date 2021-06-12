@@ -3,11 +3,30 @@
     <div v-if="child" class="row">
       <div class="col-lg-4 offset-lg-4 mb-5">
         <div class="text-center">
-          <img class="rounded-circle mb-4 animate__bounceIn" :src="`${$baseAvatarPath}/${child.image_path}`" alt="" width="100%">
+          <div class="child-img position-relative">
+            <img class="child-hero-img rounded-circle mb-4 animate__bounceIn" :src="`${$baseAvatarPath}/${child.image_path}`" alt="" width="100%">
+            <transition name="fade">
+              <div v-if="isParentOfChild" class="parent-icon">
+                <span class="material-icons" style="font-size:64px">
+                  escalator_warning
+                </span>
+              </div>
+            </transition>
+          </div>
           <h1>{{child.first_name}} {{child.last_name}}</h1>
           <h3><span class="material-icons">cake</span> {{child.birthday | dateFormatBirthday}}</h3>
-          <h3>{{$childBirthdayInMonths(child.birthday)}}</h3>
-          
+          <h3 class="mb-4">{{$childBirthdayInMonths(child.birthday)}}</h3>
+          <div class="btn-group">
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Manage
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item clickable">Edit details</a>
+              <a class="dropdown-item clickable" @click="markChildParent(child.id)">
+                {{isParentOfChild ? 'Unmark' : 'Mark'}} as my child
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -28,8 +47,8 @@
               <h1>{{caretaker.first_name}} {{caretaker.last_name}}</h1>
               <h2>{{caretaker.role}}</h2>
             </div>
-            <div class="action-box">
-              <div class="icon">
+            <div v-if="$currentUser.id !== caretaker.id" class="action-box">
+              <div class="icon clickable" @click="removeCaretaker(childhash, caretaker)">
                 <span class="material-icons">
                 delete
                 </span>
@@ -100,6 +119,7 @@ export default {
   data() {
     return {
       isAddingCaretaker: false,
+      isParentOfChild: false
     }
   },
   props: {
@@ -123,6 +143,7 @@ export default {
     this.getChildren(this.childhash);
     this.getCaretakers(this.childhash);
     this.getPendingInvites(this.childhash);
+    this.getIsParentOfChild(this.childhash, Vue.prototype.$currentUser.id);
   }
 }
 </script>

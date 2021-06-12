@@ -1,20 +1,20 @@
 <template>
   <div v-if="childrenInitLoad" id="child-cards" class="row">
     <template v-if="children">
-      <div v-for="child in children" :key="child.first_name + '-' + child.id" class="col-lg-3 col-md-6">
-        <div :id="`child-card-${child.id}`" class="child-card">
-          <div class="photo text-center">
-            <img v-if="child.image_path" :src="`${$baseAvatarPath}/${child.image_path}`" alt="Child's avatar" />
-            <span v-else class="material-icons" style="font-size: 200px;">child_care</span>
+      <div v-for="child in children" :key="child.first_name + '-' + child.id" class="col-lg-3 col-md-4 mb-5">
+        <a :href="`/children/${child.hash}`">
+          <div class="child-img position-relative">
+            <img class="child-hero-img rounded-circle mb-4 animate__bounceIn" :src="`${$baseAvatarPath}/${child.image_path}`" alt="" width="100%">
+            <transition name="fade">
+              <div v-if="child.caretaker.length > 0 && child.caretaker[0].is_parent" class="parent-icon">
+                <span class="material-icons" style="font-size:32px">
+                  escalator_warning
+                </span>
+              </div>
+            </transition>
           </div>
-          <div class="name text-center pt-4">
-            <a :href="`/children/${child.hash}`">
-              {{child.first_name}} {{child.last_name}}
-            </a>
-            <!-- <br>
-            <span @click="deleteChild(child.hash)">Delete</span> -->
-          </div>
-        </div>
+        </a>
+        <h3 class="text-center">{{child.first_name}} {{child.last_name}}</h3>
       </div>
     </template>
 

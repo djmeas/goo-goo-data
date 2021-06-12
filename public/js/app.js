@@ -2325,12 +2325,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      isAddingCaretaker: false
+      isAddingCaretaker: false,
+      isParentOfChild: false
     };
   },
   props: {
@@ -2346,6 +2366,7 @@ __webpack_require__.r(__webpack_exports__);
     this.getChildren(this.childhash);
     this.getCaretakers(this.childhash);
     this.getPendingInvites(this.childhash);
+    this.getIsParentOfChild(this.childhash, Vue.prototype.$currentUser.id);
   }
 });
 
@@ -2360,6 +2381,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -3050,7 +3072,7 @@ __webpack_require__.r(__webpack_exports__);
       hasFilters: false,
       trackerFilters: {
         sort: 'entry_datetime',
-        dir: 'asc',
+        dir: 'desc',
         child_id: null,
         hash: null,
         category: null,
@@ -83961,54 +83983,53 @@ var render = function() {
                   "div",
                   {
                     key: child.first_name + "-" + child.id,
-                    staticClass: "col-lg-3 col-md-6"
+                    staticClass: "col-lg-3 col-md-4 mb-5"
                   },
                   [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "child-card",
-                        attrs: { id: "child-card-" + child.id }
-                      },
-                      [
-                        _c("div", { staticClass: "photo text-center" }, [
-                          child.image_path
-                            ? _c("img", {
-                                attrs: {
-                                  src:
-                                    _vm.$baseAvatarPath +
-                                    "/" +
-                                    child.image_path,
-                                  alt: "Child's avatar"
-                                }
-                              })
-                            : _c(
-                                "span",
-                                {
-                                  staticClass: "material-icons",
-                                  staticStyle: { "font-size": "200px" }
-                                },
-                                [_vm._v("child_care")]
-                              )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "name text-center pt-4" }, [
-                          _c(
-                            "a",
-                            { attrs: { href: "/children/" + child.hash } },
-                            [
-                              _vm._v(
-                                "\n            " +
-                                  _vm._s(child.first_name) +
-                                  " " +
-                                  _vm._s(child.last_name) +
-                                  "\n          "
-                              )
-                            ]
-                          )
-                        ])
-                      ]
-                    )
+                    _c("a", { attrs: { href: "/children/" + child.hash } }, [
+                      _c(
+                        "div",
+                        { staticClass: "child-img position-relative" },
+                        [
+                          _c("img", {
+                            staticClass:
+                              "child-hero-img rounded-circle mb-4 animate__bounceIn",
+                            attrs: {
+                              src: _vm.$baseAvatarPath + "/" + child.image_path,
+                              alt: "",
+                              width: "100%"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("transition", { attrs: { name: "fade" } }, [
+                            child.caretaker.length > 0 &&
+                            child.caretaker[0].is_parent
+                              ? _c("div", { staticClass: "parent-icon" }, [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass: "material-icons",
+                                      staticStyle: { "font-size": "32px" }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                escalator_warning\n              "
+                                      )
+                                    ]
+                                  )
+                                ])
+                              : _vm._e()
+                          ])
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("h3", { staticClass: "text-center" }, [
+                      _vm._v(
+                        _vm._s(child.first_name) + " " + _vm._s(child.last_name)
+                      )
+                    ])
                   ]
                 )
               })
@@ -84081,14 +84102,41 @@ var render = function() {
           [
             _c("div", { staticClass: "col-lg-4 offset-lg-4 mb-5" }, [
               _c("div", { staticClass: "text-center" }, [
-                _c("img", {
-                  staticClass: "rounded-circle mb-4 animate__bounceIn",
-                  attrs: {
-                    src: _vm.$baseAvatarPath + "/" + _vm.child.image_path,
-                    alt: "",
-                    width: "100%"
-                  }
-                }),
+                _c(
+                  "div",
+                  { staticClass: "child-img position-relative" },
+                  [
+                    _c("img", {
+                      staticClass:
+                        "child-hero-img rounded-circle mb-4 animate__bounceIn",
+                      attrs: {
+                        src: _vm.$baseAvatarPath + "/" + _vm.child.image_path,
+                        alt: "",
+                        width: "100%"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("transition", { attrs: { name: "fade" } }, [
+                      _vm.isParentOfChild
+                        ? _c("div", { staticClass: "parent-icon" }, [
+                            _c(
+                              "span",
+                              {
+                                staticClass: "material-icons",
+                                staticStyle: { "font-size": "64px" }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                escalator_warning\n              "
+                                )
+                              ]
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _c("h1", [
                   _vm._v(
@@ -84108,8 +84156,49 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _c("h3", [
+                _c("h3", { staticClass: "mb-4" }, [
                   _vm._v(_vm._s(_vm.$childBirthdayInMonths(_vm.child.birthday)))
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "btn-group" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-default btn-sm dropdown-toggle",
+                      attrs: {
+                        type: "button",
+                        "data-toggle": "dropdown",
+                        "aria-haspopup": "true",
+                        "aria-expanded": "false"
+                      }
+                    },
+                    [_vm._v("\n            Manage\n          ")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "dropdown-menu" }, [
+                    _c("a", { staticClass: "dropdown-item clickable" }, [
+                      _vm._v("Edit details")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "dropdown-item clickable",
+                        on: {
+                          click: function($event) {
+                            return _vm.markChildParent(_vm.child.id)
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(_vm.isParentOfChild ? "Unmark" : "Mark") +
+                            " as my child\n            "
+                        )
+                      ]
+                    )
+                  ])
                 ])
               ])
             ]),
@@ -84140,7 +84229,35 @@ var render = function() {
                           _c("h2", [_vm._v(_vm._s(caretaker.role))])
                         ]),
                         _vm._v(" "),
-                        _vm._m(1, true)
+                        _vm.$currentUser.id !== caretaker.id
+                          ? _c("div", { staticClass: "action-box" }, [
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "icon clickable",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.removeCaretaker(
+                                        _vm.childhash,
+                                        caretaker
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "span",
+                                    { staticClass: "material-icons" },
+                                    [
+                                      _vm._v(
+                                        "\n              delete\n              "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ])
+                          : _vm._e()
                       ])
                     ])
                   }),
@@ -84148,7 +84265,7 @@ var render = function() {
                   _vm._l(_vm.pendingInvites, function(invite) {
                     return _c("div", { staticClass: "col-lg-4 mb-5" }, [
                       _c("div", { staticClass: "card-horizontal" }, [
-                        _vm._m(2, true),
+                        _vm._m(1, true),
                         _vm._v(" "),
                         _c("div", { staticClass: "right-box" }, [
                           _c("h1", [_vm._v(_vm._s(invite.email))]),
@@ -84188,7 +84305,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._m(3)]
+                    [_vm._m(2)]
                   )
                 ]
               : _vm._e(),
@@ -84262,18 +84379,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "action-box" }, [
-      _c("div", { staticClass: "icon" }, [
-        _c("span", { staticClass: "material-icons" }, [
-          _vm._v("\n              delete\n              ")
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "left-box" }, [
       _c("span", { staticClass: "material-icons" }, [
         _vm._v("\n              account_circle\n            ")
@@ -84327,7 +84432,7 @@ var render = function() {
       _c("div", { staticClass: "row" }, [
         _c(
           "div",
-          { staticClass: "col-lg-12 mb-4" },
+          { staticClass: "col-lg-12 mb-2" },
           [_c("page-header-text", { attrs: { text: "Children" } })],
           1
         ),
@@ -84338,6 +84443,7 @@ var render = function() {
           [
             _c("child-add-form-component", {
               ref: "childAddFormComponent",
+              staticClass: "mb-4",
               on: {
                 eventSaveChild: function($event) {
                   return _vm.eventSaveChild()
@@ -101186,6 +101292,8 @@ files.keys().map(function (key) {
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$currentUser = currentUser;
+
 var momenttz = __webpack_require__(/*! moment-timezone */ "./node_modules/moment-timezone/index.js");
 
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
@@ -102242,6 +102350,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -102254,49 +102365,71 @@ __webpack_require__.r(__webpack_exports__);
     getCaretakers: function getCaretakers(childHash) {
       var _this = this;
 
-      axios.get("".concat(Vue.prototype.$baseAPI, "/caretaker/").concat(childHash)).then(function (res) {
+      axios.get("".concat(vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$baseAPI, "/caretaker/").concat(childHash)).then(function (res) {
         _this.caretakers = res.data;
       })["catch"](function (err) {
         _this.$toasted.error(err.response.data);
       });
     },
-    getMyInvites: function getMyInvites() {
+    removeCaretaker: function removeCaretaker(childHash, user) {
       var _this2 = this;
 
-      axios.get("".concat(Vue.prototype.$baseAPI, "/caretaker/my-invites")).then(function (res) {
-        _this2.myInvites = res.data;
-      })["catch"](function (err) {
-        _this2.$toasted.error(err.response.data);
+      this.$confirm({
+        message: "\n              Are you sure you want to remove the caretaker \n              ".concat(user.first_name, " ").concat(user.last_name, " (").concat(user.email, ")?\n            "),
+        button: {
+          no: 'Cancel',
+          yes: 'Yes'
+        },
+        callback: function callback(confirm) {
+          if (confirm) {
+            axios["delete"]("".concat(vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$baseAPI, "/caretaker/").concat(childHash, "/").concat(user.id)).then(function (res) {
+              _this2.caretakers = _this2.caretakers.filter(function (caretaker) {
+                return user.id !== caretaker.id;
+              });
+            })["catch"](function (err) {
+              _this2.$toasted.error(err.response.data);
+            });
+          }
+        }
       });
     },
-    getPendingInvites: function getPendingInvites(childHash) {
+    getMyInvites: function getMyInvites() {
       var _this3 = this;
 
-      axios.get("".concat(Vue.prototype.$baseAPI, "/caretaker/pending-invites/").concat(childHash)).then(function (res) {
-        _this3.pendingInvites = res.data;
+      axios.get("".concat(vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$baseAPI, "/caretaker/my-invites")).then(function (res) {
+        _this3.myInvites = res.data;
       })["catch"](function (err) {
         _this3.$toasted.error(err.response.data);
       });
     },
-    saveInvite: function saveInvite() {
+    getPendingInvites: function getPendingInvites(childHash) {
       var _this4 = this;
+
+      axios.get("".concat(vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$baseAPI, "/caretaker/pending-invites/").concat(childHash)).then(function (res) {
+        _this4.pendingInvites = res.data;
+      })["catch"](function (err) {
+        _this4.$toasted.error(err.response.data);
+      });
+    },
+    saveInvite: function saveInvite() {
+      var _this5 = this;
 
       this.$v.formCaretaker.$touch();
 
       if (!this.$v.formCaretaker.$invalid) {
-        axios.post("".concat(Vue.prototype.$baseAPI, "/caretaker/invite"), this.formCaretaker).then(function (res) {
-          _this4.$emit('emitSaveInvite');
+        axios.post("".concat(vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$baseAPI, "/caretaker/invite"), this.formCaretaker).then(function (res) {
+          _this5.$emit('emitSaveInvite');
 
-          _this4.$toasted.success('The caretaker has been invited.');
+          _this5.$toasted.success('The caretaker has been invited.');
         })["catch"](function (err) {
-          _this4.$toasted.error(err.response.data);
+          _this5.$toasted.error(err.response.data);
         });
       } else {
         this.$toasted.error('Please fill out all required fields.');
       }
     },
     deleteInvite: function deleteInvite(invite) {
-      var _this5 = this;
+      var _this6 = this;
 
       this.$confirm({
         message: "\n              Are you sure you want to delete the caretaker invitation to\n              ".concat(invite.email, " (").concat(invite.role, ")?\n            "),
@@ -102306,39 +102439,66 @@ __webpack_require__.r(__webpack_exports__);
         },
         callback: function callback(confirm) {
           if (confirm) {
-            axios["delete"]("".concat(Vue.prototype.$baseAPI, "/caretaker/invite/").concat(invite.id)).then(function (res) {
-              _this5.$emit('emitDeleteInvite');
+            axios["delete"]("".concat(vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$baseAPI, "/caretaker/invite/").concat(invite.id)).then(function (res) {
+              _this6.$emit('emitDeleteInvite');
 
-              _this5.$toasted.success('The invitation has been deleted.'); // this.getPendingInvites(this.childhash);
+              _this6.$toasted.success('The invitation has been deleted.'); // this.getPendingInvites(this.childhash);
 
 
-              _this5.pendingInvites = _this5.pendingInvites.filter(function (pendingInvite) {
+              _this6.pendingInvites = _this6.pendingInvites.filter(function (pendingInvite) {
                 return pendingInvite.id !== invite.id;
               });
             })["catch"](function (err) {
-              _this5.$toasted.error(err.response.data);
+              _this6.$toasted.error(err.response.data);
             });
           }
         }
       });
     },
     acceptInvite: function acceptInvite(inviteId, option) {
-      var _this6 = this;
+      var _this7 = this;
 
       var postData = {
         id: inviteId,
         option: option
       };
-      axios.post("".concat(Vue.prototype.$baseAPI, "/caretaker/my-invites/").concat(inviteId), postData).then(function (res) {
-        _this6.$emit('emitAcceptInvite');
+      axios.post("".concat(vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$baseAPI, "/caretaker/my-invites"), postData).then(function (res) {
+        _this7.$emit('emitAcceptInvite');
 
-        _this6.$toasted.success('The invitation has been accepted.');
+        _this7.$toasted.success('The invitation has been accepted.');
 
-        _this6.myInvites = _this6.myInvites.filter(function (myInvite) {
+        _this7.myInvites = _this7.myInvites.filter(function (myInvite) {
           return myInvite.id !== inviteId;
         });
       })["catch"](function (err) {
-        _this6.$toasted.error(err.response.data);
+        _this7.$toasted.error(err.response.data);
+      });
+    },
+    getIsParentOfChild: function getIsParentOfChild(childHash, userId) {
+      var _this8 = this;
+
+      axios.get("".concat(vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$baseAPI, "/caretaker/is-parent/").concat(childHash, "/").concat(userId)).then(function (res) {
+        _this8.isParentOfChild = res.data;
+      })["catch"](function (err) {
+        _this8.$toasted.error(err.response.data);
+      });
+    },
+    markChildParent: function markChildParent(childId) {
+      var _this9 = this;
+
+      var postData = {
+        child_id: childId,
+        user_id: vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$currentUser.id,
+        is_parent: this.isParentOfChild === 1 ? 0 : 1
+      };
+      axios.post("".concat(vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$baseAPI, "/caretaker/mark-parent-child"), postData).then(function (res) {
+        _this9.$emit('emitMarkParentChild');
+
+        _this9.$toasted.success(postData.is_parent ? 'You have been updated as a parent' : 'You have been unmarked as a parent');
+
+        _this9.isParentOfChild = postData.is_parent;
+      })["catch"](function (err) {
+        _this9.$toasted.error(err.response.data);
       });
     }
   }
@@ -102488,12 +102648,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -102517,14 +102671,14 @@ __webpack_require__.r(__webpack_exports__);
         currentPage = setCurrentPage;
       }
 
-      var targetUrl = paginationUrl ? paginationUrl : "".concat(vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$baseAPI, "/tracker?page=").concat(currentPage);
+      var targetUrl = paginationUrl ? paginationUrl : "".concat(Vue.prototype.$baseAPI, "/tracker?page=").concat(currentPage);
 
       if (this.selectedCategory) {
         targetUrl += "&category=".concat(this.selectedCategory);
       } // Additional filters
 
 
-      lodash__WEBPACK_IMPORTED_MODULE_0___default.a.forOwn(this.trackerFilters, function (value, key) {
+      _.forOwn(this.trackerFilters, function (value, key) {
         if (value !== null && value !== '') {
           switch (key) {
             case "category":
@@ -102557,7 +102711,7 @@ __webpack_require__.r(__webpack_exports__);
           _this.trackerEntries = res.data.data;
           res.data.data.forEach(function (entry, index) {
             setTimeout(function () {
-              vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$addClass('entry-tr-' + entry.id, 'color-faze');
+              Vue.prototype.$addClass('entry-tr-' + entry.id, 'color-faze');
             }, (index + 1) * 30);
           });
         }
@@ -102584,14 +102738,14 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.$v.formTracker.$invalid) {
         this.formTracker.category_id = this.formTracker.category.id;
 
-        var entryData = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.clone(this.formTracker);
+        var entryData = _.clone(this.formTracker);
 
         delete entryData.category;
 
         var momenttz = __webpack_require__(/*! moment-timezone */ "./node_modules/moment-timezone/index.js");
 
         entryData.entry_datetime = momenttz(this.formTracker.entry_datetime).utc().format("YYYY-MM-DD HH:mm:ss");
-        axios.post("".concat(vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$baseAPI, "/tracker"), entryData).then(function (res) {
+        axios.post("".concat(Vue.prototype.$baseAPI, "/tracker"), entryData).then(function (res) {
           _this2.$toasted.success('Entry successfully saved.');
 
           _this2.$emit('eventSaveTrackerEntry');
@@ -102607,7 +102761,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteTrackerEntry: function deleteTrackerEntry(entryId) {
       var _this3 = this;
 
-      axios["delete"]("".concat(vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$baseAPI, "/tracker/").concat(entryId)).then(function (res) {
+      axios["delete"]("".concat(Vue.prototype.$baseAPI, "/tracker/").concat(entryId)).then(function (res) {
         _this3.$toasted.success('Entry successfully deleted.');
 
         _this3.$emit('eventDeleteTrackerEntry');
@@ -102650,7 +102804,7 @@ __webpack_require__.r(__webpack_exports__);
         "notes": "Forced entry.",
         "entry_datetime": "2021-06-01T20:27:18.851Z"
       };
-      axios.post("".concat(vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$baseAPI, "/tracker"), entry).then(function (res) {
+      axios.post("".concat(Vue.prototype.$baseAPI, "/tracker"), entry).then(function (res) {
         _this4.$toasted.success('Forced entry successfully saved.');
 
         _this4.$emit('eventSaveTrackerEntry');

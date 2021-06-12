@@ -352,15 +352,53 @@ border-color: #f79483;
   }
 }
 
-@include media-breakpoint-up(md) {
-  .child-card {
-    margin-bottom: 40px;
-  }
+/* Child View Page */
+
+.child-hero-img {
+  border-top: 10px solid #d8d8d8;
+  border-bottom: 10px solid #c09dd6;
+  border-left: 10px solid silver;
+  border-right: 10px solid #a582c8;
+}
+
+.parent-icon {
+  position: absolute;
+  top: 76%;
+  right: 10%;
+  background-color: white;
+  padding: 10px 15px;
+  border-radius: 50px;
+  border: 1px solid #d8d8d8;
 }
 
 @include media-breakpoint-up(sm) {
   .child-card {
     margin-bottom: 40px;
+  }
+
+}
+
+@include media-breakpoint-up(md) {
+  .child-card {
+    margin-bottom: 40px;
+  }
+
+  .child-hero-img {
+    min-height: unset;
+  }
+}
+
+
+
+@include media-breakpoint-up(lg) {
+  .child-hero-img {
+    min-height: 210px;
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  .child-hero-img {
+    min-height: 295px;
   }
 }
 

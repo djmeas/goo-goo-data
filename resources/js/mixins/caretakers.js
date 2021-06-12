@@ -1,3 +1,5 @@
+import Vue from "vue";
+
 export default {
   data () {
      return {
@@ -16,6 +18,35 @@ export default {
         .catch(err => {
           this.$toasted.error(err.response.data);
         });
+    },
+
+    removeCaretaker(childHash, user) {
+
+      this.$confirm(
+        {
+          message: `
+              Are you sure you want to remove the caretaker 
+              ${user.first_name} ${user.last_name} (${user.email})?
+            `,
+          button: {
+            no: 'Cancel',
+            yes: 'Yes'
+          },
+          callback: confirm => {
+            if (confirm) {
+              axios.delete(`${Vue.prototype.$baseAPI}/caretaker/${childHash}/${user.id}`)
+                .then(res => {
+                  this.caretakers = this.caretakers.filter(caretaker => {
+                    return user.id !== caretaker.id;
+                  });
+                })
+                .catch(err => {
+                  this.$toasted.error(err.response.data);
+                });
+            }
+          }
+        }
+      );
     },
 
     getMyInvites() {
@@ -92,13 +123,45 @@ export default {
         option: option
       };
 
-      axios.post(`${Vue.prototype.$baseAPI}/caretaker/my-invites/${inviteId}`, postData)
+      axios.post(`${Vue.prototype.$baseAPI}/caretaker/my-invites`, postData)
         .then(res => {
           this.$emit('emitAcceptInvite');
           this.$toasted.success('The invitation has been accepted.');
           this.myInvites = this.myInvites.filter(myInvite => {
             return myInvite.id !== inviteId;
           });
+        })
+        .catch(err => {
+          this.$toasted.error(err.response.data);
+        });
+    },
+
+    getIsParentOfChild(childHash, userId) {
+      axios.get(`${Vue.prototype.$baseAPI}/caretaker/is-parent/${childHash}/${userId}`)
+        .then(res => {
+          this.isParentOfChild = res.data;
+        })
+        .catch(err => {
+          this.$toasted.error(err.response.data);
+        });
+    },
+
+    markChildParent(childId) {
+      let postData = {
+        child_id: childId,
+        user_id: Vue.prototype.$currentUser.id,
+        is_parent: this.isParentOfChild === 1 ? 0 : 1
+      };
+
+      axios.post(`${Vue.prototype.$baseAPI}/caretaker/mark-parent-child`, postData)
+        .then(res => {
+          this.$emit('emitMarkParentChild');
+          this.$toasted.success(
+            postData.is_parent 
+              ? 'You have been updated as a parent' 
+              : 'You have been unmarked as a parent'
+          );
+          this.isParentOfChild = postData.is_parent;
         })
         .catch(err => {
           this.$toasted.error(err.response.data);

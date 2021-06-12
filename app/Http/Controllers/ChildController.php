@@ -55,6 +55,10 @@ class ChildController extends Controller
             ->whereHas('Caretaker', function ($q) {
                 $q->where('user_id', Auth::id());
             })
+            ->join('caretakers', 'caretakers.child_id', '=', 'children.id')
+            ->select('children.*', 'caretakers.is_parent')
+            ->where('caretakers.user_id', Auth::id())
+            ->orderBy('is_parent', 'desc')
             ->get();
     }
 

@@ -46,9 +46,11 @@ class Child extends Model
                     ->where('user_id', $user['id'])
                     ->first();
 
+                $user['is_parent'] = $caretaker->is_parent;
                 $user['role'] = $caretaker->role;
                 $user['is_admin'] = $caretaker->is_admin;
                 $user['full_access'] = $caretaker->full_access;
+                
             }
 
             return $users;
