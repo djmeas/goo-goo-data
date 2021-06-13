@@ -2460,6 +2460,74 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2478,6 +2546,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   mixins: [_mixins_children__WEBPACK_IMPORTED_MODULE_0__["default"], _mixins_caretakers__WEBPACK_IMPORTED_MODULE_1__["default"]],
   methods: {},
+  watch: {
+    child: function child() {
+      this.$nextTick(function () {
+        Vue.prototype.$keepElSquare('child-avatar');
+      });
+    }
+  },
   mounted: function mounted() {
     this.getChildren(this.childhash);
     this.getCaretakers(this.childhash);
@@ -2888,24 +2963,61 @@ __webpack_require__.r(__webpack_exports__);
       "default": null
     }
   },
-  validations: {
-    formTracker: {
-      child_id: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
-      },
-      category: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
-      },
-      value: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"],
-        decimal: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["decimal"],
-        maxLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["maxLength"])(8)
-      },
-      entry_datetime: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
-      }
+  validations: function validations() {
+    if (this.formTracker.category && this.formTracker.category.type === null) {
+      return {
+        formTracker: {
+          child_id: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+          },
+          category: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+          },
+          value: {},
+          entry_datetime: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+          }
+        }
+      };
+    } else {
+      return {
+        formTracker: {
+          child_id: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+          },
+          category: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+          },
+          value: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"],
+            decimal: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["decimal"],
+            maxLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["maxLength"])(8)
+          },
+          entry_datetime: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+          }
+        }
+      };
     }
   },
+  // validations: {
+  //   formTracker: {
+  //     child_id: {
+  //       required
+  //     },
+  //     category: {
+  //       required
+  //     },
+  //     value: {
+  //       required,
+  //       decimal,
+  //       maxLength: maxLength(8)
+  //     },
+  //     entry_datetime: {
+  //       required
+  //     }
+  //   }
+  // },
   methods: {
     /**
      * Resets the tracker entry form.
@@ -7787,7 +7899,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".splat[data-v-b8237dfc] {\n  -webkit-animation-duration: 1s;\n          animation-duration: 1s;\n  -webkit-animation-name: fadeIn-data-v-b8237dfc;\n          animation-name: fadeIn-data-v-b8237dfc;\n  -webkit-animation-timing-function: ease-in-out;\n          animation-timing-function: ease-in-out;\n  position: absolute;\n  top: -268px;\n  z-index: -1;\n  left: 0px;\n}\n.splat-svg[data-v-b8237dfc] {\n  fill: #e0d3ec;\n}\n@-webkit-keyframes fadeIn-data-v-b8237dfc {\n0% {\n    opacity: 0;\n    transform: scale(0.7, 0.7);\n}\n100% {\n    opacity: 1;\n    transform: scale(1, 1);\n}\n}\n@keyframes fadeIn-data-v-b8237dfc {\n0% {\n    opacity: 0;\n    transform: scale(0.7, 0.7);\n}\n100% {\n    opacity: 1;\n    transform: scale(1, 1);\n}\n}", ""]);
+exports.push([module.i, ".splat[data-v-b8237dfc] {\n  -webkit-animation-duration: 1s;\n          animation-duration: 1s;\n  -webkit-animation-name: fadeIn-data-v-b8237dfc;\n          animation-name: fadeIn-data-v-b8237dfc;\n  -webkit-animation-timing-function: ease-in-out;\n          animation-timing-function: ease-in-out;\n  position: absolute;\n  top: -268px;\n  z-index: -1;\n  left: 0px;\n}\n.splat .splat-svg[data-v-b8237dfc] {\n  fill: #e0d3ec;\n}\n.splat-2[data-v-b8237dfc] {\n  -webkit-animation-duration: 1s;\n          animation-duration: 1s;\n  -webkit-animation-name: fadeIn-data-v-b8237dfc;\n          animation-name: fadeIn-data-v-b8237dfc;\n  -webkit-animation-timing-function: ease-in-out;\n          animation-timing-function: ease-in-out;\n  position: absolute;\n  top: -752px;\n  z-index: -1;\n  left: -74px;\n  transform: rotate(231deg);\n}\n.splat-2 .splat-svg[data-v-b8237dfc] {\n  fill: #6eaefc42;\n}\n@-webkit-keyframes fadeIn-data-v-b8237dfc {\n0% {\n    opacity: 0;\n}\n100% {\n    opacity: 1;\n}\n}\n@keyframes fadeIn-data-v-b8237dfc {\n0% {\n    opacity: 0;\n}\n100% {\n    opacity: 1;\n}\n}\n.birthday-badge[data-v-b8237dfc] {\n  font-size: 20px;\n  background-color: #6eaefc;\n  color: white;\n  letter-spacing: 2px;\n}", ""]);
 
 // exports
 
@@ -84375,7 +84487,7 @@ var render = function() {
                             staticClass:
                               "child-hero-img rounded-circle mb-4 animate__bounceIn",
                             attrs: {
-                              src: _vm.$baseAvatarPath + "/" + child.image_path,
+                              src: _vm.$avatarOrDefault(child.image_path),
                               alt: "",
                               width: "100%"
                             }
@@ -84492,8 +84604,9 @@ var render = function() {
                       [
                         _c("img", {
                           staticClass:
-                            "child-hero-img rounded-circle mb-4 animate__bounceIn",
+                            "child-hero-img object-fit-cover rounded-circle mb-4 animate__bounceIn",
                           attrs: {
+                            id: "child-avatar",
                             src: _vm.$avatarOrDefault(_vm.child.image_path),
                             alt: "",
                             width: "100%"
@@ -84501,6 +84614,114 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("div", { staticClass: "splat animate__bounce" }, [
+                          _c(
+                            "svg",
+                            {
+                              attrs: {
+                                version: "1.0",
+                                xmlns: "http://www.w3.org/2000/svg",
+                                width: "750px",
+                                height: "750px",
+                                viewBox: "0 0 1280.000000 974.000000",
+                                preserveAspectRatio: "xMidYMid meet"
+                              }
+                            },
+                            [
+                              _c("metadata", [
+                                _vm._v(
+                                  "\n              Created by potrace 1.15, written by Peter Selinger 2001-2017\n              "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "g",
+                                {
+                                  staticClass: "splat-svg",
+                                  attrs: {
+                                    transform:
+                                      "translate(0.000000,974.000000) scale(0.100000,-0.100000)",
+                                    fill: "#000000",
+                                    stroke: "none"
+                                  }
+                                },
+                                [
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M12560 9721 c-79 -25 -220 -100 -356 -190 -258 -169 -624 -457 -1502\n              -1184 -683 -565 -871 -719 -1197 -983 -1076 -868 -2099 -1639 -3045 -2294\n              -180 -125 -629 -430 -632 -430 -2 0 -3 33 -3 73 0 60 -5 80 -27 118 -34 58\n              -100 118 -139 126 l-29 6 78 76 c149 145 222 282 287 537 2 6 29 20 62 33 237\n              90 383 279 383 496 0 142 -46 251 -150 356 -129 130 -313 180 -521 140 l-66\n              -13 -79 64 c-44 34 -90 70 -104 79 l-25 17 39 38 c57 56 88 130 88 212 0 117\n              -32 201 -107 281 -69 74 -122 96 -230 96 -78 0 -98 -4 -152 -29 -77 -35 -153\n              -113 -191 -193 -23 -50 -27 -71 -27 -150 l0 -92 -55 -6 c-211 -22 -357 -76\n              -510 -188 -124 -91 -251 -247 -331 -407 -22 -44 -42 -80 -43 -80 -2 0 -23 7\n              -47 16 -68 24 -312 82 -434 104 -134 23 -267 37 -441 46 l-131 7 15 49 c21 72\n              12 262 -16 348 -137 418 -645 581 -994 320 -270 -202 -339 -617 -147 -885 18\n              -25 30 -47 28 -49 -2 -2 -47 -22 -99 -46 -612 -272 -1142 -809 -1429 -1447\n              -508 -1130 -317 -2419 513 -3458 103 -129 372 -398 502 -501 502 -401 1011\n              -624 1624 -710 173 -25 598 -25 795 -1 548 68 1007 243 1393 531 295 221 558\n              528 737 862 l38 72 196 5 c178 4 207 7 313 35 334 87 595 281 744 554 29 52\n              43 68 59 68 12 0 34 9 49 21 32 25 34 64 5 95 l-21 22 21 84 c62 251 50 544\n              -30 751 -11 26 -19 51 -19 56 0 4 24 11 54 14 155 16 280 162 263 308 -12 95\n              -75 182 -165 226 -47 23 -70 28 -132 27 -118 0 -202 -49 -251 -146 l-20 -39\n              -53 48 c-66 61 -196 148 -308 208 l-86 46 29 82 c17 45 46 120 66 167 19 47\n              40 97 46 112 9 21 16 26 33 22 43 -11 71 48 38 80 -14 14 -9 26 47 123 115\n              201 209 330 629 862 l105 133 330 257 c517 403 1042 797 1605 1205 274 198\n              353 255 1290 919 388 275 816 581 951 680 709 515 1037 812 1108 1002 27 71\n              26 108 -1 156 -38 68 -111 85 -218 50z m-5682 -4838 c-119 -171 -428 -635\n              -549 -826 -41 -64 -79 -115 -85 -113 -7 3 -44 8 -83 12 l-71 7 44 29 c89 58\n              154 151 181 257 17 63 15 87 -11 201 -5 23 22 48 302 280 169 140 321 267 338\n              282 17 15 34 28 38 28 3 0 -43 -71 -104 -157z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M6430 8322 c-89 -30 -141 -61 -196 -118 -99 -101 -138 -233 -110\n              -373 26 -128 78 -228 192 -368 24 -30 44 -61 44 -69 0 -32 55 -121 106 -170\n              32 -31 85 -68 131 -91 72 -36 83 -38 167 -38 79 0 98 4 142 27 129 68 193 210\n              165 363 -6 33 -30 97 -52 142 -35 69 -41 88 -36 124 8 61 -10 214 -34 288 -39\n              123 -122 220 -227 269 -75 34 -212 41 -292 14z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M4685 7836 c-44 -20 -72 -55 -86 -107 -11 -41 -10 -53 5 -93 25 -65\n              71 -99 139 -99 67 -1 111 23 137 73 38 74 19 168 -43 212 -37 26 -111 33 -152\n              14z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M7725 7091 c-43 -26 -62 -51 -74 -96 -18 -69 8 -143 62 -175 41 -26\n              127 -27 169 -2 66 38 90 156 45 223 -43 65 -140 89 -202 50z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M8460 5131 c-102 -54 -100 -214 3 -268 69 -36 164 -13 211 50 30 40\n              29 131 -2 174 -43 61 -142 82 -212 44z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M9987 5026 c-84 -31 -157 -102 -187 -181 l-10 -27 -29 40 c-82 112\n              -292 130 -395 34 -104 -98 -102 -304 4 -425 24 -27 60 -53 92 -67 129 -55 305\n              -4 348 101 7 16 15 29 19 29 3 0 18 -18 33 -39 30 -42 112 -101 167 -119 49\n              -17 160 -15 216 4 69 24 137 94 165 169 18 49 21 75 18 145 -7 143 -76 257\n              -193 318 -62 31 -187 41 -248 18z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M7353 4705 c-26 -18 -43 -71 -36 -108 18 -94 167 -92 188 3 8 35 -16\n              95 -43 109 -30 16 -84 13 -109 -4z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M9741 4147 c-49 -17 -76 -58 -76 -117 0 -61 27 -100 83 -120 37 -13\n              47 -13 84 0 55 20 81 57 81 114 0 51 -21 89 -61 109 -43 22 -75 26 -111 14z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M9217 3340 c-89 -23 -163 -83 -208 -172 -33 -64 -38 -194 -11 -271\n              27 -77 81 -141 145 -174 68 -35 199 -44 275 -19 259 86 276 498 26 613 -60 27\n              -166 38 -227 23z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M8200 1811 c-188 -58 -282 -279 -197 -464 34 -74 87 -130 150 -158\n              43 -20 68 -24 147 -24 83 1 101 4 146 27 73 38 130 107 154 186 26 82 25 143\n              -1 228 -27 89 -106 171 -188 197 -55 17 -166 21 -211 8z"
+                                    }
+                                  })
+                                ]
+                              )
+                            ],
+                            1
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "splat-2 animate__bounce" }, [
                           _c(
                             "svg",
                             {
@@ -84639,17 +84860,30 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _c("h3", [
-                        _c("span", { staticClass: "material-icons" }, [
-                          _vm._v("cake")
-                        ]),
-                        _vm._v(
-                          " " +
-                            _vm._s(
-                              _vm._f("dateFormatBirthday")(_vm.child.birthday)
-                            )
-                        )
-                      ]),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "birthday-badge badge badge-pill badge-primary mb-3 mt-2"
+                        },
+                        [
+                          _c(
+                            "span",
+                            {
+                              staticClass: "material-icons",
+                              staticStyle: { "font-size": "17px" }
+                            },
+                            [_vm._v("cake")]
+                          ),
+                          _vm._v(
+                            " " +
+                              _vm._s(
+                                _vm._f("dateFormatBirthday")(_vm.child.birthday)
+                              ) +
+                              "\n            "
+                          )
+                        ]
+                      ),
                       _vm._v(" "),
                       _c("h3", { staticClass: "mb-4" }, [
                         _vm._v(
@@ -87037,229 +87271,245 @@ var render = function() {
                                 ]
                               : _vm._e(),
                             _vm._v(" "),
-                            _c("tr", { staticClass: "pagination-row" }, [
-                              _c(
-                                "td",
-                                { attrs: { colspan: "99" } },
-                                [
-                                  _vm.trackerEntriesPaginationDetails
-                                    ? [
-                                        _c(
-                                          "button",
-                                          {
-                                            staticClass:
-                                              "btn btn-default btn-tiny",
-                                            attrs: {
-                                              disabled:
-                                                _vm
-                                                  .trackerEntriesPaginationDetails
-                                                  .current_page === 1
-                                            },
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.getTrackerEntries(
-                                                  _vm
-                                                    .trackerEntriesPaginationDetails
-                                                    .prev_page_url
-                                                )
-                                              }
-                                            }
-                                          },
-                                          [
+                            _vm.trackerEntries.length > 0
+                              ? _c("tr", { staticClass: "pagination-row" }, [
+                                  _c(
+                                    "td",
+                                    { attrs: { colspan: "99" } },
+                                    [
+                                      _vm.trackerEntriesPaginationDetails
+                                        ? [
                                             _c(
-                                              "span",
-                                              { staticClass: "material-icons" },
+                                              "button",
+                                              {
+                                                staticClass:
+                                                  "btn btn-default btn-tiny",
+                                                attrs: {
+                                                  disabled:
+                                                    _vm
+                                                      .trackerEntriesPaginationDetails
+                                                      .current_page === 1
+                                                },
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.getTrackerEntries(
+                                                      _vm
+                                                        .trackerEntriesPaginationDetails
+                                                        .prev_page_url
+                                                    )
+                                                  }
+                                                }
+                                              },
                                               [
-                                                _vm._v(
-                                                  "\n                  arrow_back\n                "
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "material-icons"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                  arrow_back\n                "
+                                                    )
+                                                  ]
                                                 )
                                               ]
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "button",
-                                          {
-                                            staticClass:
-                                              "btn btn-default btn-tiny mr-3",
-                                            attrs: {
-                                              disabled:
-                                                _vm
-                                                  .trackerEntriesPaginationDetails
-                                                  .current_page ===
-                                                _vm
-                                                  .trackerEntriesPaginationDetails
-                                                  .last_page
-                                            },
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.getTrackerEntries(
-                                                  _vm
-                                                    .trackerEntriesPaginationDetails
-                                                    .next_page_url
-                                                )
-                                              }
-                                            }
-                                          },
-                                          [
+                                            ),
+                                            _vm._v(" "),
                                             _c(
-                                              "span",
-                                              { staticClass: "material-icons" },
+                                              "button",
+                                              {
+                                                staticClass:
+                                                  "btn btn-default btn-tiny mr-3",
+                                                attrs: {
+                                                  disabled:
+                                                    _vm
+                                                      .trackerEntriesPaginationDetails
+                                                      .current_page ===
+                                                    _vm
+                                                      .trackerEntriesPaginationDetails
+                                                      .last_page
+                                                },
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.getTrackerEntries(
+                                                      _vm
+                                                        .trackerEntriesPaginationDetails
+                                                        .next_page_url
+                                                    )
+                                                  }
+                                                }
+                                              },
                                               [
-                                                _vm._v(
-                                                  "\n                  arrow_forward\n                "
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "material-icons"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                  arrow_forward\n                "
+                                                    )
+                                                  ]
                                                 )
                                               ]
+                                            ),
+                                            _vm._v(
+                                              "\n              " +
+                                                _vm._s(
+                                                  _vm
+                                                    .trackerEntriesPaginationDetails
+                                                    .from
+                                                ) +
+                                                " - \n              " +
+                                                _vm._s(
+                                                  _vm
+                                                    .trackerEntriesPaginationDetails
+                                                    .to
+                                                ) +
+                                                " of \n              " +
+                                                _vm._s(
+                                                  _vm
+                                                    .trackerEntriesPaginationDetails
+                                                    .total
+                                                ) +
+                                                " entries\n            "
                                             )
                                           ]
-                                        ),
-                                        _vm._v(
-                                          "\n              " +
-                                            _vm._s(
-                                              _vm
-                                                .trackerEntriesPaginationDetails
-                                                .from
-                                            ) +
-                                            " - \n              " +
-                                            _vm._s(
-                                              _vm
-                                                .trackerEntriesPaginationDetails
-                                                .to
-                                            ) +
-                                            " of \n              " +
-                                            _vm._s(
-                                              _vm
-                                                .trackerEntriesPaginationDetails
-                                                .total
-                                            ) +
-                                            " entries\n            "
-                                        )
-                                      ]
-                                    : _vm._e(),
-                                  _vm._v(" "),
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      !_vm.childhash
+                                        ? _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-primary btn-tiny float-right",
+                                              on: {
+                                                click: function($event) {
+                                                  _vm.showFilter = true
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "span",
+                                                {
+                                                  staticClass: "material-icons"
+                                                },
+                                                [_vm._v("visibility")]
+                                              ),
+                                              _vm._v(
+                                                " Show Filters\n            "
+                                              )
+                                            ]
+                                          )
+                                        : _vm._e()
+                                    ],
+                                    2
+                                  )
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.trackerEntries.length > 0
+                              ? _c("tr", [
                                   !_vm.childhash
                                     ? _c(
-                                        "button",
+                                        "th",
                                         {
-                                          staticClass:
-                                            "btn btn-primary btn-tiny float-right",
+                                          staticClass: "clickable",
                                           on: {
                                             click: function($event) {
-                                              _vm.showFilter = true
+                                              return _vm._trackerSortColumn(
+                                                "first_name"
+                                              )
                                             }
                                           }
                                         },
-                                        [
-                                          _c(
-                                            "span",
-                                            { staticClass: "material-icons" },
-                                            [_vm._v("visibility")]
-                                          ),
-                                          _vm._v(" Show Filters\n            ")
-                                        ]
+                                        [_vm._v("Child")]
                                       )
-                                    : _vm._e()
-                                ],
-                                2
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              !_vm.childhash
-                                ? _c(
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c(
                                     "th",
                                     {
                                       staticClass: "clickable",
                                       on: {
                                         click: function($event) {
                                           return _vm._trackerSortColumn(
-                                            "first_name"
+                                            "category_group"
                                           )
                                         }
                                       }
                                     },
-                                    [_vm._v("Child")]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _c(
-                                "th",
-                                {
-                                  staticClass: "clickable",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm._trackerSortColumn(
-                                        "category_group"
+                                    [_vm._v("Category")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "th",
+                                    {
+                                      staticClass: "clickable",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm._trackerSortColumn(
+                                            "category_name"
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Subcategory")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "th",
+                                    {
+                                      staticClass: "clickable",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm._trackerSortColumn("value")
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Amount")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "th",
+                                    {
+                                      staticClass: "clickable",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm._trackerSortColumn("notes")
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Notes")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "th",
+                                    {
+                                      staticClass: "clickable",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm._trackerSortColumn(
+                                            "entry_datetime"
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Date")]
+                                  ),
+                                  _vm._v(" "),
+                                  !_vm.childhash
+                                    ? _c(
+                                        "th",
+                                        { staticStyle: { width: "20px" } },
+                                        [_vm._v("Actions")]
                                       )
-                                    }
-                                  }
-                                },
-                                [_vm._v("Category")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "th",
-                                {
-                                  staticClass: "clickable",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm._trackerSortColumn(
-                                        "category_name"
-                                      )
-                                    }
-                                  }
-                                },
-                                [_vm._v("Subcategory")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "th",
-                                {
-                                  staticClass: "clickable",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm._trackerSortColumn("value")
-                                    }
-                                  }
-                                },
-                                [_vm._v("Value")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "th",
-                                {
-                                  staticClass: "clickable",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm._trackerSortColumn("notes")
-                                    }
-                                  }
-                                },
-                                [_vm._v("Notes")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "th",
-                                {
-                                  staticClass: "clickable",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm._trackerSortColumn(
-                                        "entry_datetime"
-                                      )
-                                    }
-                                  }
-                                },
-                                [_vm._v("Date")]
-                              ),
-                              _vm._v(" "),
-                              !_vm.childhash
-                                ? _c("th", { staticStyle: { width: "20px" } }, [
-                                    _vm._v("Actions")
-                                  ])
-                                : _vm._e()
-                            ])
+                                    : _vm._e()
+                                ])
+                              : _vm._e()
                           ],
                           2
                         ),
@@ -87299,18 +87549,18 @@ var render = function() {
                                                         [
                                                           _c("img", {
                                                             staticClass:
-                                                              "rounded-circle mr-1",
+                                                              "rounded-circle object-fit-cover mr-1",
                                                             attrs: {
-                                                              src:
-                                                                _vm.$baseAvatarPath +
-                                                                "/" +
+                                                              src: _vm.$avatarOrDefault(
                                                                 entry.child
-                                                                  .image_path,
+                                                                  .image_path
+                                                              ),
                                                               alt:
                                                                 "Avatar: " +
                                                                 entry.child
                                                                   .first_name,
-                                                              width: "30px"
+                                                              width: "30px",
+                                                              height: "30px"
                                                             }
                                                           }),
                                                           _vm._v(
@@ -87688,7 +87938,9 @@ var render = function() {
             2
           ),
           _vm._v(" "),
-          _vm.trackerEntries.length === 0 ? [_c("loader")] : _vm._e()
+          !_vm.trackerInitLoad && _vm.trackerEntries.length === 0
+            ? [_c("loader")]
+            : _vm._e()
         ],
         2
       )
@@ -102020,6 +102272,19 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$childBirthdayInMonths = fu
   }
 
   return "".concat(Math.floor(months / 12), " years old");
+};
+
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$keepElSquare = function (elementId) {
+  var avatar = document.getElementById('child-avatar');
+
+  if (avatar) {
+    avatar.style.height = "".concat(avatar.offsetWidth, "px");
+  }
+
+  window.addEventListener('resize', function (event) {
+    var avatar = document.getElementById(elementId);
+    avatar.style.height = "".concat(avatar.offsetWidth, "px");
+  }, true);
 };
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({

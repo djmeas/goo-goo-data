@@ -117,7 +117,7 @@
             </tr>
           </template>
 
-          <tr class="pagination-row">
+          <tr v-if="trackerEntries.length > 0" class="pagination-row">
             <td colspan="99">
               <template v-if="trackerEntriesPaginationDetails">
                 <button class="btn btn-default btn-tiny" 
@@ -143,11 +143,11 @@
               </button>
             </td>
           </tr>
-          <tr>
+          <tr v-if="trackerEntries.length > 0">
             <th v-if="!childhash" @click="_trackerSortColumn('first_name')" class="clickable">Child</th>
             <th @click="_trackerSortColumn('category_group')" class="clickable">Category</th>
             <th @click="_trackerSortColumn('category_name')" class="clickable">Subcategory</th>
-            <th @click="_trackerSortColumn('value')" class="clickable">Value</th>
+            <th @click="_trackerSortColumn('value')" class="clickable">Amount</th>
             <th @click="_trackerSortColumn('notes')" class="clickable">Notes</th>
             <th @click="_trackerSortColumn('entry_datetime')" class="clickable">Date</th>
             <th v-if="!childhash" style="width: 20px">Actions</th>
@@ -159,7 +159,7 @@
               <template v-if="editEntryId !== entry.id">
                 <td v-if="!childhash" class="white-space-nw">
                   <a :href="`/children/${entry.child.hash}`">
-                    <img class="rounded-circle mr-1" :src="$baseAvatarPath + '/' + entry.child.image_path" :alt="'Avatar: ' + entry.child.first_name" width="30px"> 
+                    <img class="rounded-circle object-fit-cover mr-1" :src="$avatarOrDefault(entry.child.image_path)" :alt="'Avatar: ' + entry.child.first_name" width="30px" height="30px"> 
                     {{entry.child.first_name}}
                   </a>
                 </td>
@@ -237,7 +237,7 @@
       </table>
       </template>
     </transition>
-    <template v-if="trackerEntries.length === 0">
+    <template v-if="!trackerInitLoad && trackerEntries.length === 0">
       <loader/>
     </template>
     

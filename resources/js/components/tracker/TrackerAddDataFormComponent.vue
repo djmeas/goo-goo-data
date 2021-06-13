@@ -126,24 +126,63 @@ export default {
     }
   },
 
-  validations: {
-    formTracker: {
-      child_id: {
-        required
-      },
-      category: {
-        required
-      },
-      value: {
-        required,
-        decimal,
-        maxLength: maxLength(8)
-      },
-      entry_datetime: {
-        required
+  validations() {
+    if (this.formTracker.category && this.formTracker.category.type === null) {
+      return {
+        formTracker: {
+          child_id: {
+            required
+          },
+          category: {
+            required
+          },
+          value: {
+          },
+          entry_datetime: {
+            required
+          }
+        }
+      }
+    } else {
+      return {
+        formTracker: {
+          child_id: {
+            required
+          },
+          category: {
+            required
+          },
+          value: {
+            required,
+            decimal,
+            maxLength: maxLength(8)
+          },
+          entry_datetime: {
+            required
+          }
+        }
       }
     }
   },
+
+  // validations: {
+  //   formTracker: {
+  //     child_id: {
+  //       required
+  //     },
+  //     category: {
+  //       required
+  //     },
+  //     value: {
+  //       required,
+  //       decimal,
+  //       maxLength: maxLength(8)
+  //     },
+  //     entry_datetime: {
+  //       required
+  //     }
+  //   }
+  // },
 
   methods: {
     /**

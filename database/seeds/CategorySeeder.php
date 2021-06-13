@@ -51,21 +51,21 @@ class CategorySeeder extends Seeder
             [
                 'group' => 'Changing',
                 'name' => 'Diaper',
-                'type' => 'integer',
+                'type' => null,
                 'prefix' => null,
                 'suffix' => null
             ],
             [
                 'group' => 'Changing',
                 'name' => 'Clothes',
-                'type' => 'integer',
+                'type' => null,
                 'prefix' => null,
                 'suffix' => null
             ],
             [
                 'group' => 'Changing',
                 'name' => 'Bib',
-                'type' => 'integer',
+                'type' => null,
                 'prefix' => null,
                 'suffix' => null
             ],
@@ -179,7 +179,21 @@ class CategorySeeder extends Seeder
             [
                 'group' => 'Event',
                 'name' => 'Medical',
-                'type' => 'integer',
+                'type' => null,
+                'prefix' => null,
+                'suffix' => null
+            ],
+            [
+                'group' => 'Event',
+                'name' => 'Gift (Item)',
+                'type' => 'decimal',
+                'prefix' => null,
+                'suffix' => null
+            ],
+            [
+                'group' => 'Event',
+                'name' => 'Gift (Money)',
+                'type' => 'decimal',
                 'prefix' => null,
                 'suffix' => null
             ],

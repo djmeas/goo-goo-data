@@ -126,6 +126,18 @@ Vue.prototype.$childBirthdayInMonths = function(birthdate) {
     return `${Math.floor(months/12)} years old`;
 }
 
+Vue.prototype.$keepElSquare = function(elementId) {
+    let avatar = document.getElementById('child-avatar');
+    if (avatar) {
+        avatar.style.height = `${avatar.offsetWidth}px`;
+    }
+
+    window.addEventListener('resize', function(event) {
+        let avatar = document.getElementById(elementId);
+        avatar.style.height = `${avatar.offsetWidth}px`;
+    }, true);
+}
+
 const app = new Vue({
     el: '#app',
 });
