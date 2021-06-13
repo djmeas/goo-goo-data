@@ -18,7 +18,10 @@
           </div>
           <div class="col-lg-6">
             <div class="form-group mb-3" :class="{'form-group--error': $v.formChild.birthday.$error}"> 
-              <label for="birthday" class="form-label">Birthday</label>
+              <label for="birthday" class="form-label">
+                Birthday 
+                <span v-if="existingChild">({{existingChild.birthday | dateFormatBirthday}})</span>
+              </label>
               <br>
               <v-date-picker v-model="formChild.birthday" />
             </div>
@@ -27,6 +30,13 @@
             <div class="form-group mb-3"> 
               <label for="" class="form-label">Image</label>
               <input id="uploaded_file" type="file" ref="uploaded_file" name="uploaded_file">
+            </div>
+            <div v-if="existingChild && existingChild.image_path" class="current-image">
+              <div>Current Image</div>
+              <img :src="`${$baseAvatarPath}/${existingChild.image_path}`" alt="" width="45%">
+              <div class="mt-2">
+                <input type="checkbox" v-model="formChild.remove_image"> Remove current image
+              </div>
             </div>
           </div>
         </div>
@@ -51,14 +61,24 @@ export default {
       isAdding: false,
 
       formChild: {
+        id: null,
         first_name: null,
         last_name: null,
-        birthday: null
+        birthday: null,
+        remove_image: false
       }
     }
   },
 
   mixins: [childrenMixin],
+
+  props: {
+    existingChild: {
+      type: Object,
+      required: false,
+      default: null
+    }
+  },
 
   validations: {
       formChild: {
@@ -81,12 +101,29 @@ export default {
     },
 
     _resetFormChild() {
-      this.isAdding = false;
-      this.formChild.first_name = null;
-      this.formChild.last_name = null;
-      this.formChild.birthday = null;
+      if (!this.existingChild) {
+        this.formChild.first_name = null;
+        this.formChild.last_name = null;
+        this.formChild.birthday = null;
+        this.$v.formChild.$reset();
+      } else {
+        this.formChild.first_name = this.existingChild.first_name;
+        this.formChild.last_name = this.existingChild.last_name;
+        this.formChild.birthday = this.existingChild.birthday + ' 12:00:00';
+      }
 
-      this.$v.formChild.$reset();
+      this.isAdding = false;
+      this.formChild.remove_image = false;
+      document.getElementById('uploaded_file').value = null;
+    }
+  },
+
+  mounted() {
+    if (this.existingChild) {
+      this.formChild.id = this.existingChild.id;
+      this.formChild.first_name = this.existingChild.first_name;
+      this.formChild.last_name = this.existingChild.last_name;
+      this.formChild.birthday = this.existingChild.birthday + ' 12:00:00';
     }
   }
 }

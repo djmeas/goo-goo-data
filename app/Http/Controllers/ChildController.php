@@ -103,6 +103,17 @@ class ChildController extends Controller
 
         $hash = md5(implode('', $form_data) . time());
 
+        $existing_image = null;
+
+        if ($form_data['id']) {
+            $child = Child::where('id', $form_data['id'])->first();
+            $hash = $child->hash;
+
+            if ($form_data['remove_image'] === false) {
+                $existing_image = $child->image_path;
+            }
+        }
+
         if ($request->has('uploaded_file') && $request->file('uploaded_file')) {
             $form_file_upload = $request->file('uploaded_file');
 
@@ -126,20 +137,26 @@ class ChildController extends Controller
             [
                 'birthday' => $birthday->toDateString($form_data['birthday']),
                 'hash' => $hash,
-                'image_path' => $request->file('uploaded_file') ? $hash . '.' . $form_file_upload->extension() : null
+                'image_path' => $request->file('uploaded_file') ? $hash . '.' . $form_file_upload->extension() : $existing_image
             ]
         );
+
+        // dd($childData);
 
         try {
             DB::beginTransaction();
 
-            $child = Child::create($childData);
+            if ($childData['id']) {
+                $child->update($childData);
+            } else {
+                $child = Child::create($childData);
 
-            $caretaker = Caretaker::create([
-                'user_id' => Auth::id(),
-                'child_id' => $child->id
-            ]);
-
+                $caretaker = Caretaker::create([
+                    'user_id' => Auth::id(),
+                    'child_id' => $child->id
+                ]);
+            }
+            
             DB::commit();
 
             return Child::find($child->id);

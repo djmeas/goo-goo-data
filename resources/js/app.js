@@ -66,7 +66,21 @@ Vue.prototype.$baseAPI = '/api';
 
 Vue.prototype.$baseAvatarPath = 'https://goo-goo-data.s3-us-west-2.amazonaws.com/avatars';
 
+Vue.prototype.$baseChildImage = '/img/base_child_image.png';
+
+Vue.prototype.$avatarOrDefault = function(path) {
+    if (path) {
+        return `${Vue.prototype.$baseAvatarPath}/${path}`;
+    }
+
+    return Vue.prototype.$baseChildImage;
+}
+
 Vue.prototype.$browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+Vue.prototype.$dateToMoment = function(date) {
+    return moment(date + ' 12:00:00');
+};
 
 Vue.prototype.$utcToLocal = function(datetime) {
     return momenttz.utc(datetime).tz(Vue.prototype.$browserTimezone).format("M/D/yy h:mm a");

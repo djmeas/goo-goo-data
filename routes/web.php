@@ -48,13 +48,15 @@ Route::middleware(['isAuthenticatedUser'])->group(function() {
             Route::get('is-parent/{child_hash}/{user_id}', 'CaretakerController@is_parent_of_child');
             Route::post('mark-parent-child', 'CaretakerController@mark_parent_child');
 
+            Route::post('invite', 'CaretakerController@save_invite');
+            Route::delete('invite/{invite_id}', 'CaretakerController@delete_invite');
+            Route::get('pending-invites/{hash}', 'CaretakerController@get_pending_invites');
+
             Route::get('{hash?}', 'CaretakerController@get');
 
             Route::delete('{child_hash}/{user_id}', 'CaretakerController@delete_caretaker');
 
-            Route::post('invite', 'CaretakerController@save_invite');
-            Route::delete('invite/{invite_id}', 'CaretakerController@delete_invite');
-            Route::get('pending-invites/{hash}', 'CaretakerController@get_pending_invites');
+            
         
             
         });

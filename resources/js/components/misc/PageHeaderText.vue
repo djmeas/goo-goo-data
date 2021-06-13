@@ -8,7 +8,7 @@
       Sorry, your browser does not support inline SVG.  
     </svg>  -->
     <svg class="header-circle-b" height="100" width="100">
-      <circle cx="50" cy="50" r="30" stroke="white" stroke-width="3" fill="blueviolet" />
+      <circle cx="50" cy="50" r="30" stroke="white" stroke-width="3" fill="#6eaefc" />
       Sorry, your browser does not support inline SVG.  
     </svg> 
   </div>

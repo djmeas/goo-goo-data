@@ -71,8 +71,7 @@ export default {
           .then(res => {
             this.$emit('eventSaveChild', res.data);
 
-            this.$toasted.success('Child successfully created.');
-
+            this.$toasted.success('Child successfully saved.');
             this._resetFormChild();
           })
           .catch(err => {
