@@ -15,9 +15,9 @@
                   <div class="card-header">Filters</div>
                   <div class="card-body">
                     <div class="row">
-                      <div class="col-lg-9">
-                        <div class="row">
-                          <div class="col-lg-4">
+
+    
+                          <div class="col-lg-3">
                           <div class="form-group mb-3">
                             <label for="child" class="form-label">Child</label>
                             <select v-model="trackerFilters.child_id" class="form-control" name="child" id="child">
@@ -28,7 +28,7 @@
                             </select>
                           </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-2">
                           <div class="form-group mb-3">
                             <label for="category" class="form-label">Category</label>
                             <select v-model="selectedCategory" @change="trackerFilters.category = null" class="form-control" name="child" id="child">
@@ -39,7 +39,7 @@
                             </select>
                           </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                           <div class="form-group mb-3">
                             <label for="category" class="form-label">Subcategory</label>
                             <select v-model="trackerFilters.category" class="form-control" name="child" id="child">
@@ -51,7 +51,7 @@
                           </div>
                         </div>
 
-                        <div class="col-lg-4">
+                        <div class="col-lg-2">
                           <label for="inlineFormInputGroup">Amount Min</label>
                           <div class="input-group mb-2">
                             <div v-if="trackerFilters.category && trackerFilters.category.prefix" class="input-group-prepend">
@@ -65,7 +65,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-2">
                           <label for="inlineFormInputGroup">Amount Max</label>
                           <div class="input-group mb-2">
                             <div v-if="trackerFilters.category && trackerFilters.category.prefix" class="input-group-prepend">
@@ -85,26 +85,56 @@
                             <input v-model="trackerFilters.notes" type="text" class="form-control">
                           </div>
                         </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-3">
+                        
+                      <!-- <div class="col-lg-3">
                         <div class="form-group mb-3"> 
                           <label for="birthday" class="form-label">Date Range</label>
                           <br>
-                          <!-- <input v-model="formChild.birthday" type="text" class="form-control" id="birthday"> -->
                           <v-date-picker ref="datePickerRange" :timezone="$browserTimezone" is-range v-model="trackerFilters.entry_datetime_range" />
+                        </div>
+                      </div> -->
+                      <div class="col-lg-2">
+                        <div class="form-group mb-3"> 
+                          <label for="birthday" class="form-label">Date Start</label>
+                          <br>
+                          <!-- <v-date-picker ref="datePickerRange" :timezone="$browserTimezone" is-range v-model="formChart.date_range" /> -->
+                          <v-date-picker v-model="trackerFilters.entry_datetime_range.start" ref="datePickerRange" :timezone="$browserTimezone">
+                            <template v-slot="{ inputValue, inputEvents }">
+                              <input
+                                class="form-control"
+                                :value="inputValue"
+                                v-on="inputEvents"
+                              />
+                            </template>
+                          </v-date-picker>
+                        </div>
+                      </div>
+                      <div class="col-lg-2">
+                        <div class="form-group mb-3"> 
+                          <label for="birthday" class="form-label">Date End</label>
+                          <br>
+                          <!-- <v-date-picker ref="datePickerRange" :timezone="$browserTimezone" is-range v-model="formChart.date_range" /> -->
+                          <v-date-picker v-model="trackerFilters.entry_datetime_range.end" ref="datePickerRange" :timezone="$browserTimezone">
+                            <template v-slot="{ inputValue, inputEvents }">
+                              <input
+                                class="form-control"
+                                :value="inputValue"
+                                v-on="inputEvents"
+                              />
+                            </template>
+                          </v-date-picker>
                         </div>
                       </div>
 
-                      <div class="col-lg-12">
-                        <div class="text-right">
-                          <button class="btn btn-default" @click="showFilter = false">
+                      <div class="col-lg-4">
+                        <div class="text-right d-flex" style="margin-top: 31px;">
+                          <button class="btn btn-default flex-1" @click="showFilter = false">
                             <span class="material-icons">visibility_off</span> Hide
                           </button>
-                          <button class="btn btn-default" @click="_resetFormFilters(); hasFilters = false;">
+                          <button class="btn btn-default flex-1 ml-2 mr-2" @click="_resetFormFilters(); hasFilters = false;">
                             <span class="material-icons">restart_alt</span> Reset
                           </button>
-                          <button class="btn btn-primary" @click="getTrackerEntries(); hasFilters = true;">
+                          <button class="btn btn-primary flex-1" @click="getTrackerEntries(); hasFilters = true;">
                             <span class="material-icons">search</span> Search
                           </button>
                         </div>
@@ -304,7 +334,7 @@ export default {
      */
     _resetFormFilters() {
       this.trackerFilters.sort = 'entry_datetime';
-      this.trackerFilters.dir = 'asc';
+      this.trackerFilters.dir = 'desc';
       this.trackerFilters.child_id = null;
       this.selectedCategory = null;
       this.trackerFilters.category = null;

@@ -26,6 +26,10 @@ h1, h2, h3, h4, h5 {
   font-family: 'Comfortaa', cursive;
 }
 
+#app {
+  overflow-x: hidden;
+}
+
 .page-header {
   position: relative;
   
@@ -65,6 +69,18 @@ h1, h2, h3, h4, h5 {
 /* Bootstrap Overrides */
 .hidden {
   display: none;
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.flex-3 {
+  flex: 3;
 }
 
 nav.navbar {
@@ -122,11 +138,11 @@ nav.navbar {
   }
 }
 
-.vc-container {
-  transform: scale(0.95);
-  top: -8px;
-  left: -9px;
-}
+// .vc-container {
+//   transform: scale(0.95);
+//   top: -8px;
+//   left: -9px;
+// }
 
 /* Colors */
 

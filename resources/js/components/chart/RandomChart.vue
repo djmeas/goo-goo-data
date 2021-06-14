@@ -1,11 +1,11 @@
 <template>
   <div class="row">
-    <div v-if="children && categories" class="col-lg-12">
+    <div v-if="children && categories" class="col-lg-12 mb-4">
       <div class="card">
         <div class="card-header">Generate Chart</div>
         <div class="card-body">
           <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-2">
               <div class="form-group mb-3">
                 <label for="child" class="form-label">Child</label>
                 <select v-model="formChart.child_hash" class="form-control" name="child" id="child">
@@ -17,7 +17,7 @@
               </div>
             </div>
 
-              <div class="col-lg-3">
+              <div class="col-lg-2">
                 <div class="form-group mb-3">
                   <label for="category" class="form-label">Category</label>
                   <select v-model="selectedCategory" @change="formChart.category = null" class="form-control" name="child" id="child">
@@ -28,7 +28,7 @@
                   </select>
                 </div>
               </div>
-              <div class="col-lg-3">
+              <div class="col-lg-2">
                 <div class="form-group mb-3">
                   <label for="category" class="form-label">Subcategory</label>
                   <select v-model="formChart.category_id" class="form-control" name="child" id="child">
@@ -40,26 +40,61 @@
                 </div>
               </div>
 
-              <div class="col-lg-3">
+              <div class="col-lg-2">
                 <div class="form-group mb-3"> 
-                  <label for="birthday" class="form-label">Date Range</label>
+                  <label for="birthday" class="form-label">Date Start</label>
                   <br>
-                  <!-- <input v-model="formChild.birthday" type="text" class="form-control" id="birthday"> -->
-                  <v-date-picker ref="datePickerRange" :timezone="$browserTimezone" is-range v-model="formChart.date_range" />
+                  <!-- <v-date-picker ref="datePickerRange" :timezone="$browserTimezone" is-range v-model="formChart.date_range" /> -->
+                  <v-date-picker v-model="formChart.date_range.start" ref="datePickerRange" :timezone="$browserTimezone">
+                    <template v-slot="{ inputValue, inputEvents }">
+                      <input
+                        class="form-control"
+                        :value="inputValue"
+                        v-on="inputEvents"
+                      />
+                    </template>
+                  </v-date-picker>
+                </div>
+              </div>
+              <div class="col-lg-2">
+                <div class="form-group mb-3"> 
+                  <label for="birthday" class="form-label">Date End</label>
+                  <br>
+                  <!-- <v-date-picker ref="datePickerRange" :timezone="$browserTimezone" is-range v-model="formChart.date_range" /> -->
+                  <v-date-picker v-model="formChart.date_range.end" ref="datePickerRange" :timezone="$browserTimezone">
+                    <template v-slot="{ inputValue, inputEvents }">
+                      <input
+                        class="form-control"
+                        :value="inputValue"
+                        v-on="inputEvents"
+                      />
+                    </template>
+                  </v-date-picker>
                 </div>
               </div>
 
-              <div class="col-lg-12">
-                <button @click="getChartData()">Generate</button>
+              <div class="col-lg-2 text-center" style="margin-top: 31px;">
+                <button class="btn btn-primary width-100" @click="getChartData()">
+                  Generate
+                </button>
               </div>
             
           </div>
         </div>
       </div>
     </div>
-    <div class="col-lg-12">
-      <canvas id="myChart"></canvas>
-    </div>
+    <transition name="fade">
+      <div v-show="isChartLoaded" class="col-lg-12 ">
+        <div class="card">
+          <div class="card-header" v-if="chartData">
+            {{chartData.category.group}} - {{chartData.category.name}}
+          </div>
+          <div class="card-body" id="chart-container">
+            <canvas id="myChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -70,6 +105,10 @@
   export default {
     data () {
       return {
+        isChartLoaded: false,
+
+        chartData: null,
+
         formChart: {
           child_hash: null,
           category: null,
@@ -89,6 +128,24 @@
 
     methods: {
       getChartData() {
+        this.isChartLoaded = false;
+        // let oldCanvasContainers = document.getElementsByClassName('chartjs-size-monitor');
+        let oldChart = document.getElementById('myChart');
+        if (oldChart) {
+          document.getElementById('myChart').remove();
+        }
+        // console.log(oldCanvasContainers);
+
+        
+        // Array.from(oldCanvasContainers).forEach(el => {
+        //   console.log(el);
+        //   el.remove();
+        // })
+
+        let newCanvas = document.createElement("canvas");
+        newCanvas.id = 'myChart';
+        document.getElementById('chart-container').appendChild(newCanvas);  
+
         const hash = this.formChart.child_hash;
         const categoryId = this.formChart.category_id;
         const startDate = Vue.prototype.$dateToMySQL(this.formChart.date_range.start);
@@ -98,11 +155,14 @@
 
         axios.get(`${Vue.prototype.$baseAPI}/chart/${hash}/${categoryId}/${startDate}/${endDate}`)
           .then(res => {
+            this.chartData = res.data;
+
             this.buildChart(
               res.data.category.group + ' - ' + res.data.category.name, 
               res.data.labels, 
               res.data.data
             );
+            this.isChartLoaded = true;
           })
           .catch(err => {
             this.$toaster.error('Whoops! Could not load chart data');
@@ -117,12 +177,6 @@
         data,
         options: {}
       };
-
-      // const labels = [
-      //   'January',
-      //   'February',
-      //   'March',
-      // ];
 
       const data = {
         labels: labels,
@@ -155,8 +209,6 @@
     mounted () {
       this.getChildren();
       this.getCategories();
-      // this.getChartData();
-      // this.buildChart();
     },
     
   }

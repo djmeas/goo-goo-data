@@ -11,7 +11,7 @@ use Carbon\Carbon;
 
 class ChartController extends Controller
 {
-    public function view(Request $request, $hash) {
+    public function view(Request $request) {
         return view('charts.view');
     }
 
@@ -60,7 +60,7 @@ class ChartController extends Controller
                 $entry_datetime = Carbon::parse($entry['entry_datetime'])->format('m/d/y');
 
                 if ($date === $entry_datetime) {
-                    $amount += $entry['value'];
+                    $amount += $entry['value'] ?: 1;
                 }
             }
 

@@ -31,7 +31,7 @@ Route::middleware(['isAuthenticatedUser'])->group(function() {
 
     Route::get('/tracker', 'TrackerController@index')->name('tracker');
 
-    Route::get('/charts/{hash}', 'ChartController@view');
+    Route::get('/charts', 'ChartController@view');
 
     Route::get('/invites', 'CaretakerController@view_invites');
 
