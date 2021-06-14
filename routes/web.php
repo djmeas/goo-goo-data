@@ -31,6 +31,8 @@ Route::middleware(['isAuthenticatedUser'])->group(function() {
 
     Route::get('/tracker', 'TrackerController@index')->name('tracker');
 
+    Route::get('/charts/{hash}', 'ChartController@view');
+
     Route::get('/invites', 'CaretakerController@view_invites');
 
     Route::prefix('api')->group(function() {
@@ -55,10 +57,6 @@ Route::middleware(['isAuthenticatedUser'])->group(function() {
             Route::get('{hash?}', 'CaretakerController@get');
 
             Route::delete('{child_hash}/{user_id}', 'CaretakerController@delete_caretaker');
-
-            
-        
-            
         });
 
         Route::prefix('category')->group(function() {
@@ -69,6 +67,10 @@ Route::middleware(['isAuthenticatedUser'])->group(function() {
             Route::get('/{hash?}/{id?}', 'TrackerController@get');
             Route::post('/', 'TrackerController@save');
             Route::delete('/{id}', 'TrackerController@delete');
+        });
+
+        Route::prefix('chart')->group(function() {
+            Route::get('{hash}/{category_id}/{start}/{end}', 'ChartController@generate_chart');
         });
     });
 

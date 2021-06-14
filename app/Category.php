@@ -13,6 +13,10 @@ class Category extends Model
         'suffix'
     ];
 
+    public function TrackerEntries() {
+        return $this->hasMany(Tracker::class);
+    }
+
     /**
      * Groups categories and nests options into an array.
      * 

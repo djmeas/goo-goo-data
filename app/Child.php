@@ -56,4 +56,10 @@ class Child extends Model
             return $users;
         }
     }
+
+    public static function getChildByHash($hash) {
+        return Child::where('hash', $hash)
+            ->whereIn('id', Child::accessibleChildren())
+            ->first();
+    }
 }

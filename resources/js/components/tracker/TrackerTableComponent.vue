@@ -197,7 +197,7 @@
                 </td>
               </template>
             </tr>
-            <tr class="pagination-row">
+            <!-- <tr class="pagination-row">
               <td colspan="99">
                 <template v-if="trackerEntriesPaginationDetails">
                   <button class="btn btn-default btn-tiny" 
@@ -219,7 +219,7 @@
                   {{trackerEntriesPaginationDetails.total}} entries
                 </template>
               </td>
-            </tr>
+            </tr> -->
           </template>
           <template v-else>
             <tr>

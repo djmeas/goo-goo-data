@@ -99,7 +99,11 @@ Vue.prototype.$addClass = function(elementId, className) {
     el.classList.add(className);
 };
 
-console.log(Math.floor(moment().diff(moment('2020-03-26'), 'months', true)));
+Vue.prototype.$dateToMySQL = function(datetime) {
+    return momenttz.utc(datetime).tz(Vue.prototype.$browserTimezone).format("YYYY-MM-DD");
+};
+
+// console.log(Math.floor(moment().diff(moment('2020-03-26'), 'months', true)));
 
 Vue.filter('dateFormat', (datetime) => {
     return momenttz.utc(datetime).tz(Vue.prototype.$browserTimezone).format("M/D/yy h:mm a");

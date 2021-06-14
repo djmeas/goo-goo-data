@@ -2048,6 +2048,180 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chart/ChartPageComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/chart/ChartPageComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chart/RandomChart.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/chart/RandomChart.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_children__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/children */ "./resources/js/mixins/children.js");
+/* harmony import */ var _mixins_categories__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/categories */ "./resources/js/mixins/categories.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      formChart: {
+        child_hash: null,
+        category: null,
+        category_id: null,
+        date_range: {
+          start: null,
+          end: null
+        }
+      }
+    };
+  },
+  mixins: [_mixins_children__WEBPACK_IMPORTED_MODULE_0__["default"], _mixins_categories__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  methods: {
+    getChartData: function getChartData() {
+      var _this = this;
+
+      var hash = this.formChart.child_hash;
+      var categoryId = this.formChart.category_id;
+      var startDate = Vue.prototype.$dateToMySQL(this.formChart.date_range.start);
+      var endDate = Vue.prototype.$dateToMySQL(this.formChart.date_range.end);
+      console.log("".concat(Vue.prototype.$baseAPI, "/chart/").concat(hash, "/").concat(categoryId, "/").concat(startDate, "/").concat(endDate));
+      axios.get("".concat(Vue.prototype.$baseAPI, "/chart/").concat(hash, "/").concat(categoryId, "/").concat(startDate, "/").concat(endDate)).then(function (res) {
+        _this.buildChart(res.data.category.group + ' - ' + res.data.category.name, res.data.labels, res.data.data);
+      })["catch"](function (err) {
+        _this.$toaster.error('Whoops! Could not load chart data');
+      });
+    },
+    buildChart: function buildChart(header, labels, dataEntries) {
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var config = {
+        type: 'line',
+        data: data,
+        options: {}
+      }; // const labels = [
+      //   'January',
+      //   'February',
+      //   'March',
+      // ];
+
+      var data = {
+        labels: labels,
+        datasets: [{
+          label: header,
+          backgroundColor: '#b082fc',
+          borderColor: '#7c45d6',
+          data: dataEntries
+        }]
+      };
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    },
+    getRandomInt: function getRandomInt() {
+      return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+    }
+  },
+  mounted: function mounted() {
+    this.getChildren();
+    this.getCategories(); // this.getChartData();
+    // this.buildChart();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/children/ChildAddFormComponent.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/children/ChildAddFormComponent.vue?vue&type=script&lang=js& ***!
@@ -7919,6 +8093,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 // module
 exports.push([module.i, ".cloud-card[data-v-4a64a926] {\n  /* background-color: #e0d3ec; */\n}\n.cloud-card .content[data-v-4a64a926] {\n  z-index: 1;\n}\n.splat[data-v-4a64a926] {\n  position: absolute;\n  top: -318px;\n  z-index: -1;\n  left: 52px;\n  opacity: 0;\n}\n.splat svg[data-v-4a64a926] {\n  /* width: 250px; */\n}\n.splat-svg[data-v-4a64a926] {\n  fill: #e0d3ec;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chart/RandomChart.vue?vue&type=style&index=0&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/chart/RandomChart.vue?vue&type=style&index=0&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.small {\n  max-width: 600px;\n  margin:  150px auto;\n}\n", ""]);
 
 // exports
 
@@ -61523,6 +61716,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chart/RandomChart.vue?vue&type=style&index=0&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/chart/RandomChart.vue?vue&type=style&index=0&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./RandomChart.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chart/RandomChart.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/misc/Loader.vue?vue&type=style&index=0&lang=css&":
 /*!*********************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/misc/Loader.vue?vue&type=style&index=0&lang=css& ***!
@@ -84156,6 +84379,341 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chart/ChartPageComponent.vue?vue&type=template&id=47a55cac&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/chart/ChartPageComponent.vue?vue&type=template&id=47a55cac& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { attrs: { id: "chart-page-component" } },
+    [
+      _c("page-header-text", { attrs: { text: "Charts" } }),
+      _vm._v(" "),
+      _c("random-chart")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chart/RandomChart.vue?vue&type=template&id=1ff3ec4f&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/chart/RandomChart.vue?vue&type=template&id=1ff3ec4f& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _vm.children && _vm.categories
+      ? _c("div", { staticClass: "col-lg-12" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _vm._v("Generate Chart")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-lg-3" }, [
+                  _c("div", { staticClass: "form-group mb-3" }, [
+                    _c(
+                      "label",
+                      { staticClass: "form-label", attrs: { for: "child" } },
+                      [_vm._v("Child")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.formChart.child_hash,
+                            expression: "formChart.child_hash"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "child", id: "child" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.formChart,
+                              "child_hash",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { domProps: { value: null } }, [
+                          _vm._v("Select...")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.children, function(child) {
+                          return _c(
+                            "option",
+                            {
+                              key: child.id + "-" + child.first_name,
+                              domProps: { value: child.hash }
+                            },
+                            [
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(child.first_name) +
+                                  " " +
+                                  _vm._s(child.last_name) +
+                                  "\n                "
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-3" }, [
+                  _c("div", { staticClass: "form-group mb-3" }, [
+                    _c(
+                      "label",
+                      { staticClass: "form-label", attrs: { for: "category" } },
+                      [_vm._v("Category")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.selectedCategory,
+                            expression: "selectedCategory"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "child", id: "child" },
+                        on: {
+                          change: [
+                            function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.selectedCategory = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            },
+                            function($event) {
+                              _vm.formChart.category = null
+                            }
+                          ]
+                        }
+                      },
+                      [
+                        _c("option", { domProps: { value: null } }, [
+                          _vm._v("Select")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.categories, function(category, index) {
+                          return _c(
+                            "option",
+                            { key: index, domProps: { value: index } },
+                            [
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(index) +
+                                  "\n                  "
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-3" }, [
+                  _c("div", { staticClass: "form-group mb-3" }, [
+                    _c(
+                      "label",
+                      { staticClass: "form-label", attrs: { for: "category" } },
+                      [_vm._v("Subcategory")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.formChart.category_id,
+                            expression: "formChart.category_id"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "child", id: "child" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.formChart,
+                              "category_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { domProps: { value: null } }, [
+                          _vm._v("Select")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.selectedCategoryOptions, function(option) {
+                          return _c(
+                            "option",
+                            {
+                              key: option.id + option.name,
+                              domProps: { value: option.id }
+                            },
+                            [
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(option.name) +
+                                  "\n                  "
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-3" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group mb-3" },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "form-label",
+                          attrs: { for: "birthday" }
+                        },
+                        [_vm._v("Date Range")]
+                      ),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("v-date-picker", {
+                        ref: "datePickerRange",
+                        attrs: {
+                          timezone: _vm.$browserTimezone,
+                          "is-range": ""
+                        },
+                        model: {
+                          value: _vm.formChart.date_range,
+                          callback: function($$v) {
+                            _vm.$set(_vm.formChart, "date_range", $$v)
+                          },
+                          expression: "formChart.date_range"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-12" }, [
+                  _c(
+                    "button",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.getChartData()
+                        }
+                      }
+                    },
+                    [_vm._v("Generate")]
+                  )
+                ])
+              ])
+            ])
+          ])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm._m(0)
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-12" }, [
+      _c("canvas", { attrs: { id: "myChart" } })
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/children/ChildAddFormComponent.vue?vue&type=template&id=6a6fb18f&":
 /*!*********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/children/ChildAddFormComponent.vue?vue&type=template&id=6a6fb18f& ***!
@@ -87518,390 +88076,266 @@ var render = function() {
                           "tbody",
                           [
                             _vm.trackerEntries.length > 0
-                              ? [
-                                  _vm._l(_vm.trackerEntries, function(entry) {
-                                    return _c(
-                                      "tr",
-                                      {
-                                        key: "entry" + entry.id,
-                                        attrs: { id: "entry-tr-" + entry.id }
-                                      },
-                                      [
-                                        _vm.editEntryId !== entry.id
-                                          ? [
-                                              !_vm.childhash
-                                                ? _c(
-                                                    "td",
-                                                    {
-                                                      staticClass:
-                                                        "white-space-nw"
-                                                    },
-                                                    [
-                                                      _c(
-                                                        "a",
-                                                        {
-                                                          attrs: {
-                                                            href:
-                                                              "/children/" +
-                                                              entry.child.hash
-                                                          }
-                                                        },
-                                                        [
-                                                          _c("img", {
-                                                            staticClass:
-                                                              "rounded-circle object-fit-cover mr-1",
-                                                            attrs: {
-                                                              src: _vm.$avatarOrDefault(
-                                                                entry.child
-                                                                  .image_path
-                                                              ),
-                                                              alt:
-                                                                "Avatar: " +
-                                                                entry.child
-                                                                  .first_name,
-                                                              width: "30px",
-                                                              height: "30px"
-                                                            }
-                                                          }),
-                                                          _vm._v(
-                                                            " \n                  " +
-                                                              _vm._s(
-                                                                entry.child
-                                                                  .first_name
-                                                              ) +
-                                                              "\n                "
-                                                          )
-                                                        ]
-                                                      )
-                                                    ]
-                                                  )
-                                                : _vm._e(),
-                                              _vm._v(" "),
-                                              _c("td", [
-                                                _vm._v(
-                                                  _vm._s(entry.category.group)
-                                                )
-                                              ]),
-                                              _vm._v(" "),
-                                              _c("td", [
-                                                _vm._v(
-                                                  _vm._s(entry.category.name)
-                                                )
-                                              ]),
-                                              _vm._v(" "),
-                                              _c(
-                                                "td",
-                                                [
-                                                  entry.category.prefix
-                                                    ? [
-                                                        _vm._v(
-                                                          _vm._s(
-                                                            entry.category
-                                                              .prefix
-                                                          )
-                                                        )
-                                                      ]
-                                                    : _vm._e(),
-                                                  _vm._v(
-                                                    _vm._s(entry.value) +
-                                                      "\n                "
-                                                  ),
-                                                  entry.category.suffix
-                                                    ? [
-                                                        _vm._v(
-                                                          _vm._s(
-                                                            entry.category
-                                                              .suffix
-                                                          )
-                                                        )
-                                                      ]
-                                                    : _vm._e()
-                                                ],
-                                                2
-                                              ),
-                                              _vm._v(" "),
-                                              _c("td", {
-                                                domProps: {
-                                                  innerHTML: _vm._s(entry.notes)
-                                                }
-                                              }),
-                                              _vm._v(" "),
-                                              _c(
-                                                "td",
-                                                {
-                                                  staticClass: "white-space-nw"
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                " +
-                                                      _vm._s(
-                                                        _vm._f("dateFormatMDY")(
-                                                          entry.entry_datetime
-                                                        )
-                                                      ) +
-                                                      " " +
-                                                      _vm._s(
-                                                        _vm._f(
-                                                          "dateFormatTime"
-                                                        )(entry.entry_datetime)
-                                                      ) +
-                                                      "\n              "
-                                                  )
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              !_vm.childhash
-                                                ? _c(
-                                                    "td",
-                                                    {
-                                                      staticClass:
-                                                        "text-center",
-                                                      staticStyle: {
-                                                        width: "20px"
-                                                      }
-                                                    },
-                                                    [
-                                                      _c(
-                                                        "div",
-                                                        {
-                                                          staticClass:
-                                                            "dropdown"
-                                                        },
-                                                        [
-                                                          _c("button", {
-                                                            staticClass:
-                                                              "btn btn-default dropdown-toggle",
-                                                            staticStyle: {
-                                                              padding:
-                                                                "0px 15px"
-                                                            },
-                                                            attrs: {
-                                                              type: "button",
-                                                              id:
-                                                                "dropdownMenuButton",
-                                                              "data-toggle":
-                                                                "dropdown",
-                                                              "aria-haspopup":
-                                                                "true",
-                                                              "aria-expanded":
-                                                                "false"
-                                                            }
-                                                          }),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "div",
-                                                            {
-                                                              staticClass:
-                                                                "dropdown-menu",
-                                                              attrs: {
-                                                                "aria-labelledby":
-                                                                  "dropdownMenuButton"
-                                                              }
-                                                            },
-                                                            [
-                                                              _c(
-                                                                "a",
-                                                                {
-                                                                  staticClass:
-                                                                    "dropdown-item",
-                                                                  attrs: {
-                                                                    href: "#"
-                                                                  },
-                                                                  on: {
-                                                                    click: function(
-                                                                      $event
-                                                                    ) {
-                                                                      _vm.isEditing = true
-                                                                      _vm.editEntryId =
-                                                                        entry.id
-                                                                    }
-                                                                  }
-                                                                },
-                                                                [_vm._v("Edit")]
-                                                              ),
-                                                              _vm._v(" "),
-                                                              _c(
-                                                                "a",
-                                                                {
-                                                                  staticClass:
-                                                                    "dropdown-item",
-                                                                  attrs: {
-                                                                    href: "#"
-                                                                  },
-                                                                  on: {
-                                                                    click: function(
-                                                                      $event
-                                                                    ) {
-                                                                      return _vm.deleteTrackerEntry(
-                                                                        entry.id
-                                                                      )
-                                                                    }
-                                                                  }
-                                                                },
-                                                                [
-                                                                  _vm._v(
-                                                                    "Delete"
-                                                                  )
-                                                                ]
-                                                              )
-                                                            ]
-                                                          )
-                                                        ]
-                                                      )
-                                                    ]
-                                                  )
-                                                : _vm._e()
-                                            ]
-                                          : _vm._e(),
-                                        _vm._v(" "),
-                                        _vm.editEntryId === entry.id
-                                          ? [
-                                              _c(
-                                                "td",
-                                                { attrs: { colspan: "99" } },
-                                                [
-                                                  _c(
-                                                    "tracker-add-data-form-component",
-                                                    {
-                                                      attrs: {
-                                                        existingEntry: entry
-                                                      },
-                                                      on: {
-                                                        eventSaveTrackerEntry: function(
-                                                          $event
-                                                        ) {
-                                                          _vm.getTrackerEntries()
-                                                          _vm.editEntryId = null
-                                                        },
-                                                        cancelTrackerEntry: function(
-                                                          $event
-                                                        ) {
-                                                          _vm.editEntryId = null
+                              ? _vm._l(_vm.trackerEntries, function(entry) {
+                                  return _c(
+                                    "tr",
+                                    {
+                                      key: "entry" + entry.id,
+                                      attrs: { id: "entry-tr-" + entry.id }
+                                    },
+                                    [
+                                      _vm.editEntryId !== entry.id
+                                        ? [
+                                            !_vm.childhash
+                                              ? _c(
+                                                  "td",
+                                                  {
+                                                    staticClass:
+                                                      "white-space-nw"
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "a",
+                                                      {
+                                                        attrs: {
+                                                          href:
+                                                            "/children/" +
+                                                            entry.child.hash
                                                         }
+                                                      },
+                                                      [
+                                                        _c("img", {
+                                                          staticClass:
+                                                            "rounded-circle object-fit-cover mr-1",
+                                                          attrs: {
+                                                            src: _vm.$avatarOrDefault(
+                                                              entry.child
+                                                                .image_path
+                                                            ),
+                                                            alt:
+                                                              "Avatar: " +
+                                                              entry.child
+                                                                .first_name,
+                                                            width: "30px",
+                                                            height: "30px"
+                                                          }
+                                                        }),
+                                                        _vm._v(
+                                                          " \n                  " +
+                                                            _vm._s(
+                                                              entry.child
+                                                                .first_name
+                                                            ) +
+                                                            "\n                "
+                                                        )
+                                                      ]
+                                                    )
+                                                  ]
+                                                )
+                                              : _vm._e(),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(
+                                                _vm._s(entry.category.group)
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("td", [
+                                              _vm._v(
+                                                _vm._s(entry.category.name)
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c(
+                                              "td",
+                                              [
+                                                entry.category.prefix
+                                                  ? [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          entry.category.prefix
+                                                        )
+                                                      )
+                                                    ]
+                                                  : _vm._e(),
+                                                _vm._v(
+                                                  _vm._s(entry.value) +
+                                                    "\n                "
+                                                ),
+                                                entry.category.suffix
+                                                  ? [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          entry.category.suffix
+                                                        )
+                                                      )
+                                                    ]
+                                                  : _vm._e()
+                                              ],
+                                              2
+                                            ),
+                                            _vm._v(" "),
+                                            _c("td", {
+                                              domProps: {
+                                                innerHTML: _vm._s(entry.notes)
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c(
+                                              "td",
+                                              { staticClass: "white-space-nw" },
+                                              [
+                                                _vm._v(
+                                                  "\n                " +
+                                                    _vm._s(
+                                                      _vm._f("dateFormatMDY")(
+                                                        entry.entry_datetime
+                                                      )
+                                                    ) +
+                                                    " " +
+                                                    _vm._s(
+                                                      _vm._f("dateFormatTime")(
+                                                        entry.entry_datetime
+                                                      )
+                                                    ) +
+                                                    "\n              "
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            !_vm.childhash
+                                              ? _c(
+                                                  "td",
+                                                  {
+                                                    staticClass: "text-center",
+                                                    staticStyle: {
+                                                      width: "20px"
+                                                    }
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "div",
+                                                      {
+                                                        staticClass: "dropdown"
+                                                      },
+                                                      [
+                                                        _c("button", {
+                                                          staticClass:
+                                                            "btn btn-default dropdown-toggle",
+                                                          staticStyle: {
+                                                            padding: "0px 15px"
+                                                          },
+                                                          attrs: {
+                                                            type: "button",
+                                                            id:
+                                                              "dropdownMenuButton",
+                                                            "data-toggle":
+                                                              "dropdown",
+                                                            "aria-haspopup":
+                                                              "true",
+                                                            "aria-expanded":
+                                                              "false"
+                                                          }
+                                                        }),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "dropdown-menu",
+                                                            attrs: {
+                                                              "aria-labelledby":
+                                                                "dropdownMenuButton"
+                                                            }
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "a",
+                                                              {
+                                                                staticClass:
+                                                                  "dropdown-item",
+                                                                attrs: {
+                                                                  href: "#"
+                                                                },
+                                                                on: {
+                                                                  click: function(
+                                                                    $event
+                                                                  ) {
+                                                                    _vm.isEditing = true
+                                                                    _vm.editEntryId =
+                                                                      entry.id
+                                                                  }
+                                                                }
+                                                              },
+                                                              [_vm._v("Edit")]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "a",
+                                                              {
+                                                                staticClass:
+                                                                  "dropdown-item",
+                                                                attrs: {
+                                                                  href: "#"
+                                                                },
+                                                                on: {
+                                                                  click: function(
+                                                                    $event
+                                                                  ) {
+                                                                    return _vm.deleteTrackerEntry(
+                                                                      entry.id
+                                                                    )
+                                                                  }
+                                                                }
+                                                              },
+                                                              [_vm._v("Delete")]
+                                                            )
+                                                          ]
+                                                        )
+                                                      ]
+                                                    )
+                                                  ]
+                                                )
+                                              : _vm._e()
+                                          ]
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _vm.editEntryId === entry.id
+                                        ? [
+                                            _c(
+                                              "td",
+                                              { attrs: { colspan: "99" } },
+                                              [
+                                                _c(
+                                                  "tracker-add-data-form-component",
+                                                  {
+                                                    attrs: {
+                                                      existingEntry: entry
+                                                    },
+                                                    on: {
+                                                      eventSaveTrackerEntry: function(
+                                                        $event
+                                                      ) {
+                                                        _vm.getTrackerEntries()
+                                                        _vm.editEntryId = null
+                                                      },
+                                                      cancelTrackerEntry: function(
+                                                        $event
+                                                      ) {
+                                                        _vm.editEntryId = null
                                                       }
                                                     }
-                                                  )
-                                                ],
-                                                1
-                                              )
-                                            ]
-                                          : _vm._e()
-                                      ],
-                                      2
-                                    )
-                                  }),
-                                  _vm._v(" "),
-                                  _c("tr", { staticClass: "pagination-row" }, [
-                                    _c(
-                                      "td",
-                                      { attrs: { colspan: "99" } },
-                                      [
-                                        _vm.trackerEntriesPaginationDetails
-                                          ? [
-                                              _c(
-                                                "button",
-                                                {
-                                                  staticClass:
-                                                    "btn btn-default btn-tiny",
-                                                  attrs: {
-                                                    disabled:
-                                                      _vm
-                                                        .trackerEntriesPaginationDetails
-                                                        .current_page === 1
-                                                  },
-                                                  on: {
-                                                    click: function($event) {
-                                                      return _vm.getTrackerEntries(
-                                                        _vm
-                                                          .trackerEntriesPaginationDetails
-                                                          .prev_page_url
-                                                      )
-                                                    }
                                                   }
-                                                },
-                                                [
-                                                  _c(
-                                                    "span",
-                                                    {
-                                                      staticClass:
-                                                        "material-icons"
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        "\n                    arrow_back\n                  "
-                                                      )
-                                                    ]
-                                                  )
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "button",
-                                                {
-                                                  staticClass:
-                                                    "btn btn-default btn-tiny mr-3",
-                                                  attrs: {
-                                                    disabled:
-                                                      _vm
-                                                        .trackerEntriesPaginationDetails
-                                                        .current_page ===
-                                                      _vm
-                                                        .trackerEntriesPaginationDetails
-                                                        .last_page
-                                                  },
-                                                  on: {
-                                                    click: function($event) {
-                                                      return _vm.getTrackerEntries(
-                                                        _vm
-                                                          .trackerEntriesPaginationDetails
-                                                          .next_page_url
-                                                      )
-                                                    }
-                                                  }
-                                                },
-                                                [
-                                                  _c(
-                                                    "span",
-                                                    {
-                                                      staticClass:
-                                                        "material-icons"
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        "\n                    arrow_forward\n                  "
-                                                      )
-                                                    ]
-                                                  )
-                                                ]
-                                              ),
-                                              _vm._v(
-                                                "\n                " +
-                                                  _vm._s(
-                                                    _vm
-                                                      .trackerEntriesPaginationDetails
-                                                      .from
-                                                  ) +
-                                                  " - \n                " +
-                                                  _vm._s(
-                                                    _vm
-                                                      .trackerEntriesPaginationDetails
-                                                      .to
-                                                  ) +
-                                                  " of \n                " +
-                                                  _vm._s(
-                                                    _vm
-                                                      .trackerEntriesPaginationDetails
-                                                      .total
-                                                  ) +
-                                                  " entries\n              "
-                                              )
-                                            ]
-                                          : _vm._e()
-                                      ],
-                                      2
-                                    )
-                                  ])
-                                ]
+                                                )
+                                              ],
+                                              1
+                                            )
+                                          ]
+                                        : _vm._e()
+                                    ],
+                                    2
+                                  )
+                                })
                               : [
                                   _c("tr", [
                                     _c(
@@ -102097,6 +102531,8 @@ module.exports = function(module) {
 var map = {
 	"./components/caretaker/CaretakerAddFormComponent.vue": "./resources/js/components/caretaker/CaretakerAddFormComponent.vue",
 	"./components/caretaker/CaretakerViewInvitesPageComponent.vue": "./resources/js/components/caretaker/CaretakerViewInvitesPageComponent.vue",
+	"./components/chart/ChartPageComponent.vue": "./resources/js/components/chart/ChartPageComponent.vue",
+	"./components/chart/RandomChart.vue": "./resources/js/components/chart/RandomChart.vue",
 	"./components/children/ChildAddFormComponent.vue": "./resources/js/components/children/ChildAddFormComponent.vue",
 	"./components/children/ChildCardsComponent.vue": "./resources/js/components/children/ChildCardsComponent.vue",
 	"./components/children/ChildViewPageComponent.vue": "./resources/js/components/children/ChildViewPageComponent.vue",
@@ -102250,7 +102686,11 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$addClass = function (eleme
   el.classList.add(className);
 };
 
-console.log(Math.floor(moment().diff(moment('2020-03-26'), 'months', true)));
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$dateToMySQL = function (datetime) {
+  return momenttz.utc(datetime).tz(vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$browserTimezone).format("YYYY-MM-DD");
+}; // console.log(Math.floor(moment().diff(moment('2020-03-26'), 'months', true)));
+
+
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.filter('dateFormat', function (datetime) {
   return momenttz.utc(datetime).tz(vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$browserTimezone).format("M/D/yy h:mm a");
 });
@@ -102471,6 +102911,162 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CaretakerViewInvitesPageComponent_vue_vue_type_template_id_a696161a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CaretakerViewInvitesPageComponent_vue_vue_type_template_id_a696161a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/chart/ChartPageComponent.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/chart/ChartPageComponent.vue ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ChartPageComponent_vue_vue_type_template_id_47a55cac___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ChartPageComponent.vue?vue&type=template&id=47a55cac& */ "./resources/js/components/chart/ChartPageComponent.vue?vue&type=template&id=47a55cac&");
+/* harmony import */ var _ChartPageComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ChartPageComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/chart/ChartPageComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ChartPageComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ChartPageComponent_vue_vue_type_template_id_47a55cac___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ChartPageComponent_vue_vue_type_template_id_47a55cac___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/chart/ChartPageComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/chart/ChartPageComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/chart/ChartPageComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ChartPageComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ChartPageComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chart/ChartPageComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ChartPageComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/chart/ChartPageComponent.vue?vue&type=template&id=47a55cac&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/chart/ChartPageComponent.vue?vue&type=template&id=47a55cac& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ChartPageComponent_vue_vue_type_template_id_47a55cac___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ChartPageComponent.vue?vue&type=template&id=47a55cac& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chart/ChartPageComponent.vue?vue&type=template&id=47a55cac&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ChartPageComponent_vue_vue_type_template_id_47a55cac___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ChartPageComponent_vue_vue_type_template_id_47a55cac___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/chart/RandomChart.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/chart/RandomChart.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _RandomChart_vue_vue_type_template_id_1ff3ec4f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RandomChart.vue?vue&type=template&id=1ff3ec4f& */ "./resources/js/components/chart/RandomChart.vue?vue&type=template&id=1ff3ec4f&");
+/* harmony import */ var _RandomChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RandomChart.vue?vue&type=script&lang=js& */ "./resources/js/components/chart/RandomChart.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _RandomChart_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RandomChart.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/chart/RandomChart.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _RandomChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _RandomChart_vue_vue_type_template_id_1ff3ec4f___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _RandomChart_vue_vue_type_template_id_1ff3ec4f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/chart/RandomChart.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/chart/RandomChart.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/chart/RandomChart.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RandomChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./RandomChart.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chart/RandomChart.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RandomChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/chart/RandomChart.vue?vue&type=style&index=0&lang=css&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/chart/RandomChart.vue?vue&type=style&index=0&lang=css& ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RandomChart_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./RandomChart.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chart/RandomChart.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RandomChart_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RandomChart_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RandomChart_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RandomChart_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/components/chart/RandomChart.vue?vue&type=template&id=1ff3ec4f&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/chart/RandomChart.vue?vue&type=template&id=1ff3ec4f& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RandomChart_vue_vue_type_template_id_1ff3ec4f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./RandomChart.vue?vue&type=template&id=1ff3ec4f& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chart/RandomChart.vue?vue&type=template&id=1ff3ec4f&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RandomChart_vue_vue_type_template_id_1ff3ec4f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RandomChart_vue_vue_type_template_id_1ff3ec4f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

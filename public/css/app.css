@@ -11730,12 +11730,18 @@ label.form-group--error {
   min-height: 80px;
 }
 
-.pagination-row {
-  background: #ece1ff !important;
-}
-
 .table tr {
   background-color: white;
+}
+
+.table-bordered thead th,
+.table-bordered thead td {
+  border-bottom-width: 1px;
+  background-color: #ededed;
+}
+
+.table-bordered thead tr.pagination-row {
+  background: #d4d4d4 !important;
 }
 
 /* UI Components */
