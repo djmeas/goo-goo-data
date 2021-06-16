@@ -14,26 +14,26 @@
               first before requesting to add them as a caretaker for this child.
               </div>
             </div> -->
-            <div class="col-lg-3">
+            <div class="col-lg-4">
               <div class="form-group mb-3">
                 <label for="child" class="form-label">Caretaker's Email</label>
                 <input v-model="formCaretaker.email" class="form-control" type="email">
               </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-4">
               <div class="form-group mb-3">
                 <label for="child" class="form-label">Role</label>
                 <input v-model="formCaretaker.role" class="form-control" type="text">
               </div>
             </div>
-            <div class="col-lg-3">
-              <div class="form-group mb-3">
+            <div class="col-lg-2">
+              <div class="form-group mb-3 checkbox-group">
                 <label for="child" class="form-label">Child Admin</label>
                 <input v-model="formCaretaker.is_admin" class="" type="checkbox">
               </div>
             </div>
-            <div class="col-lg-3">
-              <div class="form-group mb-3">
+            <div class="col-lg-2">
+              <div class="form-group mb-3 checkbox-group">
                 <label for="child" class="form-label">Read Only Access</label>
                 <input v-model="formCaretaker.read_only" class="" type="checkbox">
               </div>

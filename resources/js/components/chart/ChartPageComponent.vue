@@ -1,7 +1,7 @@
 <template>
   <div id="chart-page-component">
     <page-header-text text="Charts"/>
-    <random-chart/>
+    <chart-component/>
   </div>
 </template>
 

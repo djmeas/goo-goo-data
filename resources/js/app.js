@@ -16,7 +16,6 @@ import Toasted from 'vue-toasted';
 Vue.use(Toasted, {
     duration: 2000,
     theme: "outline", 
-	// position: "bottom-center",
 });
 
 import Vuelidate from 'vuelidate';
@@ -30,7 +29,9 @@ Vue.use(wysiwyg, {
     hideModules: { 
         "link": true,
         "code": true,
-        "image": true
+        "image": true,
+        // "table": true,
+        // "removeFormat": true
     },
 });
 
@@ -110,7 +111,7 @@ Vue.filter('dateFormat', (datetime) => {
 });
 
 Vue.filter('dateFormatMDY', (datetime) => {
-    return momenttz.utc(datetime).tz(Vue.prototype.$browserTimezone).format("M/D/yy");
+    return momenttz.utc(datetime).tz(Vue.prototype.$browserTimezone).format("M/D/Y");
 });
 
 Vue.filter('dateFormatBirthday', (datetime) => {
@@ -123,6 +124,10 @@ Vue.filter('dateFormatTime', (datetime) => {
 
 Vue.prototype.$childBirthdayInMonths = function(birthdate) {
     const months = Math.floor(moment().diff(moment(birthdate), 'months', true));
+    if (months < 1) {
+        return '< 1 month old';
+    }
+
     if (months <= 23) {
         return `${months} months old`;
     }
@@ -131,16 +136,70 @@ Vue.prototype.$childBirthdayInMonths = function(birthdate) {
 }
 
 Vue.prototype.$keepElSquare = function(elementId) {
-    let avatar = document.getElementById('child-avatar');
-    if (avatar) {
-        avatar.style.height = `${avatar.offsetWidth}px`;
+    let targetEl = document.getElementById(elementId);
+    if (targetEl) {
+        targetEl.style.height = `${targetEl.offsetWidth}px`;
     }
 
     window.addEventListener('resize', function(event) {
-        let avatar = document.getElementById(elementId);
-        avatar.style.height = `${avatar.offsetWidth}px`;
+        let targetEl = document.getElementById(elementId);
+        targetEl.style.height = `${targetEl.offsetWidth}px`;
     }, true);
 }
+
+import EntryAmount from './entryAmount';
+import Ounces from './ounces';
+import Dollars from './dollars';
+
+let mockEntries = [
+    {
+        category_group: "Feeding",
+        category_id: 48,
+        category_name: "Milk",
+        child_id: 36,
+        created_at: "2021-06-16 20:52:03",
+        entry_datetime: "2021-06-17 20:51:24",
+        value: "4.50",
+        prefix: null,
+        suffix: "oz"
+    },
+    {
+        category_group: "Expense",
+        category_id: 25,
+        category_name: "Food",
+        child_id: 36,
+        created_at: "2021-06-16 20:52:03",
+        entry_datetime: "2021-06-17 20:51:24",
+        value: "8.99",
+        prefix: "$",
+        suffix: null
+    }
+]; 
+
+// console.log('testing EntryAmount class');
+// let ea = new EntryAmount;
+// ea.setValue(5);
+// console.log(ea.getValue());
+
+// let formattedEntries = mockEntries.map(entry => {
+//     entry.valueFormatted = new EntryAmount;
+//     entry.valueFormatted.setValue(entry.value);
+
+//     entry.valueFormatted.value = 'something else!';
+
+//     console.log(entry.valueFormatted.value);
+
+//     return entry;
+// });
+
+// console.log(formattedEntries);
+
+let o = new Ounces(5.5);
+o.setValue(5.75);
+console.log(o, o.valueInGallons(), o.valueInBabyBottles(), o.suffix);
+
+let d = new Dollars(5.29);
+console.log(d, d.getFormattedText(), d.getAlternateText());
 
 const app = new Vue({
     el: '#app',

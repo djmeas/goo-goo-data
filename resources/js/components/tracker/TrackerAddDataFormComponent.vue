@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div :id="'tracker-entry-form-' + (existingEntry !== null ? existingEntry.id : 0)">
     <div v-show="!isAdding">
-      <button class="btn btn-primary mb-3" @click="isAdding = true">
+      <button class="btn btn-primary btn-fw-sm mb-3" @click="isAdding = true">
         <i class="material-icons">add_circle</i> New Entry
       </button>
     </div>

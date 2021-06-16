@@ -6,7 +6,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col-lg-2">
-              <div class="form-group mb-3">
+              <div class="form-group mb-3" :class="{'form-group--error': $v.formChart.child_hash.$error}">
                 <label for="child" class="form-label">Child</label>
                 <select v-model="formChart.child_hash" class="form-control" name="child" id="child">
                   <option :value="null">Select...</option>
@@ -18,9 +18,9 @@
             </div>
 
               <div class="col-lg-2">
-                <div class="form-group mb-3">
+                <div class="form-group mb-3" :class="{'form-group--error': $v.formChart.$dirty && !selectedCategory}">
                   <label for="category" class="form-label">Category</label>
-                  <select v-model="selectedCategory" @change="formChart.category = null" class="form-control" name="child" id="child">
+                  <select v-model="selectedCategory" @change="formChart.category = null;formChart.category_id = null;" class="form-control" name="child" id="child">
                     <option :value="null">Select</option>
                     <option v-for="(category, index) in categories" :key="index" :value="index">
                       {{index}}
@@ -29,7 +29,7 @@
                 </div>
               </div>
               <div class="col-lg-2">
-                <div class="form-group mb-3">
+                <div class="form-group mb-3" :class="{'form-group--error': $v.formChart.category_id.$error}">
                   <label for="category" class="form-label">Subcategory</label>
                   <select v-model="formChart.category_id" class="form-control" name="child" id="child">
                     <option :value="null">Select</option>
@@ -41,7 +41,7 @@
               </div>
 
               <div class="col-lg-2">
-                <div class="form-group mb-3"> 
+                <div class="form-group mb-3" :class="{'form-group--error': $v.formChart.date_range.start.$error}"> 
                   <label for="birthday" class="form-label">Date Start</label>
                   <br>
                   <!-- <v-date-picker ref="datePickerRange" :timezone="$browserTimezone" is-range v-model="formChart.date_range" /> -->
@@ -57,7 +57,7 @@
                 </div>
               </div>
               <div class="col-lg-2">
-                <div class="form-group mb-3"> 
+                <div class="form-group mb-3" :class="{'form-group--error': $v.formChart.date_range.end.$error}"> 
                   <label for="birthday" class="form-label">Date End</label>
                   <br>
                   <!-- <v-date-picker ref="datePickerRange" :timezone="$browserTimezone" is-range v-model="formChart.date_range" /> -->
@@ -84,7 +84,7 @@
       </div>
     </div>
     <transition name="fade">
-      <div v-show="isChartLoaded" class="col-lg-12 ">
+      <div v-show="isChartLoaded && chartData.category.tracker_entries.length > 0" class="col-lg-12 ">
         <div class="card">
           <div class="card-header" v-if="chartData">
             {{chartData.category.group}} - {{chartData.category.name}}
@@ -95,12 +95,19 @@
         </div>
       </div>
     </transition>
+    <transition name="fade">
+      <div v-if="chartData && chartData.category.tracker_entries.length === 0" class="col-lg-12 text-center">
+        <div class="alert alert-secondary ">The options above does not include any entries. A chart will be generated once entries exist.</div>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
   import childrenMixin from '../../mixins/children';
   import categoriesMixin from '../../mixins/categories';
+
+  import { required } from 'vuelidate/lib/validators';
 
   export default {
     data () {
@@ -126,47 +133,66 @@
       categoriesMixin
     ],
 
+    validations: {
+      formChart: {
+          child_hash: {
+            required
+          },
+          category_id: {
+            required
+          },
+          date_range: {
+            start: {
+              required
+            },
+            end: {
+              required
+            }
+          }
+        }
+    },
+
     methods: {
       getChartData() {
-        this.isChartLoaded = false;
-        // let oldCanvasContainers = document.getElementsByClassName('chartjs-size-monitor');
-        let oldChart = document.getElementById('myChart');
-        if (oldChart) {
-          document.getElementById('myChart').remove();
+        this.$v.formChart.$touch();
+
+        if (!this.$v.formChart.$invalid) {
+          this.isChartLoaded = false;
+
+          let oldChart = document.getElementById('myChart');
+          if (oldChart) {
+            document.getElementById('myChart').remove();
+          }
+
+          let newCanvas = document.createElement("canvas");
+          newCanvas.id = 'myChart';
+          document.getElementById('chart-container').appendChild(newCanvas);  
+
+          const hash = this.formChart.child_hash;
+          const categoryId = this.formChart.category_id;
+          const startDate = Vue.prototype.$dateToMySQL(this.formChart.date_range.start);
+          const endDate = Vue.prototype.$dateToMySQL(this.formChart.date_range.end);
+
+          console.log(`${Vue.prototype.$baseAPI}/chart/${hash}/${categoryId}/${startDate}/${endDate}`);
+
+          axios.get(`${Vue.prototype.$baseAPI}/chart/${hash}/${categoryId}/${startDate}/${endDate}`)
+            .then(res => {
+              this.chartData = res.data;
+
+              this.buildChart(
+                res.data.category.group + ' - ' + res.data.category.name, 
+                res.data.labels, 
+                res.data.data
+              );
+              this.isChartLoaded = true;
+            })
+            .catch(err => {
+              this.$toaster.error('Whoops! Could not load chart data');
+            })
+        } else {
+          this.$toasted.error('Please fill out all the fields.');
         }
-        // console.log(oldCanvasContainers);
-
         
-        // Array.from(oldCanvasContainers).forEach(el => {
-        //   console.log(el);
-        //   el.remove();
-        // })
-
-        let newCanvas = document.createElement("canvas");
-        newCanvas.id = 'myChart';
-        document.getElementById('chart-container').appendChild(newCanvas);  
-
-        const hash = this.formChart.child_hash;
-        const categoryId = this.formChart.category_id;
-        const startDate = Vue.prototype.$dateToMySQL(this.formChart.date_range.start);
-        const endDate = Vue.prototype.$dateToMySQL(this.formChart.date_range.end);
-
-        console.log(`${Vue.prototype.$baseAPI}/chart/${hash}/${categoryId}/${startDate}/${endDate}`);
-
-        axios.get(`${Vue.prototype.$baseAPI}/chart/${hash}/${categoryId}/${startDate}/${endDate}`)
-          .then(res => {
-            this.chartData = res.data;
-
-            this.buildChart(
-              res.data.category.group + ' - ' + res.data.category.name, 
-              res.data.labels, 
-              res.data.data
-            );
-            this.isChartLoaded = true;
-          })
-          .catch(err => {
-            this.$toaster.error('Whoops! Could not load chart data');
-          })
       },
 
       buildChart(header, labels, dataEntries) {
@@ -188,10 +214,23 @@
         }]
       };
 
+      var delayed;
       var myChart = new Chart(ctx, {
         type: 'bar',
         data: data,
         options: {
+          animation: {
+            onComplete: () => {
+              delayed = true;
+            },
+            delay: (context) => {
+              let delay = 0;
+              if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                delay = context.dataIndex * 300 + context.datasetIndex * 100;
+              }
+              return delay;
+            },
+          },
           scales: {
             y: {
               beginAtZero: true
@@ -200,10 +239,6 @@
         }
       });
       },
-
-      getRandomInt () {
-        return Math.floor(Math.random() * (50 - 5 + 1)) + 5
-      }
     },
 
     mounted () {

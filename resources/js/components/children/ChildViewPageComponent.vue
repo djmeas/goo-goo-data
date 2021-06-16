@@ -196,10 +196,22 @@
               <h2>{{caretaker.role}}</h2>
             </div>
             <div v-if="$currentUser.id !== caretaker.id" class="action-box">
-              <div class="icon clickable" @click="removeCaretaker(childhash, caretaker)">
+              <!-- <div class="icon clickable" @click="removeCaretaker(childhash, caretaker)">
                 <span class="material-icons">
                 delete
                 </span>
+              </div> -->
+              <div class="dropdown icon">
+                <button class="btn btn-default dropdown-toggle" 
+                type="button" id="dropdownMenuButton" data-toggle="dropdown" 
+                aria-haspopup="true" aria-expanded="false"
+                style="padding: 0px 8px;">
+                  
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a @click="editCaretaker(childhash, caretaker)" class="dropdown-item" href="#">Manage Access</a>
+                  <a @click="removeCaretaker(childhash, caretaker)" class="dropdown-item" href="#">Remove</a>
+                </div>
               </div>
             </div>
           </div>
@@ -214,7 +226,7 @@
               <div class="pending">Pending</div>
             </div>
             <div class="right-box">
-              <h1>{{invite.email}}</h1>
+              <h2>{{invite.email}}</h2>
               <h2>{{invite.role}}</h2>
             </div>
             <div class="action-box">

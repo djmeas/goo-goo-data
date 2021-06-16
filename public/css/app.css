@@ -11442,16 +11442,32 @@ h5 {
   flex: 3;
 }
 
+.text-gray {
+  color: gray;
+}
+
 nav.navbar {
   border-bottom: 8px solid #b082ff;
 }
 
 .navbar-light .navbar-brand {
+  transition: 0.05s;
   color: white;
+  font-family: "Comfortaa", cursive;
+}
+
+.navbar-light .navbar-brand:hover {
+  color: #eed4ff;
+  transform: scale(1.05, 1.05);
 }
 
 .navbar-light .navbar-nav .nav-link {
+  transition: 0.05s;
   color: white;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  color: #eed4ff;
 }
 
 .footer-container {
@@ -11474,6 +11490,20 @@ nav.navbar {
   border-color: #aa78ff;
 }
 
+.btn-primary:hover {
+  color: #fff;
+  background-color: #915ce9;
+  border-color: #733fca;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #8d86f4;
+  border-color: #9e9bcc;
+}
+
 .white-space-nw {
   white-space: nowrap !important;
 }
@@ -11491,6 +11521,11 @@ nav.navbar {
   .container {
     max-width: 1300px;
   }
+}
+
+.editr--toolbar {
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 /* Material Icon Overrides */
@@ -11547,6 +11582,10 @@ label.form-group--error {
 .form-group--error input:focus,
 .form-group--error input:hover {
   border-color: #f79483;
+}
+
+.checkbox-group {
+  margin-top: 36px;
 }
 
 /* Animations */
@@ -11830,6 +11869,24 @@ label.form-group--error {
   padding: 10px 15px;
   border-radius: 50px;
   border: 1px solid #d8d8d8;
+}
+
+@media (max-width: 767.98px) {
+  .child-card {
+    margin-bottom: 40px;
+  }
+
+  .btn-fw-sm {
+    width: 100%;
+  }
+
+  #children-page-container .child-img img {
+    min-height: 384px;
+  }
+
+  .checkbox-group {
+    margin-top: 8px;
+  }
 }
 
 @media (min-width: 576px) {

@@ -6,7 +6,7 @@
         <transition name="fade">
           <tracker-add-data-form-component
           ref="trackerAddDataFormComponent"
-          v-if="trackerInitLoadComplete"
+          v-if="trackerInitLoadComplete && children.length > 0"
           v-on:eventSaveTrackerEntry="eventSaveTrackerEntry" />
         </transition>
         <tracker-table-component
@@ -19,12 +19,16 @@
 </template>
 
 <script>
+import childrenMixin from '../../mixins/children';
+
 export default {
   data() {
     return {
       trackerInitLoadComplete: false,
     }
   },
+
+  mixins: [childrenMixin],
 
   methods: {
     eventSaveTrackerEntry() {
@@ -38,7 +42,7 @@ export default {
   },
 
   mounted() {
-
+    this.getChildren();
   }
 }
 </script>
