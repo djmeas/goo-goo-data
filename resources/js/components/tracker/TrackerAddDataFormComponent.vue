@@ -52,7 +52,7 @@
                   <div class="input-group-text">{{this.formTracker.category.prefix}}</div>
                 </div>
                 
-                <input v-model="formTracker.value" type="number" class="form-control" id="inlineFormInputGroup">
+                <input v-model="formTracker.value" type="number" class="form-control" id="inlineFormInputGroup" :disabled="formTracker.category && formTracker.category.type === null">
 
                 <div v-if="this.formTracker.category && this.formTracker.category.suffix" class="input-group-append">
                   <div class="input-group-text">{{this.formTracker.category.suffix}}</div>

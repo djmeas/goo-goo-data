@@ -1,11 +1,11 @@
 import EntryAmount from './entryAmount';
 
-export default class OunceEntry extends EntryAmount {
+export default class TimeEntry extends EntryAmount {
   constructor(value) {
     super();
     this.value = value;
-    this.suffix = 'oz';
-    this.alternate = 'gallons';
+    this.suffix = 'minutes';
+    this.alternate = 'hour(s)';
   }
 
   getFormattedText() {
@@ -21,6 +21,6 @@ export default class OunceEntry extends EntryAmount {
   }
 
   getAlternateValue() {
-    return (this.value * 0.0078125).toFixed(3);
+    return (this.value / 60).toFixed(2);
   }
 }

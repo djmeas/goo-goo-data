@@ -1,6 +1,6 @@
 import EntryAmount from './entryAmount';
 
-export default class Dollars extends EntryAmount {
+export default class DollarEntry extends EntryAmount {
   constructor(value) {
     super();
     this.value = value;
@@ -13,10 +13,10 @@ export default class Dollars extends EntryAmount {
   }
 
   getAlternateText() {
-    return `${this.valueInDiapers()} ${this.alternate}`;
+    return `${this.getAlternateValue()} ${this.alternate}`;
   }
 
-  valueInDiapers() {
+  getAlternateValue() {
     return (this.value / .20).toFixed(0);
   }
 }

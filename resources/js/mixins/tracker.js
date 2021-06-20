@@ -1,3 +1,7 @@
+import DollarEntry from '../dollars';
+import OunceEntry from '../ounces';
+import TimeEntry from '../time';
+
 export default {
   data() {
     return {
@@ -62,6 +66,34 @@ export default {
           } else {
             this.trackerEntriesPaginationDetails = res.data;
             this.trackerEntries = res.data.data;
+
+            console.log('this.trackerEntries');
+            console.log(this.trackerEntries);
+            this.trackerEntries = this.trackerEntries.map(entry => {
+              if (entry.category.suffix === 'oz') {
+                entry.entry_amount = new OunceEntry(entry.value);
+              } else if (entry.category.prefix === '$') {
+                entry.entry_amount = new DollarEntry(entry.value);
+              } else if (entry.category.suffix === 'minutes') {
+                entry.entry_amount = new TimeEntry(entry.value);
+              } else if (entry.category.suffix === 'hours') {
+                entry.entry_amount = new TimeEntry(entry.value);
+              } else {
+                entry.entry_amount = entry.value;
+              }
+
+              if (entry.entry_amount !== null) {
+                console.log(entry.entry_amount);
+                entry.entry_amount.value_formatted = entry.entry_amount.getFormattedText();
+                entry.entry_amount.alternate = entry.entry_amount.getAlternateText();
+              }
+
+              return entry;
+            });
+
+            console.log('trackerEntries with new classes');
+            console.log(this.trackerEntries);
+
             res.data.data.forEach((entry, index) => {
               setTimeout(() => {
                 Vue.prototype.$addClass('entry-tr-' + entry.id, 'color-faze');
@@ -78,6 +110,7 @@ export default {
           
         })
         .catch(err => {
+          console.log(err);
           this.$toasted.error(err.response.data);
         });
     },

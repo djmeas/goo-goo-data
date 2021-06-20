@@ -198,8 +198,9 @@
                   <td>{{entry.category.group}}</td>
                   <td>{{entry.category.name}}</td>
                   <td>
-                    <template v-if="entry.category.prefix">{{entry.category.prefix}}</template>{{entry.value}}
-                    <template v-if="entry.category.suffix">{{entry.category.suffix}}</template>
+                    <!-- <template v-if="entry.category.prefix">{{entry.category.prefix}}</template>{{entry.value}}
+                    <template v-if="entry.category.suffix">{{entry.category.suffix}}</template> -->
+                    <span v-if="entry.entry_amount" v-tooltip="entry.entry_amount.alternate">{{entry.entry_amount.value_formatted}}</span>
                   </td>
                   <td v-html="entry.notes"></td>
                   <td class="white-space-nw">

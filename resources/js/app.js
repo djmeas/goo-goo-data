@@ -39,6 +39,9 @@ import VueConfirmDialog from 'vue-confirm-dialog';
 Vue.use(VueConfirmDialog);
 Vue.component('vue-confirm-dialog', VueConfirmDialog.default);
 
+import VTooltip from 'v-tooltip';
+Vue.use(VTooltip);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -148,8 +151,8 @@ Vue.prototype.$keepElSquare = function(elementId) {
 }
 
 import EntryAmount from './entryAmount';
-import Ounces from './ounces';
-import Dollars from './dollars';
+import OunceEntry from './ounces';
+import DollarEntry from './dollars';
 
 let mockEntries = [
     {
@@ -194,11 +197,11 @@ let mockEntries = [
 
 // console.log(formattedEntries);
 
-let o = new Ounces(5.5);
+let o = new OunceEntry(5.5);
 o.setValue(5.75);
-console.log(o, o.valueInGallons(), o.valueInBabyBottles(), o.suffix);
+// console.log(o, o.valueInGallons(), o.valueInBabyBottles(), o.suffix);
 
-let d = new Dollars(5.29);
+let d = new DollarEntry(5.29);
 console.log(d, d.getFormattedText(), d.getAlternateText());
 
 const app = new Vue({
