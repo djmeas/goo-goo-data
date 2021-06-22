@@ -15,6 +15,11 @@
                     @endif
 
                     You are logged in!
+
+                    <a href="/tracker">Tracker</a>
+                    <a href="/charts">Charts</a>
+                    <a href="/children">Children</a>
+                    <a href="/invites">Invitations</a>
                 </div>
             </div>
         </div>
