@@ -4263,6 +4263,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -97795,7 +97799,8 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.trackerEntriesPaginationDetails
+                _vm.trackerEntriesPaginationDetails &&
+                _vm.trackerEntries.length > 0
                   ? _c("div", { staticClass: "d-flex mt-4 mb-3" }, [
                       _c(
                         "button",
@@ -97865,6 +97870,7 @@ var render = function() {
                 _vm._l(_vm.trackerEntries, function(entry) {
                   return _c(
                     "div",
+                    { key: entry.id },
                     [
                       _c("tracker-mobile-entry-card", {
                         attrs: { entry: entry, allowEditing: !_vm.childhash },
@@ -97882,7 +97888,8 @@ var render = function() {
                   )
                 }),
                 _vm._v(" "),
-                _vm.trackerEntriesPaginationDetails
+                _vm.trackerEntriesPaginationDetails &&
+                _vm.trackerEntries.length > 0
                   ? _c("div", { staticClass: "d-flex mt-4 mb-3" }, [
                       _c(
                         "button",
@@ -97945,6 +97952,17 @@ var render = function() {
                             _vm._v("\n            arrow_forward\n          ")
                           ])
                         ]
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.trackerEntriesPaginationDetails &&
+                _vm.trackerEntries.length === 0
+                  ? _c("div", [
+                      _c(
+                        "div",
+                        { staticClass: "text-center alert alert-default" },
+                        [_vm._v("There are currently no entries.")]
                       )
                     ])
                   : _vm._e(),

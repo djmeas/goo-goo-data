@@ -412,7 +412,7 @@
         </card-with-toggle>
             
 
-        <div v-if="trackerEntriesPaginationDetails" class="d-flex mt-4 mb-3">
+        <div v-if="trackerEntriesPaginationDetails && trackerEntries.length > 0" class="d-flex mt-4 mb-3">
           <button class="btn btn-default btn-tiny flex-1" 
           :disabled="trackerEntriesPaginationDetails.current_page === 1"
           @click="getTrackerEntries(trackerEntriesPaginationDetails.prev_page_url)">
@@ -436,14 +436,14 @@
           </button>
         </div>
 
-        <div v-for="entry in trackerEntries">
-          <tracker-mobile-entry-card :entry="entry"
+        <div v-for="entry in trackerEntries" :key="entry.id">
+          <tracker-mobile-entry-card :entry="entry" 
           :allowEditing="!childhash"
           v-on:eventSaveTrackerEntry="getTrackerEntries()"
           v-on:eventDeleteTrackerEntry="getTrackerEntries()"/>
         </div>
 
-        <div v-if="trackerEntriesPaginationDetails" class="d-flex mt-4 mb-3">
+        <div v-if="trackerEntriesPaginationDetails && trackerEntries.length > 0" class="d-flex mt-4 mb-3">
           <button class="btn btn-default btn-tiny flex-1" 
           :disabled="trackerEntriesPaginationDetails.current_page === 1"
           @click="getTrackerEntries(trackerEntriesPaginationDetails.prev_page_url)">
@@ -465,6 +465,10 @@
               arrow_forward
             </span>
           </button>
+        </div>
+
+        <div v-if="trackerEntriesPaginationDetails && trackerEntries.length === 0">
+          <div class="text-center alert alert-default">There are currently no entries.</div>
         </div>
 
         <div v-if="hasFilters && trackerEntries.length === 0">
