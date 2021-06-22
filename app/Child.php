@@ -17,7 +17,9 @@ class Child extends Model
         'last_name',
         'birthday',
         'hash',
-        'image_path'
+        'image_path',
+        'full_access',
+        'is_admin'
     ];
 
     // Relationships

@@ -41,7 +41,7 @@
 </head>
 <body>
     <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-mat-primary shadow-sm mb-4">
+    <nav class="navbar navbar-expand-md navbar-light bg-mat-primary shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                 <span class="material-icons" style="vertical-align: sub;">
@@ -107,7 +107,7 @@
         </nav>
 
         <main>
-            <div class="jumbotron bg-mat-secondary mb-5 jumbotron-fluid">
+            <div class="jumbotron mb-5 jumbotron-fluid">
                 <div class="container">
                     <h1 class="display-4">Get Analytics For Your Baby's Antics</h1>
                     <p class="lead">Track feedings, diaper changes, expenses and more. Get started today!</p>

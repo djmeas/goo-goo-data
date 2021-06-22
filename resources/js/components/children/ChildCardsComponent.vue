@@ -4,7 +4,7 @@
       <div v-for="child in children" :key="child.first_name + '-' + child.id" class="col-lg-3 col-md-4 mb-5">
         <a :href="`/children/${child.hash}`">
           <div class="child-img position-relative">
-            <img :id="'child-img-' + child.hash" class="child-hero-img rounded-circle mb-4 animate__bounceIn" :src="$avatarOrDefault(child.image_path)" alt="" width="100%">
+            <img :id="'child-img-' + child.hash" class="child-hero-img object-fit-cover rounded-circle mb-4 animate__bounceIn" :src="$avatarOrDefault(child.image_path)" alt="" width="100%">
             <transition name="fade">
               <div v-if="child.caretaker.length > 0 && child.caretaker[0].is_parent" class="parent-icon">
                 <span class="material-icons" style="font-size:32px">

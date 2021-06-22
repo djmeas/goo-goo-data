@@ -1,10 +1,9 @@
 <template>
   <div id="caretaker-invites-page">
-    <page-header-text text="Invitations"/>
-    
-    <template v-if="myInvites.length > 0">
+    <template v-if="myInvites.filter(invite => !invite.has_accepted).length > 0">
+      <page-header-text text="Pending"/>
       <div class="row">
-        <div v-for="invite in myInvites" class="col-lg-4 col-md-6 mb-5">
+        <div v-for="invite in myInvites.filter(invite => !invite.has_accepted)" :key="invite.id" class="col-lg-4 col-md-6 mb-5">
           <div class="card-horizontal" style="height: 80px">
             <div class="left-box">
               <img :src="$avatarOrDefault(invite.child.image_path)" 
@@ -16,8 +15,8 @@
             <div class="right-box">
               <h1 class="mb-2">{{invite.child.first_name}} {{invite.child.last_name}}</h1>
               <div class="d-flex">
-                <button class="btn btn-tiny btn-default mr-1">Dismiss</button>
-                <button class="btn btn-tiny btn-primary" @click="acceptInvite(invite.id, 'accept')">Accept</button>
+                <button class="btn btn-tiny btn-default mr-1" @click="respondToInvite(invite.id, 'dismissed')">Dismiss</button>
+                <button class="btn btn-tiny btn-primary" @click="respondToInvite(invite.id, 'accepted')">Accept</button>
               </div>
             </div>
           </div>
@@ -25,7 +24,32 @@
       </div>
     </template>
 
-    <div v-else>
+    <template v-if="myInvites.filter(invite => invite.has_accepted).length > 0">
+       <page-header-text text="Accepted"/>
+      <div class="row">
+        <div v-for="invite in myInvites.filter(invite => invite.has_accepted)" :key="invite.id" class="col-lg-4 col-md-6 mb-5">
+          <div class="card-horizontal" style="height: 80px">
+            <div class="left-box">
+              <img :src="$avatarOrDefault(invite.child.image_path)" 
+              :id="'child-img-' + invite.id"
+              class="child-img rounded-circle p-1"
+              width="64px"
+              alt="child's image" >
+            </div>
+            <div class="right-box">
+              <h1 class="mb-2">{{invite.child.first_name}} {{invite.child.last_name}}</h1>
+              <div class="d-flex">
+                <button class="btn btn-tiny btn-danger mr-1" @click="unfollowChild(invite)">
+                  Unfollow
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <div v-if="myInvites.length === 0">
       <div class="alert alert-warning">You do not have any caretaker invitations at this time.</div>
     </div>
   </div>

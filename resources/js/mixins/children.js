@@ -83,5 +83,12 @@ export default {
       }
 
     },
+  },
+
+  computed: {
+    childEntryAccess() {
+      return this.children.filter(child => child.full_access)
+        .map(child => { return child.hash });
+    }
   }
 }

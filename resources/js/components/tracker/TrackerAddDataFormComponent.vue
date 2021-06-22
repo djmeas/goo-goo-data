@@ -14,18 +14,20 @@
           <div class="row">
             <div class="col-lg-3">
               <div class="form-group mb-3" :class="{'form-group--error': $v.formTracker.child_id.$error}">
-                <label for="child" class="form-label">Child</label>
+                <label for="child" class="form-label">Child</label> <required/>
                 <select v-model="formTracker.child_id" class="form-control" name="child" id="child">
                   <option :value="null">Select...</option>
-                  <option v-for="child in children" :value="child.id" :key="`${child.id}-${child.first_name}`">
-                    {{child.first_name}} {{child.last_name}}
-                  </option>
+                  <template v-for="child in children">
+                    <option v-if="child.full_access" :key="`${child.id}-${child.first_name}`" :value="child.id">
+                      {{child.first_name}} {{child.last_name}}
+                    </option>
+                  </template>
                 </select>
               </div>
             </div>
             <div class="col-lg-3">
               <div class="form-group mb-3" :class="{'form-group--error': $v.formTracker.$dirty && !selectedCategory}">
-                <label for="category" class="form-label">Category</label>
+                <label for="category" class="form-label">Category</label> <required/>
                 <select v-model="selectedCategory" @change="formTracker.category = null" class="form-control" name="child" id="child">
                   <option :value="null">Select...</option>
                   <option v-for="(category, index) in categories" :key="index" :value="index">
@@ -36,7 +38,7 @@
             </div>
             <div class="col-lg-3">
               <div class="form-group mb-3" :class="{'form-group--error': $v.formTracker.category.$error}">
-                <label for="category" class="form-label">Option</label>
+                <label for="category" class="form-label">Option</label> <required/>
                 <select v-model="formTracker.category" class="form-control" name="child" id="child">
                   <option :value="null">Select...</option>
                   <option v-for="option in selectedCategoryOptions" :key="option.id + option.name" :value="option">
@@ -46,7 +48,8 @@
               </div>
             </div>
             <div class="col-lg-3">
-              <label for="inlineFormInputGroup" :class="{'form-group--error': $v.formTracker.value.$error}">Amount</label>
+              <label for="inlineFormInputGroup" :class="{'form-group--error': $v.formTracker.value.$error}">Amount</label> 
+              <required v-if="formTracker.category && formTracker.category.type !== null"/>
               <div class="input-group mb-2" :class="{'form-group--error': $v.formTracker.value.$error}">
                 <div v-if="this.formTracker.category && this.formTracker.category.prefix" class="input-group-prepend">
                   <div class="input-group-text">{{this.formTracker.category.prefix}}</div>
@@ -61,7 +64,7 @@
             </div>
             <div class="col-lg-3">
               <div class="form-group mb-3" :class="{'form-group--error': $v.formTracker.entry_datetime.$error}"> 
-                <label for="birthday" class="form-label">Date & Time</label>
+                <label for="birthday" class="form-label">Date & Time</label> <required/>
                 <br>
                 <!-- <input v-model="formChild.birthday" type="text" class="form-control" id="birthday"> -->
                 <v-date-picker mode="dateTime" :timezone="$browserTimezone" v-model="formTracker.entry_datetime" />

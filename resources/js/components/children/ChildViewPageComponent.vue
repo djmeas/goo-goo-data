@@ -161,7 +161,7 @@
                 Manage
               </button>
               <div class="dropdown-menu">
-                <a class="dropdown-item clickable" @click="$refs.childAddFormComponent.isAdding = true">Edit details</a>
+                <a v-if="child.is_admin" class="dropdown-item clickable" @click="$refs.childAddFormComponent.isAdding = true">Edit details</a>
                 <a class="dropdown-item clickable" @click="markChildParent(child.id)">
                   {{isParentOfChild ? 'Unmark' : 'Mark'}} as my child
                 </a>
@@ -201,12 +201,11 @@
                 delete
                 </span>
               </div> -->
-              <div class="dropdown icon">
+              <div v-if="child.is_admin" class="dropdown icon">
                 <button class="btn btn-default dropdown-toggle" 
                 type="button" id="dropdownMenuButton" data-toggle="dropdown" 
                 aria-haspopup="true" aria-expanded="false"
                 style="padding: 0px 8px;">
-                  
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a @click="editCaretaker(childhash, caretaker)" class="dropdown-item" href="#">Manage Access</a>
@@ -217,40 +216,42 @@
           </div>
         </div>
 
-        <div v-for="invite in pendingInvites" class="col-lg-4 mb-5">
-          <div class="card-horizontal">
-            <div class="left-box">
-              <span class="material-icons">
-                account_circle
-              </span>
-              <div class="pending">Pending</div>
-            </div>
-            <div class="right-box">
-              <h2>{{invite.email}}</h2>
-              <h2>{{invite.role}}</h2>
-            </div>
-            <div class="action-box">
-              <div class="icon clickable" @click="deleteInvite(invite, childhash)">
+        <template v-if="child.is_admin">
+          <div v-for="invite in pendingInvites" class="col-lg-4 mb-5">
+            <div class="card-horizontal">
+              <div class="left-box">
                 <span class="material-icons">
-                delete
+                  account_circle
                 </span>
+                <div class="pending">Pending</div>
+              </div>
+              <div class="right-box">
+                <h2>{{invite.email}}</h2>
+                <h2>{{invite.role}}</h2>
+              </div>
+              <div class="action-box">
+                <div class="icon clickable" @click="deleteInvite(invite, childhash)">
+                  <span class="material-icons">
+                  delete
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="col-lg-4 mb-5 clickable" @click="isAddingCaretaker = true">
-          <div class="card-horizontal">
-            <div class="left-box">
-              <span class="material-icons">
-                person_add
-              </span>
-            </div>
-            <div class="right-box">
-              <h1>Add New Caretaker</h1>
+        
+          <div class="col-lg-4 mb-5 clickable" @click="isAddingCaretaker = true">
+            <div class="card-horizontal">
+              <div class="left-box">
+                <span class="material-icons">
+                  person_add
+                </span>
+              </div>
+              <div class="right-box">
+                <h1>Add New Caretaker</h1>
+              </div>
             </div>
           </div>
-        </div>
+        </template>
       </template>
 
       <transition name="fade_in_only">

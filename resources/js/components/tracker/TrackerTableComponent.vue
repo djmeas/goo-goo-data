@@ -191,8 +191,10 @@
                 <template v-if="editEntryId !== entry.id">
                   <td v-if="!childhash" class="white-space-nw">
                     <a :href="`/children/${entry.child.hash}`">
-                      <img class="rounded-circle object-fit-cover mr-1" :src="$avatarOrDefault(entry.child.image_path)" :alt="'Avatar: ' + entry.child.first_name" width="30px" height="30px"> 
-                      {{entry.child.first_name}}
+                      <img class="rounded-circle object-fit-cover mr-2" 
+                      :src="$avatarOrDefault(entry.child.image_path)" 
+                      :alt="'Avatar: ' + entry.child.first_name" 
+                      width="30px" height="30px">{{entry.child.first_name}}
                     </a>
                   </td>
                   <td>{{entry.category.group}}</td>
@@ -207,7 +209,7 @@
                     {{entry.entry_datetime | dateFormatMDY}} {{entry.entry_datetime | dateFormatTime}}
                   </td>
                   <td v-if="!childhash" style="width: 20px" class="text-center">
-                    <div class="dropdown">
+                    <div v-if="childEntryAccess.includes(entry.child.hash)" class="dropdown">
                       <button class="btn btn-default dropdown-toggle" 
                       type="button" id="dropdownMenuButton" data-toggle="dropdown" 
                       aria-haspopup="true" aria-expanded="false"

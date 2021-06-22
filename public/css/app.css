@@ -11424,6 +11424,11 @@ h5 {
   opacity: 1;
 }
 
+.jumbotron {
+  background: linear-gradient(270deg, #ca8bf2c2 0%, #8245eac2 51%, #69b4ff 100%);
+  color: white;
+}
+
 .tooltip {
   display: block !important;
   z-index: 10000;
@@ -11608,6 +11613,14 @@ nav.navbar {
   color: #fff;
   background-color: #8d86f4;
   border-color: #9e9bcc;
+}
+
+.btn-danger:not(:disabled):not(.disabled):active,
+.btn-danger:not(:disabled):not(.disabled).active,
+.show > .btn-danger.dropdown-toggle {
+  color: #fff;
+  background-color: #ef524d;
+  border-color: #e3433f;
 }
 
 .white-space-nw {

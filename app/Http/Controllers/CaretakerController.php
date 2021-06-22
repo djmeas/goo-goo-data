@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Auth;
 use App\Child;
 use App\Caretaker;
+use App\CaretakerInvite;
 
 class CaretakerController extends Controller
 {
@@ -96,10 +97,23 @@ class CaretakerController extends Controller
 
     public function delete_invite(Request $request, $invite_id) {
         try {
-           return \App\CaretakerInvite::where('id', $invite_id)
-            ->whereIn('child_id', Child::accessibleChildren())
-            ->delete();
+            DB::beginTransaction();
+
+            $invite = CaretakerInvite::where('id', $invite_id)
+                ->whereIn('child_id', Child::accessibleChildren())
+                ->first();
+ 
+            $target_user = \App\AppUser::where('email', $invite->email)->first();
+
+            Caretaker::where('user_id', $target_user->id)
+                ->where('child_id', $invite->child_id)
+                ->delete();
+
+            $invite->delete();
+
+            DB::commit();
         } catch (\Exception $e) {
+            DB::rollback();
             return response($e->getMessage(), 400);
         }
         
@@ -132,7 +146,7 @@ class CaretakerController extends Controller
 
             $invite = \App\CaretakerInvite::where('id', $request->id)->first();
 
-            if ($request->option === 'accept') {
+            if ($request->option === 'accepted') {
                 $invite->has_accepted = 1;
 
                 \App\Caretaker::create([
@@ -145,10 +159,14 @@ class CaretakerController extends Controller
 
                 $invite->save();
 
-                DB::commit();
-
-                return response('The invitation has been responded to.', 200);
+            } else if ($request->option === 'dismissed') {
+                $invite->delete();
             }
+
+            DB::commit();
+
+            return response('The invitation has been responded to.', 200);
+
         } catch (\Exception $e) {
             DB::rollback();
             return response('Whoops! Could not respond to invitation.', 400);

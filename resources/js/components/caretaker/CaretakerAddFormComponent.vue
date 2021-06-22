@@ -14,27 +14,53 @@
               first before requesting to add them as a caretaker for this child.
               </div>
             </div> -->
-            <div class="col-lg-4">
+            <div class="col-xl-3 col-lg-6 col-md-6">
               <div class="form-group mb-3">
-                <label for="child" class="form-label">Caretaker's Email</label>
+                <label for="child" class="form-label">
+                  Caretaker's Email <required/>
+                  <span class="material-icons" 
+                  v-tooltip="'Please use the caretaker\'s Goo Goo Data email they have registered (or plan to register) with.'" 
+                  style="font-size: 16px">
+                    info
+                  </span>
+                </label>
                 <input v-model="formCaretaker.email" class="form-control" type="email">
               </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-xl-3 col-lg-6 col-md-6">
               <div class="form-group mb-3">
-                <label for="child" class="form-label">Role</label>
+                <label for="child" class="form-label">
+                  Role <required/>
+                  <span class="material-icons" 
+                  v-tooltip="'This description will appear below the caretaker in various pages.'" 
+                  style="font-size: 16px">
+                    info
+                  </span>
+                </label>
                 <input v-model="formCaretaker.role" class="form-control" type="text">
               </div>
             </div>
-            <div class="col-lg-2">
+            <div class="col-xl-3 col-lg-6 col-md-6">
               <div class="form-group mb-3 checkbox-group">
-                <label for="child" class="form-label">Child Admin</label>
+                <label for="child" class="form-label">Caretaker Management 
+                  <span class="material-icons" 
+                  v-tooltip="'If checkmarked, this user will be able to manage this child\'s caretakers.'" 
+                  style="font-size: 16px">
+                    info
+                  </span>
+                </label>
                 <input v-model="formCaretaker.is_admin" class="" type="checkbox">
               </div>
             </div>
-            <div class="col-lg-2">
+            <div class="col-xl-3 col-lg-6 col-md-6">
               <div class="form-group mb-3 checkbox-group">
-                <label for="child" class="form-label">Read Only Access</label>
+                <label for="child" class="form-label">Tracker Management
+                  <span class="material-icons" 
+                  v-tooltip="'If checkmarked, this user will be able to manage this child\'s tracker entries.'" 
+                  style="font-size: 16px">
+                    info
+                  </span>
+                </label>
                 <input v-model="formCaretaker.read_only" class="" type="checkbox">
               </div>
             </div>
@@ -96,6 +122,25 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+  .checkbox-group {
+    margin-top: 34px;
+    border: 1px solid #cbcbcc;
+    background-color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+    label {
+      margin: 0;
+      flex: 1;
+    }
+
+    input {
+      flex: 1;
+      max-width: 24px;
+    }
+  }
 </style>

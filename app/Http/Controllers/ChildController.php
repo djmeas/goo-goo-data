@@ -42,6 +42,9 @@ class ChildController extends Controller
                 ->whereHas('Caretaker', function ($q) {
                     $q->where('user_id', Auth::id());
                 })
+                ->join('caretakers', 'caretakers.child_id', '=', 'children.id')
+                ->select('children.*', 'caretakers.is_parent', 'caretakers.full_access', 'caretakers.is_admin')
+                ->where('caretakers.user_id', Auth::id())
                 ->first();
 
             $child['caretaker_users'] = Child::getAllCaretakerUsers($child->id);
@@ -56,7 +59,7 @@ class ChildController extends Controller
                 $q->where('user_id', Auth::id());
             })
             ->join('caretakers', 'caretakers.child_id', '=', 'children.id')
-            ->select('children.*', 'caretakers.is_parent')
+            ->select('children.*', 'caretakers.is_parent', 'caretakers.full_access', 'caretakers.is_admin')
             ->where('caretakers.user_id', Auth::id())
             ->orderBy('is_parent', 'desc')
             ->get();
@@ -153,7 +156,9 @@ class ChildController extends Controller
 
                 $caretaker = Caretaker::create([
                     'user_id' => Auth::id(),
-                    'child_id' => $child->id
+                    'child_id' => $child->id,
+                    'full_access' => 1,
+                    'is_admin' => 1
                 ]);
             }
             

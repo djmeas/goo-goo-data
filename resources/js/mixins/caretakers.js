@@ -117,7 +117,7 @@ export default {
       );
     },
 
-    acceptInvite(inviteId, option) {
+    respondToInvite(inviteId, option) {
       let postData = {
         id: inviteId,
         option: option
@@ -125,15 +125,43 @@ export default {
 
       axios.post(`${Vue.prototype.$baseAPI}/caretaker/my-invites`, postData)
         .then(res => {
-          this.$emit('emitAcceptInvite');
-          this.$toasted.success('The invitation has been accepted.');
-          this.myInvites = this.myInvites.filter(myInvite => {
-            return myInvite.id !== inviteId;
-          });
+          this.$emit('emitRespondToInvite');
+          this.$toasted.success(`The invitation has been ${option}.`);
+          this.getMyInvites();
         })
         .catch(err => {
           this.$toasted.error(err.response.data);
         });
+    },
+
+    unfollowChild(invite) {
+      this.$confirm(
+        {
+          message: `
+              Are you sure you want to unfollow 
+              ${invite.child.first_name} ${invite.child.last_name}?
+            `,
+          button: {
+            no: 'Cancel',
+            yes: 'Yes'
+          },
+          callback: confirm => {
+            if (confirm) {
+              axios.delete(`${Vue.prototype.$baseAPI}/caretaker/invite/${invite.id}`)
+                .then(res => {
+                  this.$emit('emitDeleteInvite');
+                  this.$toasted.success(`You are no longer following ${invite.child.first_name}.`);
+                  this.myInvites = this.myInvites.filter(myInvite => {
+                    return myInvite.id !== invite.id;
+                  });
+                })
+                .catch(err => {
+                  this.$toasted.error(err.response.data);
+                });
+            }
+          }
+        }
+      );
     },
 
     getIsParentOfChild(childHash, userId) {

@@ -107,6 +107,14 @@ Vue.prototype.$dateToMySQL = function(datetime) {
     return momenttz.utc(datetime).tz(Vue.prototype.$browserTimezone).format("YYYY-MM-DD");
 };
 
+Vue.prototype.$wholeOrDecimal = function(value) {
+    let valueFormatted = value;
+    if (valueFormatted % 1 === 0) {
+      valueFormatted = Math.floor(valueFormatted);
+    }
+    return valueFormatted;
+}
+
 // console.log(Math.floor(moment().diff(moment('2020-03-26'), 'months', true)));
 
 Vue.filter('dateFormat', (datetime) => {
@@ -203,6 +211,23 @@ o.setValue(5.75);
 
 let d = new DollarEntry(5.29);
 console.log(d, d.getFormattedText(), d.getAlternateText());
+
+/* Polyfills */
+Array.prototype.max = function() {
+    return Math.max.apply(null, this);
+};
+
+Array.prototype.min = function() {
+    return Math.min.apply(null, this);
+};
+
+Array.prototype.minGreaterThanZero = function() {
+    console.log(this);
+    // console.log(this.map(value => { if (value !== 0) { return value; } }));
+    return Math.min.apply(null, this.filter(value => value !== 0));
+};
+
+console.log([0,1,0,3,0,65].minGreaterThanZero());
 
 const app = new Vue({
     el: '#app',

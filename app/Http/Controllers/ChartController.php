@@ -53,10 +53,8 @@ class ChartController extends Controller
         foreach ($chart_labels as $date) {
             $amount = 0;
 
-            // dd($entries['tracker_entries']);
             foreach ($entries['tracker_entries'] as $entry) {
                 // Check if there's a label for this date
-                // dd($entry, Carbon::parse($entry['entry_datetime'])->format('m/d/y'));
                 $entry_datetime = Carbon::parse($entry['entry_datetime'])->format('m/d/y');
 
                 if ($date === $entry_datetime) {
@@ -64,19 +62,15 @@ class ChartController extends Controller
                 }
             }
 
-            // dd($date, $amount);
             $chart_data[] = $amount;
         }
-
-        
-
-        // dd($label_start, $label_end, $range, $chart_labels, $chart_data);
-        // dd($start, $end, $entries);
 
         return [
             'category' => $entries,
             'labels' => $chart_labels,
-            'data' => $chart_data
+            'data' => $chart_data,
+            'entry_count' => count($entries['tracker_entries']),
+            'entry_total_value' => array_sum($chart_data)
         ];
             
     }

@@ -94,7 +94,7 @@ class TrackerController extends Controller
             
             return response('Entry successfully saved.', 200);
         } catch (\Exception $e) {
-            return response($e->getMessage(), 400);
+            // return response($e->getMessage(), 400);
             return response('Whoops! The entry could not be save.', 400);
         }
     }

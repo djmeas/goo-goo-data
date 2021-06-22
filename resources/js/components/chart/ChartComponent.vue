@@ -7,7 +7,7 @@
           <div class="row">
             <div class="col-lg-2">
               <div class="form-group mb-3" :class="{'form-group--error': $v.formChart.child_hash.$error}">
-                <label for="child" class="form-label">Child</label>
+                <label for="child" class="form-label">Child</label> <required/>
                 <select v-model="formChart.child_hash" class="form-control" name="child" id="child">
                   <option :value="null">Select...</option>
                   <option v-for="child in children" :value="child.hash" :key="`${child.id}-${child.first_name}`">
@@ -19,7 +19,7 @@
 
               <div class="col-lg-2">
                 <div class="form-group mb-3" :class="{'form-group--error': $v.formChart.$dirty && !selectedCategory}">
-                  <label for="category" class="form-label">Category</label>
+                  <label for="category" class="form-label">Category</label> <required/>
                   <select v-model="selectedCategory" @change="formChart.category = null;formChart.category_id = null;" class="form-control" name="child" id="child">
                     <option :value="null">Select</option>
                     <option v-for="(category, index) in categories" :key="index" :value="index">
@@ -30,7 +30,7 @@
               </div>
               <div class="col-lg-2">
                 <div class="form-group mb-3" :class="{'form-group--error': $v.formChart.category_id.$error}">
-                  <label for="category" class="form-label">Subcategory</label>
+                  <label for="category" class="form-label">Subcategory</label> <required/>
                   <select v-model="formChart.category_id" class="form-control" name="child" id="child">
                     <option :value="null">Select</option>
                     <option v-for="option in selectedCategoryOptions" :key="option.id + option.name" :value="option.id">
@@ -42,7 +42,7 @@
 
               <div class="col-lg-2">
                 <div class="form-group mb-3" :class="{'form-group--error': $v.formChart.date_range.start.$error}"> 
-                  <label for="birthday" class="form-label">Date Start</label>
+                  <label for="birthday" class="form-label">Date Start</label> <required/>
                   <br>
                   <!-- <v-date-picker ref="datePickerRange" :timezone="$browserTimezone" is-range v-model="formChart.date_range" /> -->
                   <v-date-picker v-model="formChart.date_range.start" ref="datePickerRange" :timezone="$browserTimezone">
@@ -58,7 +58,7 @@
               </div>
               <div class="col-lg-2">
                 <div class="form-group mb-3" :class="{'form-group--error': $v.formChart.date_range.end.$error}"> 
-                  <label for="birthday" class="form-label">Date End</label>
+                  <label for="birthday" class="form-label">Date End</label> <required/>
                   <br>
                   <!-- <v-date-picker ref="datePickerRange" :timezone="$browserTimezone" is-range v-model="formChart.date_range" /> -->
                   <v-date-picker v-model="formChart.date_range.end" ref="datePickerRange" :timezone="$browserTimezone">
@@ -83,8 +83,36 @@
         </div>
       </div>
     </div>
-    <transition name="fade">
-      <div v-show="isChartLoaded && chartData.category.tracker_entries.length > 0" class="col-lg-12 ">
+    
+      <div v-show="isChartLoaded && chartData.category.tracker_entries.length > 0" class="col-lg-3">
+        <card-with-toggle v-if="chartData" cardHeader="Details" :expanded="true" class="mb-4">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td>Total Entries</td>
+                <td class="text-right">{{chartData.entry_count}}</td>
+              </tr>
+              <tr>
+                <td>Total Amount</td>
+                <td class="text-right">{{chartData.entry_total_value}}</td>
+              </tr>
+              <tr>
+                <td>Average Amount</td>
+                <td class="text-right">{{$wholeOrDecimal(chartData.entry_total_value / chartData.entry_count)}}</td>
+              </tr>
+              <tr>
+                <td>Lowest Amount</td>
+                <td class="text-right">{{chartData.data.minGreaterThanZero()}}</td>
+              </tr>
+              <tr>
+                <td>Highest Amount</td>
+                <td class="text-right">{{chartData.data.max()}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </card-with-toggle>
+      </div>
+      <div v-show="isChartLoaded && chartData.category.tracker_entries.length > 0" class="col-lg-9">
         <div class="card">
           <div class="card-header" v-if="chartData">
             {{chartData.category.group}} - {{chartData.category.name}}
@@ -94,7 +122,7 @@
           </div>
         </div>
       </div>
-    </transition>
+    
     <transition name="fade">
       <div v-if="chartData && chartData.category.tracker_entries.length === 0" class="col-lg-12 text-center">
         <div class="alert alert-secondary ">The options above does not include any entries. A chart will be generated once entries exist.</div>

@@ -26,10 +26,19 @@ export default {
   },
 
   props: {
+    expanded: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     cardHeader: {
       type: String,
       required: true
     }
+  },
+
+  mounted() {
+    this.isExpanded = this.expanded;
   }
 }
 </script>
