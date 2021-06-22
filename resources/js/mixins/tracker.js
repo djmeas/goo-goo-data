@@ -67,8 +67,6 @@ export default {
             this.trackerEntriesPaginationDetails = res.data;
             this.trackerEntries = res.data.data;
 
-            console.log('this.trackerEntries');
-            console.log(this.trackerEntries);
             this.trackerEntries = this.trackerEntries.map(entry => {
               if (entry.category.suffix === 'oz') {
                 entry.entry_amount = new OunceEntry(entry.value);
@@ -83,16 +81,12 @@ export default {
               }
 
               if (entry.entry_amount !== null) {
-                console.log(entry.entry_amount);
                 entry.entry_amount.value_formatted = entry.entry_amount.getFormattedText();
                 entry.entry_amount.alternate = entry.entry_amount.getAlternateText();
               }
 
               return entry;
             });
-
-            console.log('trackerEntries with new classes');
-            console.log(this.trackerEntries);
 
             res.data.data.forEach((entry, index) => {
               setTimeout(() => {

@@ -35,6 +35,33 @@ class CaretakerController extends Controller
         
     }
 
+    public function save(Request $request) {
+        try {
+            $child = Child::where('hash', $request->child_hash)
+                ->whereIn('id', Child::accessibleChildren())
+                ->first();
+
+            if (!$child) {
+                return response('The child data does not exist.', 404);
+            }
+
+            if ($request->has('id') && $request->id !== null) {
+                $caretaker = \App\Caretaker::where('id', $request->id)->update([
+                    'is_admin' => (int) $request->is_admin,
+                    'full_access' => (int) $request->read_only,
+                    'role' => $request->role
+                ]);
+
+                return $caretaker;
+            }
+
+        } catch (\Exception $e) {
+            // DB::rollback();
+            return response('The invite could not be saved.', 400);
+        }
+        
+    }
+
     public function get_pending_invites(Request $request, $hash) {
         try {
             if ($hash) {
@@ -83,7 +110,7 @@ class CaretakerController extends Controller
                 'email' => $request->email,
                 'role' => $request->role,
                 'is_admin' => (int) $request->is_admin,
-                'full_access' => (int) !$request->read_only,
+                'full_access' => (int) $request->read_only,
             ]);
 
             // DB::commit();
@@ -105,9 +132,11 @@ class CaretakerController extends Controller
  
             $target_user = \App\AppUser::where('email', $invite->email)->first();
 
-            Caretaker::where('user_id', $target_user->id)
+            if ($target_user) {
+                Caretaker::where('user_id', $target_user->id)
                 ->where('child_id', $invite->child_id)
                 ->delete();
+            }
 
             $invite->delete();
 
@@ -121,6 +150,7 @@ class CaretakerController extends Controller
 
     public function delete_caretaker(Request $request, $child_hash, $user_id) {
         try {
+            DB::beginTransaction();
             // dd($child_hash, $user_id);
             $child = Child::where('hash', $child_hash)
                 ->whereIn('id', Child::accessibleChildren())
@@ -130,11 +160,20 @@ class CaretakerController extends Controller
                 return response('The child data does not exist.', 404);
             }
 
-            return Caretaker::where('user_id', (int) $user_id)
+            $user = \App\AppUser::where('id', (int) $user_id)->first();
+
+            Caretaker::where('user_id', $user->id)
                 ->where('child_id', $child->id)
                 ->delete();
 
+            CaretakerInvite::where('child_id', $child->id)
+                ->where('email', $user->email)
+                ->delete();
+
+            DB::commit();
+
         } catch (\Exception $e) {
+            DB::rollback();
             return response($e->getMessage(), 400);
         }
         
@@ -150,11 +189,11 @@ class CaretakerController extends Controller
                 $invite->has_accepted = 1;
 
                 \App\Caretaker::create([
-                        'user_id' => Auth::id(),
-                        'child_id' => $invite->child_id,
-                        'role' => $invite->role,
-                        'is_admin' => $invite->is_admin,
-                        'full_access' => $invite->full_access
+                    'user_id' => Auth::id(),
+                    'child_id' => $invite->child_id,
+                    'role' => $invite->role,
+                    'is_admin' => $invite->is_admin,
+                    'full_access' => $invite->full_access
                 ]);
 
                 $invite->save();

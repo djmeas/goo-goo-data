@@ -2093,12 +2093,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       formCaretaker: {
+        id: null,
         child_hash: null,
         email: null,
         role: null,
@@ -2111,6 +2113,11 @@ __webpack_require__.r(__webpack_exports__);
     childHash: {
       type: String,
       required: true
+    },
+    existingCaretaker: {
+      type: Object,
+      required: false,
+      "default": null
     }
   },
   mixins: [_mixins_caretakers__WEBPACK_IMPORTED_MODULE_0__["default"]],
@@ -2127,6 +2134,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.formCaretaker.child_hash = this.childHash;
+
+    if (this.existingCaretaker) {
+      this.formCaretaker.id = this.existingCaretaker.caretaker_id;
+      this.formCaretaker.child_hash = this.childHash;
+      this.formCaretaker.email = this.existingCaretaker.email;
+      this.formCaretaker.role = this.existingCaretaker.role;
+      this.formCaretaker.is_admin = this.existingCaretaker.is_admin;
+      this.formCaretaker.read_only = this.existingCaretaker.full_access ? 1 : 0;
+    }
   }
 });
 
@@ -2713,11 +2729,15 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   watch: {
-    children: function children() {
-      // Vue.prototype.$keepElSquare
-      console.log(this.children);
-      this.children.forEach(function (child) {
-        Vue.prototype.$keepElSquare('child-img-' + child.hash);
+    childrenInitLoad: function childrenInitLoad() {
+      var _this = this;
+
+      this.$nextTick(function () {
+        if (_this.children.length > 0) {
+          _this.children.forEach(function (child) {
+            Vue.prototype.$keepElSquare('child-img-' + child.hash);
+          });
+        }
       });
     }
   },
@@ -3018,13 +3038,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       isAddingCaretaker: false,
-      isParentOfChild: false
+      isParentOfChild: false,
+      selectedCaretaker: null
     };
   },
   props: {
@@ -91716,119 +91763,146 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "caretaker-add-container mb-4" }, [
     _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-header" }, [_vm._v("Add Caretaker")]),
+      _c("div", { staticClass: "card-header" }, [
+        _vm._v(_vm._s(_vm.existingCaretaker ? "Edit" : "Add") + " Caretaker")
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("form", [
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-xl-3 col-lg-6 col-md-6" }, [
-              _c("div", { staticClass: "form-group mb-3" }, [
-                _c(
-                  "label",
-                  { staticClass: "form-label", attrs: { for: "child" } },
-                  [
-                    _vm._v("\n                Caretaker's Email "),
-                    _c("required"),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "tooltip",
-                            rawName: "v-tooltip",
-                            value:
-                              "Please use the caretaker's Goo Goo Data email they have registered (or plan to register) with.",
-                            expression:
-                              "'Please use the caretaker\\'s Goo Goo Data email they have registered (or plan to register) with.'"
-                          }
-                        ],
-                        staticClass: "material-icons",
-                        staticStyle: { "font-size": "16px" }
-                      },
-                      [_vm._v("\n                  info\n                ")]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.formCaretaker.email,
-                      expression: "formCaretaker.email"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "email" },
-                  domProps: { value: _vm.formCaretaker.email },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.formCaretaker, "email", $event.target.value)
-                    }
+              _c(
+                "div",
+                {
+                  staticClass: "form-group mb-3",
+                  class: {
+                    "form-group--error": _vm.$v.formCaretaker.email.$error
                   }
-                })
-              ])
+                },
+                [
+                  _c(
+                    "label",
+                    { staticClass: "form-label", attrs: { for: "child" } },
+                    [
+                      _vm._v("\n                Caretaker's Email "),
+                      _c("required"),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "tooltip",
+                              rawName: "v-tooltip",
+                              value:
+                                "Please use the caretaker's Goo Goo Data email they have registered (or plan to register) with.",
+                              expression:
+                                "'Please use the caretaker\\'s Goo Goo Data email they have registered (or plan to register) with.'"
+                            }
+                          ],
+                          staticClass: "material-icons",
+                          staticStyle: { "font-size": "16px" }
+                        },
+                        [_vm._v("\n                  info\n                ")]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formCaretaker.email,
+                        expression: "formCaretaker.email"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "email",
+                      disabled: _vm.existingCaretaker !== null
+                    },
+                    domProps: { value: _vm.formCaretaker.email },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.formCaretaker,
+                          "email",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ]
+              )
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-xl-3 col-lg-6 col-md-6" }, [
-              _c("div", { staticClass: "form-group mb-3" }, [
-                _c(
-                  "label",
-                  { staticClass: "form-label", attrs: { for: "child" } },
-                  [
-                    _vm._v("\n                Role "),
-                    _c("required"),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "tooltip",
-                            rawName: "v-tooltip",
-                            value:
-                              "This description will appear below the caretaker in various pages.",
-                            expression:
-                              "'This description will appear below the caretaker in various pages.'"
-                          }
-                        ],
-                        staticClass: "material-icons",
-                        staticStyle: { "font-size": "16px" }
-                      },
-                      [_vm._v("\n                  info\n                ")]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.formCaretaker.role,
-                      expression: "formCaretaker.role"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.formCaretaker.role },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.formCaretaker, "role", $event.target.value)
-                    }
+              _c(
+                "div",
+                {
+                  staticClass: "form-group mb-3",
+                  class: {
+                    "form-group--error": _vm.$v.formCaretaker.role.$error
                   }
-                })
-              ])
+                },
+                [
+                  _c(
+                    "label",
+                    { staticClass: "form-label", attrs: { for: "child" } },
+                    [
+                      _vm._v("\n                Role "),
+                      _c("required"),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          directives: [
+                            {
+                              name: "tooltip",
+                              rawName: "v-tooltip",
+                              value:
+                                "This description will appear below the caretaker in various pages.",
+                              expression:
+                                "'This description will appear below the caretaker in various pages.'"
+                            }
+                          ],
+                          staticClass: "material-icons",
+                          staticStyle: { "font-size": "16px" }
+                        },
+                        [_vm._v("\n                  info\n                ")]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formCaretaker.role,
+                        expression: "formCaretaker.role"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.formCaretaker.role },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formCaretaker, "role", $event.target.value)
+                      }
+                    }
+                  })
+                ]
+              )
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-xl-3 col-lg-6 col-md-6" }, [
@@ -91837,7 +91911,9 @@ var render = function() {
                   "label",
                   { staticClass: "form-label", attrs: { for: "child" } },
                   [
-                    _vm._v("Caretaker Management \n                "),
+                    _vm._v(
+                      "\n                Caretaker Management \n                "
+                    ),
                     _c(
                       "span",
                       {
@@ -93682,7 +93758,57 @@ var render = function() {
                             )
                           ]),
                           _vm._v(" "),
-                          _c("h2", [_vm._v(_vm._s(caretaker.role))])
+                          _c("h2", [_vm._v(_vm._s(caretaker.role))]),
+                          _vm._v(" "),
+                          _c("div", [
+                            _c(
+                              "span",
+                              {
+                                directives: [
+                                  {
+                                    name: "tooltip",
+                                    rawName: "v-tooltip",
+                                    value: "Child Management",
+                                    expression: "'Child Management'"
+                                  }
+                                ],
+                                staticClass: "material-icons",
+                                class: {
+                                  "opacity-30": !caretaker.is_admin,
+                                  "text-primary": caretaker.is_admin
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                admin_panel_settings\n              "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                directives: [
+                                  {
+                                    name: "tooltip",
+                                    rawName: "v-tooltip",
+                                    value: "Tracker Management",
+                                    expression: "'Tracker Management'"
+                                  }
+                                ],
+                                staticClass: "material-icons",
+                                class: {
+                                  "opacity-30": !caretaker.full_access,
+                                  "text-primary": caretaker.full_access
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                playlist_add_check\n              "
+                                )
+                              ]
+                            )
+                          ])
                         ]),
                         _vm._v(" "),
                         _vm.$currentUser.id !== caretaker.id
@@ -93716,13 +93842,10 @@ var render = function() {
                                           "a",
                                           {
                                             staticClass: "dropdown-item",
-                                            attrs: { href: "#" },
                                             on: {
                                               click: function($event) {
-                                                return _vm.editCaretaker(
-                                                  _vm.childhash,
-                                                  caretaker
-                                                )
+                                                _vm.isAddingCaretaker = true
+                                                _vm.selectedCaretaker = caretaker
                                               }
                                             }
                                           },
@@ -93763,9 +93886,59 @@ var render = function() {
                               _vm._m(1, true),
                               _vm._v(" "),
                               _c("div", { staticClass: "right-box" }, [
-                                _c("h2", [_vm._v(_vm._s(invite.email))]),
+                                _c("h1", [_vm._v(_vm._s(invite.email))]),
                                 _vm._v(" "),
-                                _c("h2", [_vm._v(_vm._s(invite.role))])
+                                _c("h2", [_vm._v(_vm._s(invite.role))]),
+                                _vm._v(" "),
+                                _c("div", [
+                                  _c(
+                                    "span",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "tooltip",
+                                          rawName: "v-tooltip",
+                                          value: "Child Management",
+                                          expression: "'Child Management'"
+                                        }
+                                      ],
+                                      staticClass: "material-icons",
+                                      class: {
+                                        "opacity-30": !invite.is_admin,
+                                        "text-primary": invite.is_admin
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                  admin_panel_settings\n                "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "span",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "tooltip",
+                                          rawName: "v-tooltip",
+                                          value: "Tracker Management",
+                                          expression: "'Tracker Management'"
+                                        }
+                                      ],
+                                      staticClass: "material-icons",
+                                      class: {
+                                        "opacity-30": !invite.full_access,
+                                        "text-primary": invite.full_access
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                  playlist_add_check\n                "
+                                      )
+                                    ]
+                                  )
+                                ])
                               ]),
                               _vm._v(" "),
                               _c("div", { staticClass: "action-box" }, [
@@ -93806,6 +93979,7 @@ var render = function() {
                             on: {
                               click: function($event) {
                                 _vm.isAddingCaretaker = true
+                                _vm.selectedCaretaker = null
                               }
                             }
                           },
@@ -93825,11 +93999,19 @@ var render = function() {
                       _c(
                         "caretaker-add-form-component",
                         {
-                          attrs: { childHash: _vm.childhash },
+                          attrs: {
+                            childHash: _vm.childhash,
+                            existingCaretaker: _vm.selectedCaretaker
+                          },
                           on: {
                             emitSaveInvite: function($event) {
                               _vm.getPendingInvites(_vm.childhash)
                               _vm.isAddingCaretaker = false
+                            },
+                            emitUpdateCaretaker: function($event) {
+                              _vm.getCaretakers(_vm.childhash)
+                              _vm.isAddingCaretaker = false
+                              _vm.selectedCaretaker = null
                             }
                           }
                         },
@@ -93905,7 +94087,9 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "right-box" }, [
-        _c("h1", [_vm._v("Add New Caretaker")])
+        _c("h1", { staticStyle: { padding: "25px 0" } }, [
+          _vm._v("Add New Caretaker")
+        ])
       ])
     ])
   }
@@ -112394,7 +112578,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$baseChildImage = '/img/bas
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$avatarOrDefault = function (path) {
   if (path) {
-    return "".concat(vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$baseAvatarPath, "/").concat(path);
+    return "".concat(vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$baseAvatarPath, "/").concat(path, "?").concat(performance.now());
   }
 
   return vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$baseChildImage;
@@ -112501,24 +112685,7 @@ var mockEntries = [{
   value: "8.99",
   prefix: "$",
   suffix: null
-}]; // console.log('testing EntryAmount class');
-// let ea = new EntryAmount;
-// ea.setValue(5);
-// console.log(ea.getValue());
-// let formattedEntries = mockEntries.map(entry => {
-//     entry.valueFormatted = new EntryAmount;
-//     entry.valueFormatted.setValue(entry.value);
-//     entry.valueFormatted.value = 'something else!';
-//     console.log(entry.valueFormatted.value);
-//     return entry;
-// });
-// console.log(formattedEntries);
-
-var o = new _ounces__WEBPACK_IMPORTED_MODULE_9__["default"](5.5);
-o.setValue(5.75); // console.log(o, o.valueInGallons(), o.valueInBabyBottles(), o.suffix);
-
-var d = new _dollars__WEBPACK_IMPORTED_MODULE_10__["default"](5.29);
-console.log(d, d.getFormattedText(), d.getAlternateText());
+}];
 /* Polyfills */
 
 Array.prototype.max = function () {
@@ -112537,7 +112704,6 @@ Array.prototype.minGreaterThanZero = function () {
   }));
 };
 
-console.log([0, 1, 0, 3, 0, 65].minGreaterThanZero());
 var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   el: '#app'
 });
@@ -114313,13 +114479,23 @@ __webpack_require__.r(__webpack_exports__);
       this.$v.formCaretaker.$touch();
 
       if (!this.$v.formCaretaker.$invalid) {
-        axios.post("".concat(vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$baseAPI, "/caretaker/invite"), this.formCaretaker).then(function (res) {
-          _this5.$emit('emitSaveInvite');
+        if (this.formCaretaker.id) {
+          axios.post("".concat(vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$baseAPI, "/caretaker"), this.formCaretaker).then(function (res) {
+            _this5.$emit('emitUpdateCaretaker');
 
-          _this5.$toasted.success('The caretaker has been invited.');
-        })["catch"](function (err) {
-          _this5.$toasted.error(err.response.data);
-        });
+            _this5.$toasted.success('The caretaker has been updated.');
+          })["catch"](function (err) {
+            _this5.$toasted.error(err.response.data);
+          });
+        } else {
+          axios.post("".concat(vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$baseAPI, "/caretaker/invite"), this.formCaretaker).then(function (res) {
+            _this5.$emit('emitSaveInvite');
+
+            _this5.$toasted.success('The caretaker has been invited.');
+          })["catch"](function (err) {
+            _this5.$toasted.error(err.response.data);
+          });
+        }
       } else {
         this.$toasted.error('Please fill out all required fields.');
       }
@@ -114644,8 +114820,6 @@ __webpack_require__.r(__webpack_exports__);
         } else {
           _this.trackerEntriesPaginationDetails = res.data;
           _this.trackerEntries = res.data.data;
-          console.log('this.trackerEntries');
-          console.log(_this.trackerEntries);
           _this.trackerEntries = _this.trackerEntries.map(function (entry) {
             if (entry.category.suffix === 'oz') {
               entry.entry_amount = new _ounces__WEBPACK_IMPORTED_MODULE_1__["default"](entry.value);
@@ -114660,15 +114834,12 @@ __webpack_require__.r(__webpack_exports__);
             }
 
             if (entry.entry_amount !== null) {
-              console.log(entry.entry_amount);
               entry.entry_amount.value_formatted = entry.entry_amount.getFormattedText();
               entry.entry_amount.alternate = entry.entry_amount.getAlternateText();
             }
 
             return entry;
           });
-          console.log('trackerEntries with new classes');
-          console.log(_this.trackerEntries);
           res.data.data.forEach(function (entry, index) {
             setTimeout(function () {
               Vue.prototype.$addClass('entry-tr-' + entry.id, 'color-faze');

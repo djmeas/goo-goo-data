@@ -74,7 +74,7 @@ Vue.prototype.$baseChildImage = '/img/base_child_image.png';
 
 Vue.prototype.$avatarOrDefault = function(path) {
     if (path) {
-        return `${Vue.prototype.$baseAvatarPath}/${path}`;
+        return `${Vue.prototype.$baseAvatarPath}/${path}?${performance.now()}`;
     }
 
     return Vue.prototype.$baseChildImage;
@@ -187,31 +187,6 @@ let mockEntries = [
     }
 ]; 
 
-// console.log('testing EntryAmount class');
-// let ea = new EntryAmount;
-// ea.setValue(5);
-// console.log(ea.getValue());
-
-// let formattedEntries = mockEntries.map(entry => {
-//     entry.valueFormatted = new EntryAmount;
-//     entry.valueFormatted.setValue(entry.value);
-
-//     entry.valueFormatted.value = 'something else!';
-
-//     console.log(entry.valueFormatted.value);
-
-//     return entry;
-// });
-
-// console.log(formattedEntries);
-
-let o = new OunceEntry(5.5);
-o.setValue(5.75);
-// console.log(o, o.valueInGallons(), o.valueInBabyBottles(), o.suffix);
-
-let d = new DollarEntry(5.29);
-console.log(d, d.getFormattedText(), d.getAlternateText());
-
 /* Polyfills */
 Array.prototype.max = function() {
     return Math.max.apply(null, this);
@@ -226,8 +201,6 @@ Array.prototype.minGreaterThanZero = function() {
     // console.log(this.map(value => { if (value !== 0) { return value; } }));
     return Math.min.apply(null, this.filter(value => value !== 0));
 };
-
-console.log([0,1,0,3,0,65].minGreaterThanZero());
 
 const app = new Vue({
     el: '#app',

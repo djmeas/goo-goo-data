@@ -11541,6 +11541,14 @@ h5 {
   display: none;
 }
 
+.opacity-50 {
+  opacity: 0.5;
+}
+
+.opacity-30 {
+  opacity: 0.3;
+}
+
 .width-100 {
   width: 100%;
 }
@@ -11923,7 +11931,7 @@ label.form-group--error {
 
 .card-horizontal h1 {
   font-size: 20px;
-  margin-bottom: 0;
+  margin-bottom: 4px;
 }
 
 .card-horizontal h2 {
@@ -11960,6 +11968,7 @@ label.form-group--error {
   justify-content: center;
   display: flex;
   flex-direction: column;
+  padding: 8px 0;
 }
 
 .card-horizontal .action-box {
@@ -11974,10 +11983,10 @@ label.form-group--error {
 /* Child View Page */
 
 .child-hero-img {
-  border-top: 10px solid #d8d8d8;
-  border-bottom: 10px solid #c09dd6;
-  border-left: 10px solid silver;
-  border-right: 10px solid #a582c8;
+  border-top: 4px solid #d8d8d8;
+  border-bottom: 4px solid #c09dd6;
+  border-left: 4px solid silver;
+  border-right: 4px solid #a582c8;
 }
 
 .parent-icon {

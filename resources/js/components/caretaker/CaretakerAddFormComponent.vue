@@ -1,7 +1,7 @@
 <template>
   <div class="caretaker-add-container mb-4">
     <div class="card">
-      <div class="card-header">Add Caretaker</div>
+      <div class="card-header">{{existingCaretaker ? 'Edit' : 'Add'}} Caretaker</div>
       <div class="card-body">
         <form>
           <div class="row">
@@ -15,7 +15,7 @@
               </div>
             </div> -->
             <div class="col-xl-3 col-lg-6 col-md-6">
-              <div class="form-group mb-3">
+              <div class="form-group mb-3" :class="{'form-group--error': $v.formCaretaker.email.$error}">
                 <label for="child" class="form-label">
                   Caretaker's Email <required/>
                   <span class="material-icons" 
@@ -24,11 +24,11 @@
                     info
                   </span>
                 </label>
-                <input v-model="formCaretaker.email" class="form-control" type="email">
+                <input v-model="formCaretaker.email" class="form-control" type="email" :disabled="existingCaretaker !== null">
               </div>
             </div>
             <div class="col-xl-3 col-lg-6 col-md-6">
-              <div class="form-group mb-3">
+              <div class="form-group mb-3" :class="{'form-group--error': $v.formCaretaker.role.$error}">
                 <label for="child" class="form-label">
                   Role <required/>
                   <span class="material-icons" 
@@ -42,7 +42,8 @@
             </div>
             <div class="col-xl-3 col-lg-6 col-md-6">
               <div class="form-group mb-3 checkbox-group">
-                <label for="child" class="form-label">Caretaker Management 
+                <label for="child" class="form-label">
+                  Caretaker Management 
                   <span class="material-icons" 
                   v-tooltip="'If checkmarked, this user will be able to manage this child\'s caretakers.'" 
                   style="font-size: 16px">
@@ -84,6 +85,7 @@ export default {
   data() {
     return {
       formCaretaker: {
+        id: null,
         child_hash: null,
         email: null,
         role: null,
@@ -97,6 +99,11 @@ export default {
     childHash: {
       type: String,
       required: true
+    },
+    existingCaretaker: {
+      type: Object,
+      required: false,
+      default: null
     }
   },
 
@@ -118,6 +125,15 @@ export default {
 
   created() {
     this.formCaretaker.child_hash = this.childHash;
+
+    if (this.existingCaretaker) {
+        this.formCaretaker.id = this.existingCaretaker.caretaker_id;
+        this.formCaretaker.child_hash = this.childHash;
+        this.formCaretaker.email = this.existingCaretaker.email;
+        this.formCaretaker.role = this.existingCaretaker.role;
+        this.formCaretaker.is_admin = this.existingCaretaker.is_admin;
+        this.formCaretaker.read_only = this.existingCaretaker.full_access ? 1 : 0;
+    }
   }
 }
 </script>

@@ -56,12 +56,13 @@ export default {
   },
 
   watch: {
-      children: function() {
-        // Vue.prototype.$keepElSquare
-
-        console.log(this.children);
-        this.children.forEach(child => {
-          Vue.prototype.$keepElSquare('child-img-' + child.hash);
+      childrenInitLoad: function() {
+        this.$nextTick(() => {
+          if (this.children.length > 0) {
+            this.children.forEach(child => {
+              Vue.prototype.$keepElSquare('child-img-' + child.hash);
+            })
+          }
         })
       }
   },

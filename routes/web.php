@@ -44,6 +44,7 @@ Route::middleware(['isAuthenticatedUser'])->group(function() {
         });
 
         Route::prefix('caretaker')->group(function() {
+            Route::post('/', 'CaretakerController@save');
             Route::get('my-invites', 'CaretakerController@get_my_invites');
             Route::post('my-invites', 'CaretakerController@respond_to_invite');
 

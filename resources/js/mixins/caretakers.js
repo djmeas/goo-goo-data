@@ -73,7 +73,17 @@ export default {
       this.$v.formCaretaker.$touch();
 
       if (!this.$v.formCaretaker.$invalid) {
-        axios.post(`${Vue.prototype.$baseAPI}/caretaker/invite`, this.formCaretaker)
+        if (this.formCaretaker.id) {
+          axios.post(`${Vue.prototype.$baseAPI}/caretaker`, this.formCaretaker)
+          .then(res => {
+            this.$emit('emitUpdateCaretaker');
+            this.$toasted.success('The caretaker has been updated.');
+          })
+          .catch(err => {
+            this.$toasted.error(err.response.data);
+          });
+        } else {
+          axios.post(`${Vue.prototype.$baseAPI}/caretaker/invite`, this.formCaretaker)
           .then(res => {
             this.$emit('emitSaveInvite');
             this.$toasted.success('The caretaker has been invited.');
@@ -81,6 +91,8 @@ export default {
           .catch(err => {
             this.$toasted.error(err.response.data);
           });
+        }
+        
       } else {
         this.$toasted.error('Please fill out all required fields.');
       }

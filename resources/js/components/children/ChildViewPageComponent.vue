@@ -194,6 +194,18 @@
             <div class="right-box">
               <h1>{{caretaker.first_name}} {{caretaker.last_name}}</h1>
               <h2>{{caretaker.role}}</h2>
+              <div>
+                <span :class="{'opacity-30': !caretaker.is_admin, 'text-primary': caretaker.is_admin}" 
+                class="material-icons"
+                v-tooltip="'Child Management'">
+                  admin_panel_settings
+                </span>
+                <span :class="{'opacity-30': !caretaker.full_access, 'text-primary': caretaker.full_access}" 
+                class="material-icons"
+                v-tooltip="'Tracker Management'">
+                  playlist_add_check
+                </span>
+              </div>
             </div>
             <div v-if="$currentUser.id !== caretaker.id" class="action-box">
               <!-- <div class="icon clickable" @click="removeCaretaker(childhash, caretaker)">
@@ -208,7 +220,7 @@
                 style="padding: 0px 8px;">
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a @click="editCaretaker(childhash, caretaker)" class="dropdown-item" href="#">Manage Access</a>
+                  <a @click="isAddingCaretaker = true; selectedCaretaker = caretaker;" class="dropdown-item">Manage Access</a>
                   <a @click="removeCaretaker(childhash, caretaker)" class="dropdown-item" href="#">Remove</a>
                 </div>
               </div>
@@ -226,8 +238,20 @@
                 <div class="pending">Pending</div>
               </div>
               <div class="right-box">
-                <h2>{{invite.email}}</h2>
+                <h1>{{invite.email}}</h1>
                 <h2>{{invite.role}}</h2>
+                <div>
+                  <span :class="{'opacity-30': !invite.is_admin, 'text-primary': invite.is_admin}" 
+                  class="material-icons"
+                  v-tooltip="'Child Management'">
+                    admin_panel_settings
+                  </span>
+                  <span :class="{'opacity-30': !invite.full_access, 'text-primary': invite.full_access}" 
+                  class="material-icons"
+                  v-tooltip="'Tracker Management'">
+                    playlist_add_check
+                  </span>
+                </div>
               </div>
               <div class="action-box">
                 <div class="icon clickable" @click="deleteInvite(invite, childhash)">
@@ -239,7 +263,7 @@
             </div>
           </div>
         
-          <div class="col-lg-4 mb-5 clickable" @click="isAddingCaretaker = true">
+          <div class="col-lg-4 mb-5 clickable" @click="isAddingCaretaker = true;selectedCaretaker = null;">
             <div class="card-horizontal">
               <div class="left-box">
                 <span class="material-icons">
@@ -247,7 +271,7 @@
                 </span>
               </div>
               <div class="right-box">
-                <h1>Add New Caretaker</h1>
+                <h1 style="padding: 25px 0;">Add New Caretaker</h1>
               </div>
             </div>
           </div>
@@ -258,7 +282,9 @@
         <div v-if="isAddingCaretaker" class="col-lg-12">
           <caretaker-add-form-component 
           :childHash="childhash"
-          v-on:emitSaveInvite="getPendingInvites(childhash);isAddingCaretaker = false;">
+          :existingCaretaker="selectedCaretaker"
+          v-on:emitSaveInvite="getPendingInvites(childhash);isAddingCaretaker = false;"
+          v-on:emitUpdateCaretaker="getCaretakers(childhash);isAddingCaretaker = false;selectedCaretaker = null;">
             <button class="btn btn-default" @click="isAddingCaretaker = false">Cancel</button>
           </caretaker-add-form-component>
         </div>
@@ -280,7 +306,8 @@ export default {
   data() {
     return {
       isAddingCaretaker: false,
-      isParentOfChild: false
+      isParentOfChild: false,
+      selectedCaretaker: null
     }
   },
   props: {
