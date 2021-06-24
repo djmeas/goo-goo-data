@@ -140,7 +140,7 @@
                                 Caretaker access for sharing data
                             </h1>
                             <p>
-                                Need to share data for a particular child with family member or healthcare provider? 
+                                Need to share data for a particular child with a family member or healthcare provider? 
                                 Add additional caretakers with an invitation.
                                 Once they accept, they'll have access to review data and even manage and add entries as well if permitted.
                             </p>
