@@ -14,8 +14,8 @@
             <button class="ml-2 btn btn-tiny btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#" @click="isEditing = true;editEntry()">Edit</a>
-              <a class="dropdown-item" href="#" @click="deleteTrackerEntry(entry.id)">Delete</a>
+              <a class="dropdown-item" @click="isEditing = true;editEntry()">Edit</a>
+              <a class="dropdown-item" @click="deleteTrackerEntry(entry.id)">Delete</a>
             </div>
           </div>
         </div>

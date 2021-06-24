@@ -25,4 +25,8 @@ class HomeController extends Controller
     {
         return redirect('tracker');
     }
+
+    public function developer() {
+        return view('misc.developer');
+    }
 }

@@ -117,48 +117,48 @@
                 <div class="row">
                     <div id="content" class="col-lg-8">
                         <div class="keypoints mb-5">
-                            <h1>Track your child's growth and progress</h1>
+                            <h1>
+                                <span class="material-icons" style="font-size: 28px;">
+                                insights
+                                </span>
+                                Track your child's growth and progress
+                            </h1>
+                            
                             <p>
-                                Elit ut nisi Lorem et ad eu amet Lorem mollit culpa. Fugiat et in ea veniam sint reprehenderit 
-                                dolore velit consequat cillum aute aliqua amet fugiat. Occaecat do in sunt commodo fugiat 
-                                veniam ullamco cillum adipisicing aliqua. Qui nisi culpa cillum duis eiusmod pariatur cillum 
-                                culpa. Dolor pariatur nisi Lorem id quis dolor.
+                                How many ounces of milk did your child have last week? How much did you spend on diapers last month?
+                                Easily and quickly manage entries for multiple children and review you data in a table or chart on 
+                                any browser-enabled device.
                             </p>
-                            <p>
-                                Elit ut nisi Lorem et ad eu amet Lorem mollit culpa. Fugiat et in ea veniam sint reprehenderit 
-                                dolore velit consequat cillum aute aliqua amet fugiat. Occaecat do in sunt commodo fugiat 
-                                veniam ullamco cillum adipisicing aliqua. Qui nisi culpa cillum duis eiusmod pariatur cillum 
-                                culpa. Dolor pariatur nisi Lorem id quis dolor.
-                            </p>
+                            <img class="d-none d-sm-block" src="/img/tracker.jpg" alt="tracker entries" width="100%">
+                            <img class="d-block d-sm-none" src="/img/tracker_mobile.jpg" alt="tracker entries" width="100%">
                         </div>
                         <div class="keypoints mb-5">
-                            <h1>Track your child's growth and progress</h1>
+                            <h1>
+                                <span class="material-icons" style="font-size: 28px;">
+                                supervised_user_circle
+                                </span>
+                                Caretaker access for sharing data
+                            </h1>
                             <p>
-                                Elit ut nisi Lorem et ad eu amet Lorem mollit culpa. Fugiat et in ea veniam sint reprehenderit 
-                                dolore velit consequat cillum aute aliqua amet fugiat. Occaecat do in sunt commodo fugiat 
-                                veniam ullamco cillum adipisicing aliqua. Qui nisi culpa cillum duis eiusmod pariatur cillum 
-                                culpa. Dolor pariatur nisi Lorem id quis dolor.
+                                Need to share data for a particular child with family member or healthcare provider? 
+                                Add additional caretakers with an invitation.
+                                Once they accept, they'll have access to review data and even manage and add entries as well if permitted.
                             </p>
-                            <p>
-                                Elit ut nisi Lorem et ad eu amet Lorem mollit culpa. Fugiat et in ea veniam sint reprehenderit 
-                                dolore velit consequat cillum aute aliqua amet fugiat. Occaecat do in sunt commodo fugiat 
-                                veniam ullamco cillum adipisicing aliqua. Qui nisi culpa cillum duis eiusmod pariatur cillum 
-                                culpa. Dolor pariatur nisi Lorem id quis dolor.
-                            </p>
+                            <img class="d-none d-sm-block" src="/img/caretakers.jpg" alt="caretakers" width="100%">
+                            <img class="d-block d-sm-none" src="/img/caretakers_mobile.jpg" alt="caretakers" width="100%">
                         </div>
                         <div class="keypoints mb-5">
-                            <h1>Track your child's growth and progress</h1>
+                            <h1>
+                                <span class="material-icons" style="font-size: 28px;">
+                                verified_user
+                                </span>
+                                Your data is yours
+                            </h1>
                             <p>
-                                Elit ut nisi Lorem et ad eu amet Lorem mollit culpa. Fugiat et in ea veniam sint reprehenderit 
-                                dolore velit consequat cillum aute aliqua amet fugiat. Occaecat do in sunt commodo fugiat 
-                                veniam ullamco cillum adipisicing aliqua. Qui nisi culpa cillum duis eiusmod pariatur cillum 
-                                culpa. Dolor pariatur nisi Lorem id quis dolor.
-                            </p>
-                            <p>
-                                Elit ut nisi Lorem et ad eu amet Lorem mollit culpa. Fugiat et in ea veniam sint reprehenderit 
-                                dolore velit consequat cillum aute aliqua amet fugiat. Occaecat do in sunt commodo fugiat 
-                                veniam ullamco cillum adipisicing aliqua. Qui nisi culpa cillum duis eiusmod pariatur cillum 
-                                culpa. Dolor pariatur nisi Lorem id quis dolor.
+                                Goo Goo Data does not sell your data to any 3rd parties. The goal is to easily track 
+                                your child's data without relying on notebooks or spreadsheets. The developer of this site 
+                                recently became a father and found it cumbersome to track data and share it with others in
+                                a convenient and meaningful way.
                             </p>
                         </div>
                     </div>
@@ -168,57 +168,41 @@
         </main>
 
         <div class="footer-container mt-5">
-            <footer class="container py-5">
+            <footer class="container py-3">
                 <div class="row">
-                    <div class="col-12 col-md">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-block mb-2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
-                            <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
-                            <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
-                            <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
-                            <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
-                            <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
-                        </svg>
-                        <small class="d-block mb-3 text-muted">© 2017-2018</small>
+                    <div class="col-lg-4 text-center-sm-only">
+                    <a class="navbar-brand py-3" href="http://goo-goo-data.test">
+                        <span class="material-icons" style="vertical-align: sub;">
+                            child_friendly
+                        </span>
+                        GOO GOO DATA
+                        </a>
                     </div>
-                    <div class="col-6 col-md">
-                        <h5>Features</h5>
-                        <ul class="list-unstyled text-small">
-                            <li><a class="text-muted" href="#">Cool stuff</a></li>
-                            <li><a class="text-muted" href="#">Random feature</a></li>
-                            <li><a class="text-muted" href="#">Team feature</a></li>
-                            <li><a class="text-muted" href="#">Stuff for developers</a></li>
-                            <li><a class="text-muted" href="#">Another one</a></li>
-                            <li><a class="text-muted" href="#">Last time</a></li>
-                        </ul>
+                    <div class="col-lg-4 text-center">
+                        <p>
+                            © Harry Meas 2021<br>
+                            WGU Software Development Capstone
+                        </p>
                     </div>
-                    <div class="col-6 col-md">
-                        <h5>Resources</h5>
-                        <ul class="list-unstyled text-small">
-                            <li><a class="text-muted" href="#">Resource</a></li>
-                            <li><a class="text-muted" href="#">Resource name</a></li>
-                            <li><a class="text-muted" href="#">Another resource</a></li>
-                            <li><a class="text-muted" href="#">Final resource</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md">
-                        <h5>Resources</h5>
-                        <ul class="list-unstyled text-small">
-                            <li><a class="text-muted" href="#">Business</a></li>
-                            <li><a class="text-muted" href="#">Education</a></li>
-                            <li><a class="text-muted" href="#">Government</a></li>
-                            <li><a class="text-muted" href="#">Gaming</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md">
-                        <h5>About</h5>
-                        <ul class="list-unstyled text-small">
-                            <li><a class="text-muted" href="#">Team</a></li>
-                            <li><a class="text-muted" href="#">Locations</a></li>
-                            <li><a class="text-muted" href="#">Privacy</a></li>
-                            <li><a class="text-muted" href="#">Terms</a></li>
-                        </ul>
+                    <div class="col-lg-4 text-right text-center-sm-only pt-3">
+                        <a href="/about-the-developer" title="Learn about the developer">
+                            <img class="mr-2 rounded-circle" src="/img/me.png"/ width="32px" alt="Harry Meas">
+                        </a>
+                        <a href="https://github.com/djmeas/goo-goo-data" title="View Goo Goo Data's Github page">                    
+                            <img class="mr-1" src="/img/github.svg" style="filter: invert(1);" width="32px" alt="Goo Goo Data Github page">
+                        </a>
+                        <a href="https://vuejs.org/" title="Built using Vue.js">
+                            <img class="mr-1" src="/img/vuedotjs.svg" style="filter: invert(1);" width="32px" alt="Vue.js">
+                        </a>
+                        <a href="https://laravel.com/" title="Built using Laravel">
+                            <img class="mr-1" src="/img/laravel.svg" style="filter: invert(1);" width="32px" alt="laravel.com">
+                        </a>
+                        <a href="https://www.linode.com/" title="Hosted on Linode">
+                            <img class="" src="/img/linode.svg" style="filter: invert(1);" width="32px" alt="linode.com">
+                        </a>
+                        <a href="https://www.wgu.edu/" title="WGU">
+                            <img class="" src="/img/wgu.png" width="44px" alt="wgu.edu">
+                        </a>
                     </div>
                 </div>
             </footer>

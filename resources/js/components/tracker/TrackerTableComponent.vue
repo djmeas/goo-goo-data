@@ -217,8 +217,8 @@
                         
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a @click="editEntryId = entry.id;editEntry();" class="dropdown-item" href="#">Edit</a>
-                        <a @click="deleteTrackerEntry(entry.id)" class="dropdown-item" href="#">Delete</a>
+                        <a @click="editEntryId = entry.id;editEntry();" class="dropdown-item">Edit</a>
+                        <a @click="deleteTrackerEntry(entry.id)" class="dropdown-item">Delete</a>
                       </div>
                     </div>
                   </td>

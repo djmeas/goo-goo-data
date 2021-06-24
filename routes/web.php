@@ -22,6 +22,10 @@ Route::get('sandbox', function () {
 
 Auth::routes();
 
+Route::get('/about-the-developer', function () {
+    return view('misc.developer');
+});
+
 Route::middleware(['isAuthenticatedUser'])->group(function() {
 
     Route::get('/home', 'HomeController@index')->name('home');

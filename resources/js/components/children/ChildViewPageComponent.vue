@@ -221,7 +221,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a @click="isAddingCaretaker = true; selectedCaretaker = caretaker;" class="dropdown-item">Manage Access</a>
-                  <a @click="removeCaretaker(childhash, caretaker)" class="dropdown-item" href="#">Remove</a>
+                  <a @click="removeCaretaker(childhash, caretaker)" class="dropdown-item">Remove</a>
                 </div>
               </div>
             </div>

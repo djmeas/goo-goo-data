@@ -240,6 +240,14 @@ nav.navbar {
 .footer-container {
   background-color: #2b1e3c;
   color: white;
+
+  a {
+    color: white;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
 
 .btn-tiny {
@@ -586,6 +594,10 @@ label.form-group--error {
 
   .checkbox-group {
     margin-top: 8px;
+  }
+
+  .text-center-sm-only {
+    text-align: center !important;
   }
 
 }

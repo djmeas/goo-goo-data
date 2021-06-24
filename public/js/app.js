@@ -93860,7 +93860,6 @@ var render = function() {
                                           "a",
                                           {
                                             staticClass: "dropdown-item",
-                                            attrs: { href: "#" },
                                             on: {
                                               click: function($event) {
                                                 return _vm.removeCaretaker(
@@ -95099,7 +95098,6 @@ var render = function() {
                           "a",
                           {
                             staticClass: "dropdown-item",
-                            attrs: { href: "#" },
                             on: {
                               click: function($event) {
                                 _vm.isEditing = true
@@ -95114,7 +95112,6 @@ var render = function() {
                           "a",
                           {
                             staticClass: "dropdown-item",
-                            attrs: { href: "#" },
                             on: {
                               click: function($event) {
                                 return _vm.deleteTrackerEntry(_vm.entry.id)
@@ -97015,10 +97012,6 @@ var render = function() {
                                                                         {
                                                                           staticClass:
                                                                             "dropdown-item",
-                                                                          attrs: {
-                                                                            href:
-                                                                              "#"
-                                                                          },
                                                                           on: {
                                                                             click: function(
                                                                               $event
@@ -97043,10 +97036,6 @@ var render = function() {
                                                                         {
                                                                           staticClass:
                                                                             "dropdown-item",
-                                                                          attrs: {
-                                                                            href:
-                                                                              "#"
-                                                                          },
                                                                           on: {
                                                                             click: function(
                                                                               $event
@@ -112584,7 +112573,7 @@ files.keys().map(function (key) {
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$currentUser = currentUser;
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$currentUser = typeof currentUser !== 'undefined' ? currentUser : null;
 
 var momenttz = __webpack_require__(/*! moment-timezone */ "./node_modules/moment-timezone/index.js");
 

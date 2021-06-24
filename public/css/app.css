@@ -11594,6 +11594,14 @@ nav.navbar {
   color: white;
 }
 
+.footer-container a {
+  color: white;
+}
+
+.footer-container a:hover {
+  text-decoration: none;
+}
+
 .btn-tiny {
   padding: 0 5px;
 }
@@ -12010,6 +12018,10 @@ label.form-group--error {
 
   .checkbox-group {
     margin-top: 8px;
+  }
+
+  .text-center-sm-only {
+    text-align: center !important;
   }
 }
 
