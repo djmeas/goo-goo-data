@@ -3335,6 +3335,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _blogPosts_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../blogPosts.json */ "./resources/js/blogPosts.json");
+var _blogPosts_json__WEBPACK_IMPORTED_MODULE_0___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../../blogPosts.json */ "./resources/js/blogPosts.json", 1);
 //
 //
 //
@@ -3352,24 +3354,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      posts: _blogPosts_json__WEBPACK_IMPORTED_MODULE_0__
+    };
+  },
+  created: function created() {}
+});
 
 /***/ }),
 
@@ -94411,52 +94404,37 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "blog-aside" } }, [
-      _c("div", { staticClass: "container-posts bg-mat-tertiary" }, [
-        _c("h1", [_vm._v("Latest News")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "mt-4" }, [
-          _c("div", { staticClass: "post" }, [
-            _c("h2", [_vm._v("News Header")]),
+  return _c("div", { attrs: { id: "blog-aside" } }, [
+    _c("div", { staticClass: "container-posts bg-mat-tertiary" }, [
+      _c("h1", [_vm._v("Latest News")]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "mt-4" },
+        _vm._l(_vm.posts, function(post, index) {
+          return _c("div", { key: "post" + index, staticClass: "post" }, [
+            _c("h3", [_vm._v(_vm._s(post.header))]),
             _vm._v(" "),
             _c("p", [
-              _vm._v(
-                "\n                  Elit ut nisi Lorem et ad eu amet Lorem mollit culpa. Fugiat et in ea veniam sint reprehenderit \n                  dolore velit consequat cillum aute aliqua amet fugiat. Occaecat do in sunt commodo fugiat \n                  veniam ullamco cillum adipisicing aliqua.\n              "
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "post" }, [
-            _c("h2", [_vm._v("News Header")]),
+              _c("i", [
+                _vm._v(
+                  "Posted on " +
+                    _vm._s(post.date) +
+                    " by " +
+                    _vm._s(post.author)
+                )
+              ])
+            ]),
             _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "\n                  Elit ut nisi Lorem et ad eu amet Lorem mollit culpa. Fugiat et in ea veniam sint reprehenderit \n                  dolore velit consequat cillum aute aliqua amet fugiat. Occaecat do in sunt commodo fugiat \n                  veniam ullamco cillum adipisicing aliqua.\n              "
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "post" }, [
-            _c("h2", [_vm._v("News Header")]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "\n                  Elit ut nisi Lorem et ad eu amet Lorem mollit culpa. Fugiat et in ea veniam sint reprehenderit \n                  dolore velit consequat cillum aute aliqua amet fugiat. Occaecat do in sunt commodo fugiat \n                  veniam ullamco cillum adipisicing aliqua.\n              "
-              )
-            ])
+            _c("div", { domProps: { innerHTML: _vm._s(post.body) } })
           ])
-        ])
-      ])
+        }),
+        0
+      )
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -112714,6 +112692,17 @@ Array.prototype.minGreaterThanZero = function () {
 var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   el: '#app'
 });
+
+/***/ }),
+
+/***/ "./resources/js/blogPosts.json":
+/*!*************************************!*\
+  !*** ./resources/js/blogPosts.json ***!
+  \*************************************/
+/*! exports provided: 0, 1, 2, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("[{\"date\":\"06/24/21\",\"author\":\"Harry\",\"header\":\"Updates to Caretaker badges\",\"body\":\"<p>Caretaker cards within your child's detail page now contain badges to quickly show what management access they have.</p>\"},{\"date\":\"06/23/21\",\"author\":\"Harry\",\"header\":\"Great deal on toy set\",\"body\":\"<p>The Fisher-Price Little People 1-2-3 Babies Playdate Musical Playset with 3 Multi-color Baby Dolls is on sale for $9.88 (normally $39.82).</p><p><a href='https://www.walmart.com/ip/Fisher-Price-Little-People-1-2-3-Babies-Playdate-Musical-Playset-with-3-Multi-color-Baby-Dolls/977893964'>Click here for details</a>\"},{\"date\":\"06/21/21\",\"author\":\"Harry\",\"header\":\"Goo Goo Data is live\",\"body\":\"<p>The site is now operational. Thank you for visiting my capstone project.</p>\"}]");
 
 /***/ }),
 

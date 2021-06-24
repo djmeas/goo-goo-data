@@ -3,29 +3,12 @@
     <div class="container-posts bg-mat-tertiary">
         <h1>Latest News</h1>
         <div class="mt-4">
-            <div class="post">
-                <h2>News Header</h2>
-                <p>
-                    Elit ut nisi Lorem et ad eu amet Lorem mollit culpa. Fugiat et in ea veniam sint reprehenderit 
-                    dolore velit consequat cillum aute aliqua amet fugiat. Occaecat do in sunt commodo fugiat 
-                    veniam ullamco cillum adipisicing aliqua.
-                </p>
-            </div>
-            <div class="post">
-                <h2>News Header</h2>
-                <p>
-                    Elit ut nisi Lorem et ad eu amet Lorem mollit culpa. Fugiat et in ea veniam sint reprehenderit 
-                    dolore velit consequat cillum aute aliqua amet fugiat. Occaecat do in sunt commodo fugiat 
-                    veniam ullamco cillum adipisicing aliqua.
-                </p>
-            </div>
-            <div class="post">
-                <h2>News Header</h2>
-                <p>
-                    Elit ut nisi Lorem et ad eu amet Lorem mollit culpa. Fugiat et in ea veniam sint reprehenderit 
-                    dolore velit consequat cillum aute aliqua amet fugiat. Occaecat do in sunt commodo fugiat 
-                    veniam ullamco cillum adipisicing aliqua.
-                </p>
+            <div v-for="(post, index) in posts" class="post" :key="'post' + index">
+                <h3>{{post.header}}</h3>
+                <p><i>Posted on {{post.date}} by {{post.author}}</i></p>
+                <div v-html="post.body">
+                    
+                </div>
             </div>
         </div>
     </div>
@@ -33,8 +16,17 @@
 </template>
 
 <script>
-export default {
+import blogPosts from '../../blogPosts.json';
 
+export default {
+    data() {
+        return {
+            posts: blogPosts
+        }
+    },
+    created() {
+        
+    }
 }
 </script>
 
