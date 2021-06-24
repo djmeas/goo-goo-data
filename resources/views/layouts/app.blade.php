@@ -115,56 +115,41 @@
         </main>
 
         <div class="footer-container mt-5">
-            <footer class="container py-5">
+            <footer class="container py-3">
                 <div class="row">
-                    <div class="col-12 col-md text-center">
-                        <span class="material-icons" style="font-size: 180px">
+                    <div class="col-lg-4 text-center-sm-only">
+                    <a class="navbar-brand py-3" href="http://goo-goo-data.test">
+                        <span class="material-icons" style="vertical-align: sub;">
                             child_friendly
                         </span>
-                        <small class="d-block mb-3 text-muted">
-                            © Harry Meas 2021
-                            <br>
+                        GOO GOO DATA
+                        </a>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <p>
+                            © Harry Meas 2021<br>
                             WGU Software Development Capstone
-                        </small>
-                       
+                        </p>
                     </div>
-                    <div class="col-6 col-md">
-                        <h5>Features</h5>
-                        <ul class="list-unstyled text-small">
-                            <li><a class="text-muted" href="#">Cool stuff</a></li>
-                            <li><a class="text-muted" href="#">Random feature</a></li>
-                            <li><a class="text-muted" href="#">Team feature</a></li>
-                            <li><a class="text-muted" href="#">Stuff for developers</a></li>
-                            <li><a class="text-muted" href="#">Another one</a></li>
-                            <li><a class="text-muted" href="#">Last time</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md">
-                        <h5>Resources</h5>
-                        <ul class="list-unstyled text-small">
-                            <li><a class="text-muted" href="#">Resource</a></li>
-                            <li><a class="text-muted" href="#">Resource name</a></li>
-                            <li><a class="text-muted" href="#">Another resource</a></li>
-                            <li><a class="text-muted" href="#">Final resource</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md">
-                        <h5>Resources</h5>
-                        <ul class="list-unstyled text-small">
-                            <li><a class="text-muted" href="#">Business</a></li>
-                            <li><a class="text-muted" href="#">Education</a></li>
-                            <li><a class="text-muted" href="#">Government</a></li>
-                            <li><a class="text-muted" href="#">Gaming</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md">
-                        <h5>About</h5>
-                        <ul class="list-unstyled text-small">
-                            <li><a class="text-muted" href="#">Team</a></li>
-                            <li><a class="text-muted" href="#">Locations</a></li>
-                            <li><a class="text-muted" href="#">Privacy</a></li>
-                            <li><a class="text-muted" href="#">Terms</a></li>
-                        </ul>
+                    <div class="col-lg-4 text-right text-center-sm-only pt-3">
+                        <a href="/about-the-developer" title="Learn about the developer">
+                            <img class="mr-2 rounded-circle" src="/img/me.png"/ width="32px" alt="Harry Meas">
+                        </a>
+                        <a href="https://github.com/djmeas/goo-goo-data" title="View Goo Goo Data's Github page">                    
+                            <img class="mr-1" src="/img/github.svg" style="filter: invert(1);" width="32px" alt="Goo Goo Data Github page">
+                        </a>
+                        <a href="https://vuejs.org/" title="Built using Vue.js">
+                            <img class="mr-1" src="/img/vuedotjs.svg" style="filter: invert(1);" width="32px" alt="Vue.js">
+                        </a>
+                        <a href="https://laravel.com/" title="Built using Laravel">
+                            <img class="mr-1" src="/img/laravel.svg" style="filter: invert(1);" width="32px" alt="laravel.com">
+                        </a>
+                        <a href="https://www.linode.com/" title="Hosted on Linode">
+                            <img class="" src="/img/linode.svg" style="filter: invert(1);" width="32px" alt="linode.com">
+                        </a>
+                        <a href="https://www.wgu.edu/" title="WGU">
+                            <img class="" src="/img/wgu.png" width="44px" alt="wgu.edu">
+                        </a>
                     </div>
                 </div>
             </footer>
