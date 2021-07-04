@@ -10,6 +10,7 @@ export default {
      /**
       * Get the list of children for this user.
       * 
+      * @param {String} hash
       */
      getChildren(hash) {
       let targetUrl = `${Vue.prototype.$baseAPI}/child`;
@@ -37,7 +38,8 @@ export default {
 
      /**
      * Deletes a child by its hash then filters it out of the UI.
-     * @param {string} hash  The child's hash.
+     * 
+     * @param {String} hash
      */
     deleteChild(hash) {
       axios.delete(`${Vue.prototype.$baseAPI}/child/${hash}`)
@@ -86,6 +88,12 @@ export default {
   },
 
   computed: {
+    /**
+     * Computes the children array and returns children which 
+     * the user can CRUD entries for.
+     * 
+     * @returns {Array} List of entry-accessible children.
+     */
     childEntryAccess() {
       return this.children.filter(child => child.full_access)
         .map(child => { return child.hash });

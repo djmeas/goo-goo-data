@@ -23,9 +23,6 @@ export default {
         return {
             posts: blogPosts
         }
-    },
-    created() {
-        
     }
 }
 </script>

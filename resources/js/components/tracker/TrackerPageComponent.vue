@@ -31,16 +31,25 @@ export default {
   mixins: [childrenMixin],
 
   methods: {
+    /**
+     * Listens for the save tracker entry event and reloads the entries.
+     */
     eventSaveTrackerEntry() {
       this.$refs.trackerAddDataFormComponent._resetFormTracker();
       this.$refs.trackerTableComponent.getTrackerEntries();
     },
 
+    /**
+     * Listens for the delete tracker entry event and reloads the remaining entries.
+     */
     eventDeleteTrackerEntry() {
       this.$refs.trackerTableComponent.getTrackerEntries();
     }
   },
 
+  /**
+   * On component mount.
+   */
   mounted() {
     this.getChildren();
   }

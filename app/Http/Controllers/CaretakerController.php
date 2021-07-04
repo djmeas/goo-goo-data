@@ -10,12 +10,35 @@ use App\Child;
 use App\Caretaker;
 use App\CaretakerInvite;
 
+/**
+ * This class handles all interactions pertaining to caretakers,
+ * their children, and their invitations.
+ * 
+ * @author  Harry Meas
+ */
 class CaretakerController extends Controller
 {
+    // Views
+
+    /**
+     * Displays the view invitations page.
+     * 
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function view_invites() {
         return view('caretaker.view_invite');
     }
 
+    // API
+
+    /**
+     * Fetches the caretaker data. If a child hash is pass in,
+     * only return caretakers related to that child.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  String  $hash
+     * @return \Illuminate\Http\Response
+     */
     public function get(Request $request, $hash = null) {
         try {
             if ($hash) {
@@ -35,6 +58,12 @@ class CaretakerController extends Controller
         
     }
 
+    /**
+     * Creates a new caretaker or updates an existing one.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function save(Request $request) {
         try {
             $child = Child::where('hash', $request->child_hash)
@@ -56,12 +85,18 @@ class CaretakerController extends Controller
             }
 
         } catch (\Exception $e) {
-            // DB::rollback();
             return response('The invite could not be saved.', 400);
         }
         
     }
 
+    /**
+     * Fetches all the pending invites related to a particular child hash.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  String  $hash
+     * @return \Illuminate\Http\Response
+     */
     public function get_pending_invites(Request $request, $hash) {
         try {
             if ($hash) {
@@ -83,6 +118,11 @@ class CaretakerController extends Controller
         
     }
 
+    /**
+     * Fetches the current logged in user's invitations.
+     * 
+     * @return \Illuminate\Http\Response
+     */
     public function get_my_invites() {
         try {
             $email = \App\AppUser::where('id', \Auth::id())->first()->email;
@@ -93,10 +133,14 @@ class CaretakerController extends Controller
         
     }
 
+    /**
+     * Creates a new invitation record in the database.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function save_invite(Request $request) {
         try {
-            // DB::beginTranscation();
-
             $child = Child::where('hash', $request->child_hash)
                 ->whereIn('id', Child::accessibleChildren())
                 ->first();
@@ -112,16 +156,19 @@ class CaretakerController extends Controller
                 'is_admin' => (int) $request->is_admin,
                 'full_access' => (int) $request->read_only,
             ]);
-
-            // DB::commit();
             
         } catch (\Exception $e) {
-            // DB::rollback();
             return response('The invite could not be saved.', 400);
         }
         
     }
 
+    /**
+     * Deletes the specified invitation by its ID.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function delete_invite(Request $request, $invite_id) {
         try {
             DB::beginTransaction();
@@ -148,10 +195,18 @@ class CaretakerController extends Controller
         
     }
 
+    /**
+     * Deletes the specified caretaker by its child hash and user ID.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  String  $child_hash 
+     * @param  Integer  $user_id
+     * @return \Illuminate\Http\Response
+     */
     public function delete_caretaker(Request $request, $child_hash, $user_id) {
         try {
             DB::beginTransaction();
-            // dd($child_hash, $user_id);
+
             $child = Child::where('hash', $child_hash)
                 ->whereIn('id', Child::accessibleChildren())
                 ->first();
@@ -179,6 +234,12 @@ class CaretakerController extends Controller
         
     }
 
+    /**
+     * Responds to an invitation and creates the caretaker/child relationship.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function respond_to_invite(Request $request) {
         try {
             DB::beginTransaction();
@@ -213,6 +274,12 @@ class CaretakerController extends Controller
         
     }
 
+    /**
+     * Marks the currently logged in user as the parent of a particular child.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function mark_parent_child(Request $request) {
         try {
             $child = Child::where('id', $request->child_id)
@@ -234,6 +301,14 @@ class CaretakerController extends Controller
         }
     }
 
+    /**
+     * Checks if a caretaker is a parent of a particular child.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  String  $child_hash
+     * @param  Integer  $user_id
+     * @return \Illuminate\Http\Response
+     */
     public function is_parent_of_child(Request $request, $child_hash, $user_id) {
         try {
             $child = Child::where('hash', $child_hash)

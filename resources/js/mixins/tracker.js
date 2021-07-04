@@ -13,7 +13,7 @@ export default {
     /**
      * Fetches the tracker entries to be dispalyed in the table.
      * 
-     * @param {string} paginationUrl The API url for paginated data.
+     * @param {String} paginationUrl The API url for paginated data.
      */
     getTrackerEntries(paginationUrl, setCurrentPage) {
       var moment = require('moment');
@@ -98,10 +98,7 @@ export default {
           if (!this.trackerInitLoad) {
             this.trackerInitLoad = true;
             this.$emit('trackerInitLoadComplete');
-          } 
-
-          // Vue.prototype.$tempClass('tracker-table', 'slide-left');
-          
+          }   
         })
         .catch(err => {
           console.log(err);
@@ -138,6 +135,11 @@ export default {
       }
     },
 
+    /**
+     * Deletles a particular tracker entry.
+     * 
+     * @param {Integer} entryId 
+     */
     deleteTrackerEntry(entryId) {
       axios.delete(`${Vue.prototype.$baseAPI}/tracker/${entryId}`)
         .then(res => {
@@ -152,7 +154,7 @@ export default {
     /**
      * Sets the sort and direction before fetching the tracker entries.
      * 
-     * @param {string} column 
+     * @param {String} column 
      */
     _trackerSortColumn(column) {
       this.trackerFilters.sort = column;

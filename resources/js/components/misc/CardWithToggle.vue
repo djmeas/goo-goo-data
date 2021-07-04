@@ -37,6 +37,9 @@ export default {
     }
   },
 
+  /**
+   * On component mount.
+   */
   mounted() {
     this.isExpanded = this.expanded;
   }

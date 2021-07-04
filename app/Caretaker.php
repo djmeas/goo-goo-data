@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * This class represents the caretaker (user) entity.
+ */
 class Caretaker extends Model
 {
     protected $fillable = [

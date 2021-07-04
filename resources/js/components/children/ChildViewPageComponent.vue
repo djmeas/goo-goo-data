@@ -328,6 +328,9 @@ export default {
   },
 
   watch: {
+    /**
+     * Watches the child for changes to keep the image square.
+     */
     child: function() {
       this.$nextTick(function () {
         Vue.prototype.$keepElSquare('child-avatar');
@@ -335,6 +338,9 @@ export default {
     }
   },
 
+  /**
+   * On component mount.
+   */
   mounted() {
     this.getChildren(this.childhash);
     this.getCaretakers(this.childhash);

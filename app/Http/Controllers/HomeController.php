@@ -26,6 +26,11 @@ class HomeController extends Controller
         return redirect('tracker');
     }
 
+    /**
+     * Displays the about the developer page.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function developer() {
         return view('misc.developer');
     }

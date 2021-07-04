@@ -11,15 +11,27 @@ use Auth;
 use App\Child;
 use App\Caretaker;
 
+/**
+ * This controller handles all interactions pertaining to children.
+ */
 class ChildController extends Controller
 {
     /**
-     * Loads the Children page.
+     * Displays the children page.
+     * 
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
         return view('children.index');
     }
 
+    /**
+     * Displays the view child page.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  String  $hash
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function view(Request $request, $hash) {
         return view('children.view', [
             'hash' => $hash
@@ -30,8 +42,10 @@ class ChildController extends Controller
 
     /**
      * Fetches the child data from the database.
-     * @param Request $request The request collection.
-     * @param String $hash The child's unique hash.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  String  $hash
+     * @return \Illuminate\Http\Response
      */
     public function get(Request $request, $hash = null) {
         if ($hash) {
@@ -67,8 +81,10 @@ class ChildController extends Controller
 
     /**
      * Deletes the child data from the database.
-     * @param Request $request The request collection.
-     * @param String $hash The child's unique hash.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  String  $hash
+     * @return \Illuminate\Http\Response
      */
     public function delete(Request $request, $hash = null) {
         try {
@@ -97,7 +113,9 @@ class ChildController extends Controller
 
     /**
      * Saves the child data to the database.
-     * @param Request $request The request collection.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function save(Request $request) {
         $form_file_upload = null;
@@ -143,8 +161,6 @@ class ChildController extends Controller
                 'image_path' => $request->file('uploaded_file') ? $hash . '.' . $form_file_upload->extension() : $existing_image
             ]
         );
-
-        // dd($childData);
 
         try {
             DB::beginTransaction();

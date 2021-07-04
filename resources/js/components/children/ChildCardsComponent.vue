@@ -45,7 +45,6 @@ export default {
      */
     eventAddChild() {
       this.$emit('eventAddChild');
-      // window.scrollTo(0, 0);
       var scroll = new SmoothScroll();
       var anchor = document.querySelector('#form-add-child');
       scroll.animateScroll(anchor, {
@@ -56,6 +55,9 @@ export default {
   },
 
   watch: {
+      /**
+       * Watches for when the children data initially loads and attempts to keep their images square.
+       */
       childrenInitLoad: function() {
         this.$nextTick(() => {
           if (this.children.length > 0) {
@@ -68,10 +70,9 @@ export default {
   },
 
   /**
-   * Runs when mounted.
+   * On component mount.
    */
   mounted() {
-    console.log('ChildCardsComponent mounted.');
     this.getChildren();
   }
   

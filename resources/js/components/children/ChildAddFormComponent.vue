@@ -95,11 +95,17 @@ export default {
   },
 
   methods: {
+    /**
+     * Handles the cancel child button.
+     */
     cancelAddChild() {
       this._resetFormChild();
       this.$emit('eventCancelAddChild');
     },
 
+    /**
+     * Resets the add/edit child form.
+     */
     _resetFormChild() {
       if (!this.existingChild) {
         this.formChild.first_name = null;
@@ -118,6 +124,9 @@ export default {
     }
   },
 
+  /**
+   * On component mount.
+   */
   mounted() {
     if (this.existingChild) {
       this.formChild.id = this.existingChild.id;

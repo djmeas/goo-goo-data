@@ -32,21 +32,25 @@ export default {
       this.$refs.childAddFormComponent.isAdding = true;
     },
 
+    /**
+     * Listens for cancelings the add child form.
+     */
     eventCancelAddChild() {
       console.log('eventCancelAddChild');
       this.$refs.childAddFormComponent.isAdding = false;
     },
 
+    /**
+     * Listens for the save child event.
+     */
     eventSaveChild() {
       this.refreshChildren();
     },
 
-    eventDeleteChild() {
-
-    },
-
+    /**
+     * Fetches the children data again from the API.
+     */
     refreshChildren() {
-      console.log('refreshChildren');
       this.$refs.childCardsComponent.getChildren();
     }
   },

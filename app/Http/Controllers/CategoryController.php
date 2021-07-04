@@ -6,15 +6,18 @@ use Illuminate\Http\Request;
 
 use App\Category;
 
+/**
+ * This class handles all interactions pertaining to categories and subcategories.
+ */
 class CategoryController extends Controller
 {
-    /* API */
+    // API
 
     /**
      * Fetches all the category groups and nested options.
      * 
-     * @param Request $request 
-     * @return Array
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function get(Request $request) {
         return Category::getAll();

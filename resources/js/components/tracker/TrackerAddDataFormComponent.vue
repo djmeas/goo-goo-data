@@ -129,6 +129,9 @@ export default {
     }
   },
 
+  /**
+   * Dynamic validation for the tracker entry form.
+   */
   validations() {
     if (this.formTracker.category && this.formTracker.category.type === null) {
       return {
@@ -168,25 +171,6 @@ export default {
     }
   },
 
-  // validations: {
-  //   formTracker: {
-  //     child_id: {
-  //       required
-  //     },
-  //     category: {
-  //       required
-  //     },
-  //     value: {
-  //       required,
-  //       decimal,
-  //       maxLength: maxLength(8)
-  //     },
-  //     entry_datetime: {
-  //       required
-  //     }
-  //   }
-  // },
-
   methods: {
     /**
      * Resets the tracker entry form.
@@ -207,9 +191,7 @@ export default {
   },
 
   /**
-   * Logic to run when the component is mounted.
-   * Fetches the children, categories and a potential
-   * existing entry on load.
+   * On component mount.
    */
   mounted() {
     this.getChildren();

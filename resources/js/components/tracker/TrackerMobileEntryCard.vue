@@ -72,6 +72,9 @@ export default {
   mixins: [trackerMixin],
 
   methods: {
+    /**
+     * Handles the edit action and scrolls the entry form into view.
+     */
     editEntry() {
       this.isEditing = true;
       this.$nextTick(() => {

@@ -8,17 +8,33 @@ use Carbon\Carbon;
 
 use App\Tracker;
 
+/**
+ * This class handles all interactions with tracker entries.
+ */
 class TrackerController extends Controller
 {
+    // Views
+
+    /**
+     * Displays the tracker page.
+     * 
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function index() {
         return view('tracker.index');
     }
 
-    /* API */
+    // API
 
+    /**
+     * Fetches tracker entries based on passed-in filter options.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  String  $hash
+     * @param  Integer  $tracker_id
+     * @return \Illuminate\Http\Response
+     */
     public function get(Request $request, $hash = null, $tracker_id = null) {
-        // dd($request->all(), $request->has('child_id'));
-
         $tracker = Tracker::query();
 
         $tracker->join('children', 'children.id', '=', 'trackers.child_id');
@@ -80,6 +96,12 @@ class TrackerController extends Controller
         return $tracker->paginate(10);
     }
 
+    /**
+     * Saves a tracker entry to the database.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function save(Request $request) {
         $form_data = $request->all();
         $entry_formatted = Carbon::parse($request->entry_datetime)->toDateTimeString();
@@ -94,15 +116,16 @@ class TrackerController extends Controller
             
             return response('Entry successfully saved.', 200);
         } catch (\Exception $e) {
-            // return response($e->getMessage(), 400);
             return response('Whoops! The entry could not be save.', 400);
         }
     }
 
     /**
      * Deletes the tracker entry data from the database.
-     * @param Request $request The request collection.
-     * @param String $id The entry's id.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Integer  $id
+     * @return \Illuminate\Http\Response
      */
     public function delete(Request $request, $id = null) {
         try {

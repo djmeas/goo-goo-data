@@ -123,6 +123,9 @@ export default {
     }
   },
 
+  /**
+   * On component creation.
+   */
   created() {
     this.formCaretaker.child_hash = this.childHash;
 

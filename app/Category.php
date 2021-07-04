@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * This class represents the category and subcategory entities.
+ */
 class Category extends Model
 {
     protected $fillable = [
@@ -13,9 +16,18 @@ class Category extends Model
         'suffix'
     ];
 
+    // Relationships
+
+    /**
+     * Relates tracker entries to categories/subcategories.
+     * 
+     * @return  Illuminate\Database\Eloquent\Relations
+     */
     public function TrackerEntries() {
         return $this->hasMany(Tracker::class);
     }
+
+    // Static Functions
 
     /**
      * Groups categories and nests options into an array.

@@ -569,6 +569,9 @@ export default {
       this.getTrackerEntries();
     },
 
+    /**
+     * Handles the edit entry action and scrolls the entry into view.
+     */
     editEntry() {
       this.isEditing = true;
       this.$nextTick(() => {
@@ -581,9 +584,10 @@ export default {
     }
   },
 
+  /**
+   * On component mount.
+   */
   mounted() {
-    console.log('TrackerTableComponent mounted.');
-
     if (this.childhash) {
       this.trackerFilters.hash = this.childhash;
     }

@@ -10,6 +10,11 @@ export default {
   },
 
   methods: {
+    /**
+     * Gets all the caretakers for a particular child.
+     * 
+     * @param {String} childHash 
+     */
     getCaretakers(childHash) {
       axios.get(`${Vue.prototype.$baseAPI}/caretaker/${childHash}`)
         .then(res => {
@@ -20,6 +25,12 @@ export default {
         });
     },
 
+    /**
+     * Deletes a caretaker from a particular child.
+     * 
+     * @param {String} childHash 
+     * @param {Object} user 
+     */
     removeCaretaker(childHash, user) {
 
       this.$confirm(
@@ -49,6 +60,9 @@ export default {
       );
     },
 
+    /**
+     * Gets the current user's invitations.
+     */
     getMyInvites() {
       axios.get(`${Vue.prototype.$baseAPI}/caretaker/my-invites`)
         .then(res => {
@@ -59,6 +73,11 @@ export default {
         });
     },
 
+    /**
+     * Gets the current user's pending invitations based on a particular child.
+     * 
+     * @param {String} childHash 
+     */
     getPendingInvites(childHash) {
       axios.get(`${Vue.prototype.$baseAPI}/caretaker/pending-invites/${childHash}`)
         .then(res => {
@@ -69,6 +88,9 @@ export default {
         });
     },
 
+    /**
+     * Saves a caretaker invitation.
+     */
     saveInvite() {
       this.$v.formCaretaker.$touch();
 
@@ -98,6 +120,11 @@ export default {
       }
     },
 
+    /**
+     * Deletes a particular invitation.
+     * 
+     * @param {Object} invite 
+     */
     deleteInvite(invite) {
       this.$confirm(
         {
@@ -115,7 +142,6 @@ export default {
                 .then(res => {
                   this.$emit('emitDeleteInvite');
                   this.$toasted.success('The invitation has been deleted.');
-                  // this.getPendingInvites(this.childhash);
                   this.pendingInvites = this.pendingInvites.filter(pendingInvite => {
                     return pendingInvite.id !== invite.id;
                   });
@@ -129,6 +155,12 @@ export default {
       );
     },
 
+    /**
+     * Responds to a particular invite.
+     * 
+     * @param {Integer} inviteId 
+     * @param {String} option 
+     */
     respondToInvite(inviteId, option) {
       let postData = {
         id: inviteId,
@@ -146,6 +178,11 @@ export default {
         });
     },
 
+    /**
+     * Unfollow a particular child.
+     * 
+     * @param {Object} invite 
+     */
     unfollowChild(invite) {
       this.$confirm(
         {
@@ -176,6 +213,12 @@ export default {
       );
     },
 
+    /**
+     * Checks if a caretaker is marked as a parent for a particular child.
+     * 
+     * @param {String} childHash 
+     * @param {Integer} userId 
+     */
     getIsParentOfChild(childHash, userId) {
       axios.get(`${Vue.prototype.$baseAPI}/caretaker/is-parent/${childHash}/${userId}`)
         .then(res => {
@@ -186,6 +229,11 @@ export default {
         });
     },
 
+    /**
+     * Marks a caretaker as a parent of a particular child.
+     * 
+     * @param {Integer} childId 
+     */
     markChildParent(childId) {
       let postData = {
         child_id: childId,

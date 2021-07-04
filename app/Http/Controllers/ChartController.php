@@ -9,14 +9,34 @@ use App\Child;
 use App\Category;
 use Carbon\Carbon;
 
+/**
+ * This controller handles all interactions pertainning to charts and reporting.
+ */
 class ChartController extends Controller
 {
-    public function view(Request $request) {
+    // Views
+
+    /**
+     * Displays the charts page.
+     * 
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function view() {
         return view('charts.view');
     }
 
     // API
 
+    /**
+     * Fetches the data to generate charts and reports based on filtered parameters.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  String  $hash 
+     * @param  Integer $category_id
+     * @param  String  $start
+     * @param  String  $end
+     * @return \Illuminate\Http\Response
+     */
     public function generate_chart(Request $request, $hash, $category_id, $start, $end) {
         $child = Child::getChildByHash($hash);
 

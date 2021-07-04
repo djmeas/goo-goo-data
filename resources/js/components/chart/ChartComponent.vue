@@ -181,6 +181,9 @@
     },
 
     methods: {
+      /**
+       * Fetches the chart and report data and generates the chart graphic.
+       */
       getChartData() {
         this.$v.formChart.$touch();
 
@@ -223,6 +226,9 @@
         
       },
 
+      /**
+       * Builds the chart based on the passed in data.
+       */
       buildChart(header, labels, dataEntries) {
         var ctx = document.getElementById('myChart').getContext('2d');
 
@@ -269,6 +275,9 @@
       },
     },
 
+    /**
+     * On component mount.
+     */
     mounted () {
       this.getChildren();
       this.getCategories();

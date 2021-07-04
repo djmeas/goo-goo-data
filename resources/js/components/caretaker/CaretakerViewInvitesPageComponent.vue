@@ -70,6 +70,9 @@ export default {
   ],
 
   watch: {
+    /**
+     * Watches myInvites for changes and attempts to keep the children images square.
+     */
     myInvites: function() {
       if (this.myInvites.length > 0) {
         this.$nextTick(() => {
@@ -81,6 +84,9 @@ export default {
     }
   },
 
+  /**
+   * On component mount.
+   */
   mounted() {
     this.getMyInvites();
   }
@@ -90,7 +96,5 @@ export default {
 <style lang="scss" scoped>
   .child-img {
     object-fit: cover;
-    // width: 68%;
-    // height: 88%;
   }
 </style>
