@@ -1,72 +1,73 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+# Goo Goo Data
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Goo Goo Data (GGD moving forward) is web application meant to assist parents 
+in tracking data such as feedings, changings, and expenses for their children. 
 
-## About Laravel
+## Features
+- Add multiple children and caretakers with different access (administrative or read-only).
+- Quickly add, edit, and delete tracker entries.
+- Generate charts and reports for different categories and date ranges.
+- Invite caretakers (such as family members or healthcare professionals) to view
+your children's data.
+- Mobile responsive and accessible on any web-enabled device.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Requirements
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Laravel
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP >= 7.1.3
+- BCMath PHP Extension
+- Ctype PHP Extension
+- JSON PHP Extension
+- Mbstring PHP Extension
+- OpenSSL PHP Extension
+- PDO PHP Extension
+- Tokenizer PHP Extension
+- XML PHP Extension
 
-## Learning Laravel
+### Local Development
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Node v10.16.3 +
+- NPM 6.9.0 +
+- Composer 1.10.7 +
+- MySQL 5.7 +
+- Local LAMP/LEMP stack (such as Laragon, WAMP, XAMPP or something similar)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+`Note: If you do not have Node, Composer or MySQL globally installed, Laragon comes
+pre-loaded with all three.`
 
-## Laravel Sponsors
+#### Setup Overview
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+As this web application was developed on a `Windows 10` machine, these instructions pertain to this particular OS. Setting it up on a Mac will be similar for Node, NPM and Composer, but you will have to find a MacOS compatible LAMP/LEMP stack software.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
+1) Setup Laragon: https://laragon.org/download/
+    - You may choose the full or portable version of Laragon. GGD was developed using the full version.
+    - Once installed, you may run Laragon.
+    - In Laragon's main window, click the `Start All` button to start Apache and MySQL.
+    If any Windows network prompts appear regarding Apache and MySQL, allow network permission.
+    - In Laragon's main window, click the `Terminal` button. This will open an instance of the Cmder console.
+        - Within Cmder, check to make sure you have the right version of Node, NPM and Composer 
+        installed with the following commands (by running them individually):
+            - `node -v`
+            - `npm -v`
+            - `composer -v`
+        - You may not clone the repository into Laragon's `www` folder: `your_laragon_path`/www/
+        
+2) Install dependencies:
+    - With the repository cloned, in your console, navigate to the root of the application (default path is `your_laragon_path`/www/goo-goo-data/).
+    - In the console, run the following commands to install all the PHP and JS dependencies:
+        - `npm install`
+        - `composer install`
 
-## Contributing
+3) Laravel/Vue development
+    - While in the root of GGD, you will need to create an `.env` file to configure Laravel development. Run the command       in the console:
+        - `cp .env.example .env`
+        - open the `.env` file in your editor of choice and update any configurations as needed (such as MySQL credentials and AWS S3 bucket details).
+        - You may notice you `.env` file does not have an `APP_KEY` value. Create it by running the command: `php artisan key:generate`
+        - Once your `.env` details are completed, you may not visit `goo-goo-data.test` (or the name of the folder you placed GGD into in kebab-case) in the browser of your choice to view GGD. `Note: Laragon should have updated your Windows `host` file with a URL to access GGD locally. If you cannot resolve `goo-goo-data.test`, try restarting Laragon to resolve the virtual host issue.
+        - With the site loading properly, you may begin PHP/Laravel development.
+        - To further develop in JS/Vue.js, you will need to run the following command at the root of GGD:
+            - `npm run watch-poll`
+            - This command will watch all `.vue` files for changes and recompile them into a single `app.js` file.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+You're all set up for development!
